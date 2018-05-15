@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
+		F0CBB7C220AB4D23001643C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* ViewController.swift */; };
+		F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C320AB4D23001643C4 /* Main.storyboard */; };
+		F0CBB7C720AB4D24001643C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C620AB4D24001643C4 /* Assets.xcassets */; };
+		F0CBB7CA20AB4D24001643C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */; };
+		F0CBB7D520AB4D25001643C4 /* Mikro_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7D420AB4D25001643C4 /* Mikro_TrainerTests.swift */; };
+		F0CBB7E020AB4D25001643C4 /* Mikro_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F0CBB7D120AB4D25001643C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0CBB7B420AB4D23001643C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0CBB7BB20AB4D23001643C4;
+			remoteInfo = "Mikro Trainer";
+		};
+		F0CBB7DC20AB4D25001643C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0CBB7B420AB4D23001643C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0CBB7BB20AB4D23001643C4;
+			remoteInfo = "Mikro Trainer";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F0CBB7C120AB4D23001643C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F0CBB7C420AB4D23001643C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F0CBB7C620AB4D24001643C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F0CBB7C920AB4D24001643C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F0CBB7CB20AB4D24001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0CBB7D020AB4D25001643C4 /* Mikro TrainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mikro TrainerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CBB7D420AB4D25001643C4 /* Mikro_TrainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mikro_TrainerTests.swift; sourceTree = "<group>"; };
+		F0CBB7D620AB4D25001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0CBB7DB20AB4D25001643C4 /* Mikro TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mikro TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mikro_TrainerUITests.swift; sourceTree = "<group>"; };
+		F0CBB7E120AB4D25001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F0CBB7B920AB4D23001643C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7CD20AB4D25001643C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7D820AB4D25001643C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F0CBB7B320AB4D23001643C4 = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7BE20AB4D23001643C4 /* Mikro Trainer */,
+				F0CBB7D320AB4D25001643C4 /* Mikro TrainerTests */,
+				F0CBB7DE20AB4D25001643C4 /* Mikro TrainerUITests */,
+				F0CBB7BD20AB4D23001643C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F0CBB7BD20AB4D23001643C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */,
+				F0CBB7D020AB4D25001643C4 /* Mikro TrainerTests.xctest */,
+				F0CBB7DB20AB4D25001643C4 /* Mikro TrainerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F0CBB7BE20AB4D23001643C4 /* Mikro Trainer */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */,
+				F0CBB7C120AB4D23001643C4 /* ViewController.swift */,
+				F0CBB7C320AB4D23001643C4 /* Main.storyboard */,
+				F0CBB7C620AB4D24001643C4 /* Assets.xcassets */,
+				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
+				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
+			);
+			path = "Mikro Trainer";
+			sourceTree = "<group>";
+		};
+		F0CBB7D320AB4D25001643C4 /* Mikro TrainerTests */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7D420AB4D25001643C4 /* Mikro_TrainerTests.swift */,
+				F0CBB7D620AB4D25001643C4 /* Info.plist */,
+			);
+			path = "Mikro TrainerTests";
+			sourceTree = "<group>";
+		};
+		F0CBB7DE20AB4D25001643C4 /* Mikro TrainerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */,
+				F0CBB7E120AB4D25001643C4 /* Info.plist */,
+			);
+			path = "Mikro TrainerUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F0CBB7BB20AB4D23001643C4 /* Mikro Trainer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0CBB7E420AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro Trainer" */;
+			buildPhases = (
+				F0CBB7B820AB4D23001643C4 /* Sources */,
+				F0CBB7B920AB4D23001643C4 /* Frameworks */,
+				F0CBB7BA20AB4D23001643C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mikro Trainer";
+			productName = "Mikro Trainer";
+			productReference = F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0CBB7CF20AB4D25001643C4 /* Mikro TrainerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0CBB7E720AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerTests" */;
+			buildPhases = (
+				F0CBB7CC20AB4D25001643C4 /* Sources */,
+				F0CBB7CD20AB4D25001643C4 /* Frameworks */,
+				F0CBB7CE20AB4D25001643C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0CBB7D220AB4D25001643C4 /* PBXTargetDependency */,
+			);
+			name = "Mikro TrainerTests";
+			productName = "Mikro TrainerTests";
+			productReference = F0CBB7D020AB4D25001643C4 /* Mikro TrainerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F0CBB7DA20AB4D25001643C4 /* Mikro TrainerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0CBB7EA20AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerUITests" */;
+			buildPhases = (
+				F0CBB7D720AB4D25001643C4 /* Sources */,
+				F0CBB7D820AB4D25001643C4 /* Frameworks */,
+				F0CBB7D920AB4D25001643C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0CBB7DD20AB4D25001643C4 /* PBXTargetDependency */,
+			);
+			name = "Mikro TrainerUITests";
+			productName = "Mikro TrainerUITests";
+			productReference = F0CBB7DB20AB4D25001643C4 /* Mikro TrainerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F0CBB7B420AB4D23001643C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Michael Gutkind";
+				TargetAttributes = {
+					F0CBB7BB20AB4D23001643C4 = {
+						CreatedOnToolsVersion = 9.3.1;
+					};
+					F0CBB7CF20AB4D25001643C4 = {
+						CreatedOnToolsVersion = 9.3.1;
+						TestTargetID = F0CBB7BB20AB4D23001643C4;
+					};
+					F0CBB7DA20AB4D25001643C4 = {
+						CreatedOnToolsVersion = 9.3.1;
+						TestTargetID = F0CBB7BB20AB4D23001643C4;
+					};
+				};
+			};
+			buildConfigurationList = F0CBB7B720AB4D23001643C4 /* Build configuration list for PBXProject "Mikro Trainer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F0CBB7B320AB4D23001643C4;
+			productRefGroup = F0CBB7BD20AB4D23001643C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F0CBB7BB20AB4D23001643C4 /* Mikro Trainer */,
+				F0CBB7CF20AB4D25001643C4 /* Mikro TrainerTests */,
+				F0CBB7DA20AB4D25001643C4 /* Mikro TrainerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F0CBB7BA20AB4D23001643C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CBB7CA20AB4D24001643C4 /* LaunchScreen.storyboard in Resources */,
+				F0CBB7C720AB4D24001643C4 /* Assets.xcassets in Resources */,
+				F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7CE20AB4D25001643C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7D920AB4D25001643C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F0CBB7B820AB4D23001643C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CBB7C220AB4D23001643C4 /* ViewController.swift in Sources */,
+				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7CC20AB4D25001643C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CBB7D520AB4D25001643C4 /* Mikro_TrainerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0CBB7D720AB4D25001643C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0CBB7E020AB4D25001643C4 /* Mikro_TrainerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F0CBB7D220AB4D25001643C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0CBB7BB20AB4D23001643C4 /* Mikro Trainer */;
+			targetProxy = F0CBB7D120AB4D25001643C4 /* PBXContainerItemProxy */;
+		};
+		F0CBB7DD20AB4D25001643C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0CBB7BB20AB4D23001643C4 /* Mikro Trainer */;
+			targetProxy = F0CBB7DC20AB4D25001643C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F0CBB7C320AB4D23001643C4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0CBB7C420AB4D23001643C4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0CBB7C920AB4D24001643C4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F0CBB7E220AB4D25001643C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F0CBB7E320AB4D25001643C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0CBB7E520AB4D25001643C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro Trainer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-Trainer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F0CBB7E620AB4D25001643C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro Trainer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-Trainer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F0CBB7E820AB4D25001643C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro TrainerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-TrainerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mikro Trainer.app/Mikro Trainer";
+			};
+			name = Debug;
+		};
+		F0CBB7E920AB4D25001643C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro TrainerTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-TrainerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mikro Trainer.app/Mikro Trainer";
+			};
+			name = Release;
+		};
+		F0CBB7EB20AB4D25001643C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro TrainerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-TrainerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Mikro Trainer";
+			};
+			name = Debug;
+		};
+		F0CBB7EC20AB4D25001643C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3Q58G553SD;
+				INFOPLIST_FILE = "Mikro TrainerUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-TrainerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Mikro Trainer";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0CBB7B720AB4D23001643C4 /* Build configuration list for PBXProject "Mikro Trainer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0CBB7E220AB4D25001643C4 /* Debug */,
+				F0CBB7E320AB4D25001643C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0CBB7E420AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro Trainer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0CBB7E520AB4D25001643C4 /* Debug */,
+				F0CBB7E620AB4D25001643C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0CBB7E720AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0CBB7E820AB4D25001643C4 /* Debug */,
+				F0CBB7E920AB4D25001643C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0CBB7EA20AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0CBB7EB20AB4D25001643C4 /* Debug */,
+				F0CBB7EC20AB4D25001643C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F0CBB7B420AB4D23001643C4 /* Project object */;
+}
