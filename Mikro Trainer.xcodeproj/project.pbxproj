@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */; };
+		B29C2BF1015358BE6DAAC1B9 /* Pods_Mikro_TrainerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */; };
+		D2A2C50C2299DB45CDEFB0C9 /* Pods_Mikro_TrainerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
-		F0CBB7C220AB4D23001643C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* ViewController.swift */; };
+		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
 		F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C320AB4D23001643C4 /* Main.storyboard */; };
 		F0CBB7C720AB4D24001643C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C620AB4D24001643C4 /* Assets.xcassets */; };
 		F0CBB7CA20AB4D24001643C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */; };
 		F0CBB7D520AB4D25001643C4 /* Mikro_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7D420AB4D25001643C4 /* Mikro_TrainerTests.swift */; };
 		F0CBB7E020AB4D25001643C4 /* Mikro_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */; };
+		F0CBB7EE20AB518D001643C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +38,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_TrainerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		665B96D1C722642D9CDF71AF /* Pods-Mikro TrainerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerTests/Pods-Mikro TrainerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		77039746B47DB09FC245D049 /* Pods-Mikro TrainerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerUITests/Pods-Mikro TrainerUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A7033F3AE8C7F54162E2223F /* Pods-Mikro Trainer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro Trainer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer.release.xcconfig"; sourceTree = "<group>"; };
+		BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_TrainerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerUITests/Pods-Mikro TrainerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro Trainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer.debug.xcconfig"; sourceTree = "<group>"; };
+		DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F0CBB7C120AB4D23001643C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F0CBB7C120AB4D23001643C4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		F0CBB7C420AB4D23001643C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F0CBB7C620AB4D24001643C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0CBB7C920AB4D24001643C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +59,8 @@
 		F0CBB7DB20AB4D25001643C4 /* Mikro TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mikro TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mikro_TrainerUITests.swift; sourceTree = "<group>"; };
 		F0CBB7E120AB4D25001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F311AAAF5B1F8EEC51DD0985 /* Pods-Mikro TrainerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerTests/Pods-Mikro TrainerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B29C2BF1015358BE6DAAC1B9 /* Pods_Mikro_TrainerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +84,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2A2C50C2299DB45CDEFB0C9 /* Pods_Mikro_TrainerUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A131D16CAF9A8238A6C7033 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */,
+				A7033F3AE8C7F54162E2223F /* Pods-Mikro Trainer.release.xcconfig */,
+				665B96D1C722642D9CDF71AF /* Pods-Mikro TrainerTests.debug.xcconfig */,
+				F311AAAF5B1F8EEC51DD0985 /* Pods-Mikro TrainerTests.release.xcconfig */,
+				77039746B47DB09FC245D049 /* Pods-Mikro TrainerUITests.debug.xcconfig */,
+				CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA33BCBDB8136F0E801652C5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */,
+				BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */,
+				658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F0CBB7B320AB4D23001643C4 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +121,8 @@
 				F0CBB7D320AB4D25001643C4 /* Mikro TrainerTests */,
 				F0CBB7DE20AB4D25001643C4 /* Mikro TrainerUITests */,
 				F0CBB7BD20AB4D23001643C4 /* Products */,
+				8A131D16CAF9A8238A6C7033 /* Pods */,
+				AA33BCBDB8136F0E801652C5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,11 +140,12 @@
 			isa = PBXGroup;
 			children = (
 				F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */,
-				F0CBB7C120AB4D23001643C4 /* ViewController.swift */,
+				F0CBB7C120AB4D23001643C4 /* MainMenu.swift */,
 				F0CBB7C320AB4D23001643C4 /* Main.storyboard */,
 				F0CBB7C620AB4D24001643C4 /* Assets.xcassets */,
 				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
 				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
+				F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */,
 			);
 			path = "Mikro Trainer";
 			sourceTree = "<group>";
@@ -132,9 +175,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CBB7E420AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro Trainer" */;
 			buildPhases = (
+				4469245586F6275B2D29AA2B /* [CP] Check Pods Manifest.lock */,
 				F0CBB7B820AB4D23001643C4 /* Sources */,
 				F0CBB7B920AB4D23001643C4 /* Frameworks */,
 				F0CBB7BA20AB4D23001643C4 /* Resources */,
+				BDA1A06D658C24A0F60A66CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,6 +194,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CBB7E720AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerTests" */;
 			buildPhases = (
+				16D769DC937BE62F1EE7FDBB /* [CP] Check Pods Manifest.lock */,
 				F0CBB7CC20AB4D25001643C4 /* Sources */,
 				F0CBB7CD20AB4D25001643C4 /* Frameworks */,
 				F0CBB7CE20AB4D25001643C4 /* Resources */,
@@ -167,6 +213,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0CBB7EA20AB4D25001643C4 /* Build configuration list for PBXNativeTarget "Mikro TrainerUITests" */;
 			buildPhases = (
+				0B75867C6DAC0F47A42B8887 /* [CP] Check Pods Manifest.lock */,
 				F0CBB7D720AB4D25001643C4 /* Sources */,
 				F0CBB7D820AB4D25001643C4 /* Frameworks */,
 				F0CBB7D920AB4D25001643C4 /* Resources */,
@@ -230,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0CBB7CA20AB4D24001643C4 /* LaunchScreen.storyboard in Resources */,
+				F0CBB7EE20AB518D001643C4 /* GoogleService-Info.plist in Resources */,
 				F0CBB7C720AB4D24001643C4 /* Assets.xcassets in Resources */,
 				F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */,
 			);
@@ -251,12 +299,89 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B75867C6DAC0F47A42B8887 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mikro TrainerUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		16D769DC937BE62F1EE7FDBB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mikro TrainerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4469245586F6275B2D29AA2B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mikro Trainer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BDA1A06D658C24A0F60A66CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F0CBB7B820AB4D23001643C4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0CBB7C220AB4D23001643C4 /* ViewController.swift in Sources */,
+				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,6 +553,7 @@
 		};
 		F0CBB7E520AB4D25001643C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -446,6 +572,7 @@
 		};
 		F0CBB7E620AB4D25001643C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7033F3AE8C7F54162E2223F /* Pods-Mikro Trainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -464,6 +591,7 @@
 		};
 		F0CBB7E820AB4D25001643C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 665B96D1C722642D9CDF71AF /* Pods-Mikro TrainerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -485,6 +613,7 @@
 		};
 		F0CBB7E920AB4D25001643C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F311AAAF5B1F8EEC51DD0985 /* Pods-Mikro TrainerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -506,6 +635,7 @@
 		};
 		F0CBB7EB20AB4D25001643C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77039746B47DB09FC245D049 /* Pods-Mikro TrainerUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -526,6 +656,7 @@
 		};
 		F0CBB7EC20AB4D25001643C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

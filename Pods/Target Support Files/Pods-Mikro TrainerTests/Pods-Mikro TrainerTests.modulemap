@@ -1,0 +1,6 @@
+framework module Pods_Mikro_TrainerTests {
+  umbrella header "Pods-Mikro TrainerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
