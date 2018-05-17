@@ -6,15 +6,25 @@
 //  Copyright © 2018 Michael Gutkind. All rights reserved.
 //
 
+//dont forget to change firebase authentication for database use to being active again
+
 import UIKit
+import FirebaseDatabase
+import FirebaseAuth
 
 class MainMenu: UIViewController {
-var sessionLoginBool = false
+    
+    var ref: DatabaseReference?
+    var sessionLoginBool = true //change back to false when i want sign in service
+    var userID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("test")
+        //firebase reference created
+        
+        ref = Database.database().reference()
+        userID = String(Auth.auth().currentUser!.uid)
     }
     
     //function to make the user sign in if they havent signed in yet
@@ -28,6 +38,26 @@ var sessionLoginBool = false
         sessionLoginBool = true
     }
 
+    @IBAction func personalInfoButton(_ sender: Any) {
+        print("personal Info")
+    }
+    
+    @IBAction func myExercisesButton(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MyExercisesVC") as! MyExercisesVC
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //irrelavant right now
+    @IBAction func buildExcercises(_ sender: Any) {
+        print("building...")
+        let array = ["Name", "MuscleGroup", "BaseReps", "BaseSets", "BaseWeight"]
+        for x in array {
+            ref?.child("Exercises").child("1").child(x)
+        }
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

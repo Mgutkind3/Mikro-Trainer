@@ -10,6 +10,11 @@
 		7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */; };
 		B29C2BF1015358BE6DAAC1B9 /* Pods_Mikro_TrainerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */; };
 		D2A2C50C2299DB45CDEFB0C9 /* Pods_Mikro_TrainerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */; };
+		F020637620AB577E00CAE33F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637520AB577E00CAE33F /* LoginVC.swift */; };
+		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
+		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
+		F094BEC020AC8ABD00D158AA /* MyExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */; };
+		F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
 		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
 		F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C320AB4D23001643C4 /* Main.storyboard */; };
@@ -46,6 +51,11 @@
 		CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerUITests/Pods-Mikro TrainerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro Trainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F020637520AB577E00CAE33F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
+		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
+		F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesVC.swift; sourceTree = "<group>"; };
+		F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExcerciseVC.swift; sourceTree = "<group>"; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CBB7C120AB4D23001643C4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -114,6 +124,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F020637220AB56E300CAE33F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F020637520AB577E00CAE33F /* LoginVC.swift */,
+				F020637820AB5CA500CAE33F /* NewAccountVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F020637720AB5C4000CAE33F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				F0CBB7C120AB4D23001643C4 /* MainMenu.swift */,
+				F0CBB7C320AB4D23001643C4 /* Main.storyboard */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		F020637A20AB785200CAE33F /* Personal Info */ = {
+			isa = PBXGroup;
+			children = (
+				F020637B20AB788300CAE33F /* PersonalInfoVC.swift */,
+			);
+			path = "Personal Info";
+			sourceTree = "<group>";
+		};
+		F094BEBE20AC8AA100D158AA /* My Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */,
+				F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */,
+			);
+			path = "My Exercises";
+			sourceTree = "<group>";
+		};
 		F0CBB7B320AB4D23001643C4 = {
 			isa = PBXGroup;
 			children = (
@@ -140,8 +185,10 @@
 			isa = PBXGroup;
 			children = (
 				F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */,
-				F0CBB7C120AB4D23001643C4 /* MainMenu.swift */,
-				F0CBB7C320AB4D23001643C4 /* Main.storyboard */,
+				F020637720AB5C4000CAE33F /* Menu */,
+				F020637220AB56E300CAE33F /* Login */,
+				F020637A20AB785200CAE33F /* Personal Info */,
+				F094BEBE20AC8AA100D158AA /* My Exercises */,
 				F0CBB7C620AB4D24001643C4 /* Assets.xcassets */,
 				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
 				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
@@ -361,12 +408,16 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,8 +432,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F094BEC020AC8ABD00D158AA /* MyExercisesVC.swift in Sources */,
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
+				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
+				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
+				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
+				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

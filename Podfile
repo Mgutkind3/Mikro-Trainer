@@ -8,6 +8,8 @@ target 'Mikro Trainer' do
   # Pods for Mikro Trainer
 
   pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod ‘Firebase/Database’
 
   target 'Mikro TrainerTests' do
     inherit! :search_paths
