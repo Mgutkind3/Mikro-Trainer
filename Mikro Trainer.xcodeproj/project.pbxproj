@@ -15,6 +15,7 @@
 		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
 		F094BEC020AC8ABD00D158AA /* MyExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */; };
 		F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */; };
+		F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
 		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
 		F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C320AB4D23001643C4 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
 		F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesVC.swift; sourceTree = "<group>"; };
 		F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExcerciseVC.swift; sourceTree = "<group>"; };
+		F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesVC.swift; sourceTree = "<group>"; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CBB7C120AB4D23001643C4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */,
 				F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */,
+				F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */,
 			);
 			path = "My Exercises";
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
 				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
+				F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,

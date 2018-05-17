@@ -15,7 +15,7 @@ import FirebaseAuth
 class MainMenu: UIViewController {
     
     var ref: DatabaseReference?
-    var sessionLoginBool = true //change back to false when i want sign in service
+    var sessionLoginBool = false //change back to false when i want sign in service
     var userID = String()
     
     override func viewDidLoad() {
@@ -49,15 +49,7 @@ class MainMenu: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    //irrelavant right now
-    @IBAction func buildExcercises(_ sender: Any) {
-        print("building...")
-        let array = ["Name", "MuscleGroup", "BaseReps", "BaseSets", "BaseWeight"]
-        for x in array {
-            ref?.child("Exercises").child("1").child(x)
-        }
 
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

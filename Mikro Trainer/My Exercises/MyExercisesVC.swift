@@ -21,6 +21,14 @@ class MyExercisesVC: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "AddExcerciseVC") as! AddExcerciseVC
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
+    @IBAction func addExistingExerciseButton(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

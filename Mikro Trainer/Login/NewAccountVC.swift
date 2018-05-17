@@ -22,7 +22,6 @@ class NewAccountVC: UIViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         self.hideKeyboardWhenTappedAround()
-        userID = String(Auth.auth().currentUser!.uid)
     }
 
     //button to confirm registration of new user
@@ -48,6 +47,8 @@ class NewAccountVC: UIViewController {
                 self.registrationErrorLabel.text = String(firebaseError.localizedDescription)
                 return
             }
+            self.userID = String(Auth.auth().currentUser!.uid)
+            print("user id: \(self.userID)")
             
             //call function to build backend schema for specific users
             self.addNewUserNodes()
