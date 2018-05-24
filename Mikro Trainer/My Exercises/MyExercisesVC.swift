@@ -16,13 +16,14 @@ class MyExercisesVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    //create new exercise
     @IBAction func addExcerciseButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AddExcerciseVC") as! AddExcerciseVC
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+    //add a new exercise to my list
     @IBAction func addExistingExerciseButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC

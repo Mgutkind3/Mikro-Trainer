@@ -55,7 +55,7 @@ class AddExcerciseVC: UIViewController {
         
         //call exercise branch and see what number of exercises we are at completion must be completed before this contents is run
         exerciseNumber(completion: { () in
-            print("highest id check: \(self.highestID)")
+//            print("highest id check: \(self.highestID)")
             self.exID = String(self.highestID)
             
             let workoutDetails = [self.exName, self.mGrp, self.wt, self.sets, self.reps, self.exID ]
@@ -63,7 +63,9 @@ class AddExcerciseVC: UIViewController {
             
             for x in workoutFields {
                 self.ref?.child("Exercises").child(self.exID).child(x).setValue(workoutDetails[i])
-            self.ref?.child("Users").child(self.userID).child("MyExercises").child("ExerciseNumber \(self.exID)").setValue(self.exID)//make the last value dynamic so it changes with every number
+                
+                //make my list customizeable/yet gets original info from Exercises Branch
+                self.ref?.child("Users").child(self.userID).child("MyExercises").child("My Exercise \(self.exID)").child(x).setValue(workoutDetails[i])
                 i = i + 1
             }
         })
@@ -76,7 +78,7 @@ class AddExcerciseVC: UIViewController {
         repsTxtField.text = ""
         addExcerciseErrorLabel.textColor = UIColor.green
         addExcerciseErrorLabel.text = "Success!"
-        //self.navigationController?.popViewController(animated: true)//close current view controller
+        //self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion
 
     }
     
@@ -108,8 +110,6 @@ class AddExcerciseVC: UIViewController {
                 }
                 
         })
-
-//        return highestID
 
     }
 
