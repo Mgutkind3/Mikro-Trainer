@@ -70,6 +70,8 @@ class AddExcerciseVC: UIViewController {
             }
         })
         
+        
+        
         //clear all text fields
         excerciseNameTxtField.text = ""
         muscGrpTxtField.text = ""
@@ -78,7 +80,7 @@ class AddExcerciseVC: UIViewController {
         repsTxtField.text = ""
         addExcerciseErrorLabel.textColor = UIColor.green
         addExcerciseErrorLabel.text = "Success!"
-        //self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion
+        //self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion?
 
     }
     

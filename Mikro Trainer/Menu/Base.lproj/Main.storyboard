@@ -59,13 +59,42 @@
                     <view key="view" contentMode="scaleToFill" id="FO2-Q9-34x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WIo-MQ-7M7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="YJU-ol-r7o">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YJU-ol-r7o" id="HXN-mB-TRb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="pT9-5y-fQR" id="r4w-BP-syJ"/>
+                                    <outlet property="delegate" destination="pT9-5y-fQR" id="GAq-6W-ooH"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="trailing" secondItem="Ebe-qL-Jw5" secondAttribute="trailing" id="7EJ-yz-cyV"/>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="top" secondItem="FO2-Q9-34x" secondAttribute="top" id="7g0-Hv-0Gi"/>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="leading" secondItem="Ebe-qL-Jw5" secondAttribute="leading" id="ZF3-Ga-vao"/>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="bottom" secondItem="Ebe-qL-Jw5" secondAttribute="bottom" id="efm-nE-t2C"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Ebe-qL-Jw5"/>
                     </view>
+                    <connections>
+                        <outlet property="allExercisesTableView" destination="WIo-MQ-7M7" id="7YT-J7-XQb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8x-WC-BQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42" y="750"/>
+            <point key="canvasLocation" x="-42.399999999999999" y="749.7751124437782"/>
         </scene>
         <!--My ExercisesVC-->
         <scene sceneID="NRe-zq-IUT">
