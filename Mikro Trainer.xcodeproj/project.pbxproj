@@ -13,6 +13,7 @@
 		F020637620AB577E00CAE33F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637520AB577E00CAE33F /* LoginVC.swift */; };
 		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
 		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
+		F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */; };
 		F094BEC020AC8ABD00D158AA /* MyExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */; };
 		F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */; };
 		F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */; };
@@ -55,6 +56,7 @@
 		F020637520AB577E00CAE33F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
 		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
+		F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesTableViewCell.swift; sourceTree = "<group>"; };
 		F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesVC.swift; sourceTree = "<group>"; };
 		F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExcerciseVC.swift; sourceTree = "<group>"; };
 		F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesVC.swift; sourceTree = "<group>"; };
@@ -152,12 +154,21 @@
 			path = "Personal Info";
 			sourceTree = "<group>";
 		};
+		F0917E1D20BBB85900641C04 /* All Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */,
+				F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */,
+			);
+			path = "All Exercises";
+			sourceTree = "<group>";
+		};
 		F094BEBE20AC8AA100D158AA /* My Exercises */ = {
 			isa = PBXGroup;
 			children = (
 				F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */,
 				F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */,
-				F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */,
+				F0917E1D20BBB85900641C04 /* All Exercises */,
 			);
 			path = "My Exercises";
 			sourceTree = "<group>";
@@ -442,6 +453,7 @@
 				F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
+				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

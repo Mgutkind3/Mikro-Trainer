@@ -16,6 +16,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var allExerciseName = [String]()
     var myExerciseIDList = [String]()
     var userID = String()
+    var exerciseToAdd = String()
     @IBOutlet weak var allExercisesTableView: UITableView!
     
     //tells the table how many rows we need
@@ -23,10 +24,16 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         return (allExerciseName.count)
     }
     
-    //tells the prototype cell what is functions like
+    //tells the prototype cell what it functions like
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        cell.textLabel?.text = allExerciseName[indexPath.row]
+        let cell = self.allExercisesTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AllExercisesTableViewCell
+        
+        //customize each specific cell
+        cell.cellHeaderLabel.text = allExerciseName[indexPath.row]
+        
+        //tag selected cell with index
+        cell.addExerciseButton.tag = indexPath.row
+        cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         
         return cell
     }
@@ -34,20 +41,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     //returns the row that was selected and reacts somehow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-        
-        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.allExerciseName[indexPath.row]) to your exercise list?", preferredStyle: UIAlertControllerStyle.alert)
-        
-        addAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-//            self.addExerciseToMyExercises {
-//                print("exercise added to my exercise")
-//            }
-        }))
-        
-        addAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            addAlert.dismiss(animated: true, completion: nil)
-        }))
-        
-        present(addAlert, animated: true, completion: nil)
 
     }
 
@@ -142,6 +135,88 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 completion()
             }
 
+        })
+    }
+    
+    //add exercise from all exercises to my exercises
+    @objc func addSelectedExercise(sender: UIButton){
+        self.exerciseToAdd = ""
+
+        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.allExerciseName[sender.tag]) to your exercise list?", preferredStyle: UIAlertControllerStyle.alert)
+
+        addAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            //assign exercise ID to variable that is being queried
+            self.exerciseToAdd = self.allExerciseIDList[sender.tag]
+                self.addExerciseToMyExercises {
+                    print("exercise added to my exercise (hopefully)")
+                    addAlert.dismiss(animated: true, completion: nil)
+                    
+                    //delete added item from table view so you cannot add it again
+                    self.allExerciseIDList.remove(at: sender.tag)
+                    self.allExerciseName.remove(at: sender.tag)
+                    
+                    //reload table to refresh all the data
+                    self.allExercisesTableView.reloadData()
+                }
+        }))
+
+        addAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            addAlert.dismiss(animated: true, completion: nil)
+        }))
+
+        present(addAlert, animated: true, completion: nil)
+    }
+    
+    //function to add exercises to MyExercises list
+    func addExerciseToMyExercises(completion: @escaping ()->()){
+        self.ref?.child("Exercises/\(self.exerciseToAdd)").observeSingleEvent(of: .value, with: { snapshot in
+            //get data from exercises branch and put it in my exercises branch
+            var r = ""
+            var s = ""
+            var w = ""
+            var g = ""
+            var n = ""
+            var e = ""
+            var i = 0
+
+            if let dict = snapshot.value as? NSDictionary {
+                if let baseReps = dict["BaseReps"] as? String {
+                    r = baseReps
+                }
+                if let baseSets = dict["BaseSets"] as? String {
+                    s = baseSets
+                }
+                if let baseWeight = dict["BaseWeight"] as? String {
+                    w = baseWeight
+                }
+                if let muscleGroup = dict["MuscleGroup"] as? String {
+                    g = muscleGroup
+                }
+                if let name = dict["Name"] as? String {
+                    n = name
+                }
+                if let exerciseID = dict["ExerciseID"] as? String {
+                    e = exerciseID
+                }
+                
+                let workoutDetails = [n, g, w, s, r, e ]
+                let workoutFields = ["Name", "MuscleGroup","BaseWeight", "BaseSets", "BaseReps", "ExerciseID" ]
+
+                for x in workoutFields {
+                    
+                    //create new branch of exercise under MyExercises
+                    self.ref?.child("Users").child(self.userID).child("MyExercises").child("My Exercise \(e)").child(x).setValue(workoutDetails[i])
+                    i = i + 1
+                }
+
+                //complete if exercise was added successfully
+                print("exercise added successfully")
+                completion()
+            }else{
+                print("exercise not successfully added")
+                //return if error in retrieving exercise
+                completion()
+            }
         })
     }
     
