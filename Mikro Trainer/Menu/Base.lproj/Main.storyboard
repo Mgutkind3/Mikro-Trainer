@@ -139,6 +139,14 @@
                                     <action selector="addExistingExerciseButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="Sr5-xJ-9mq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTr-Sd-Eri">
+                                <rect key="frame" x="86" y="240" width="202" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="List of My Exercises"/>
+                                <connections>
+                                    <action selector="ListOfMyExercisesButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="0Hc-r3-gJS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="7zp-c6-Fjf"/>
@@ -147,6 +155,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRd-v9-Q7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="749.7751124437782"/>
+        </scene>
+        <!--My Exercises ListVC-->
+        <scene sceneID="jfq-vA-AIe">
+            <objects>
+                <viewController storyboardIdentifier="MyExercisesListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iGf-cK-zSS" customClass="MyExercisesListVC" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dph-Uk-L8h">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gpC-kd-Uf7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyCell" id="9Gm-4e-JaR" customClass="MyExercisesTableCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Gm-4e-JaR" id="WDD-dZ-b8U" customClass="MyExercisesTableCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eec-6t-okj">
+                                                    <rect key="frame" x="15" y="12" width="147" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="MyCellLabel" destination="Eec-6t-okj" id="ugS-mH-FgD"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="iGf-cK-zSS" id="ezA-pS-ihw"/>
+                                    <outlet property="delegate" destination="iGf-cK-zSS" id="r7y-7R-2Yx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="trailing" secondItem="ze6-8D-ppy" secondAttribute="trailing" id="HIu-zJ-CCw"/>
+                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="bottom" secondItem="ze6-8D-ppy" secondAttribute="bottom" id="HXb-iT-kVt"/>
+                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="leading" secondItem="ze6-8D-ppy" secondAttribute="leading" id="KCn-qE-1aJ"/>
+                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="top" secondItem="dph-Uk-L8h" secondAttribute="top" id="cr5-65-mgS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ze6-8D-ppy"/>
+                    </view>
+                    <connections>
+                        <outlet property="myExercisesTableView" destination="gpC-kd-Uf7" id="TCe-VO-2Fs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rtu-kt-9jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-42.399999999999999" y="1516.1919040479761"/>
         </scene>
         <!--Add ExcerciseVC-->
         <scene sceneID="QYt-1A-xpV">

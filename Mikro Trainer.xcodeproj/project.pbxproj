@@ -14,6 +14,8 @@
 		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
 		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
 		F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */; };
+		F0917E2020C4AE2500641C04 /* MyExercisesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E1F20C4AE2500641C04 /* MyExercisesListVC.swift */; };
+		F0917E2220C4B04A00641C04 /* MyExercisesTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E2120C4B04A00641C04 /* MyExercisesTableCell.swift */; };
 		F094BEC020AC8ABD00D158AA /* MyExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */; };
 		F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */; };
 		F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */; };
@@ -57,6 +59,8 @@
 		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
 		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
 		F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesTableViewCell.swift; sourceTree = "<group>"; };
+		F0917E1F20C4AE2500641C04 /* MyExercisesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesListVC.swift; sourceTree = "<group>"; };
+		F0917E2120C4B04A00641C04 /* MyExercisesTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesTableCell.swift; sourceTree = "<group>"; };
 		F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyExercisesVC.swift; sourceTree = "<group>"; };
 		F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExcerciseVC.swift; sourceTree = "<group>"; };
 		F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesVC.swift; sourceTree = "<group>"; };
@@ -154,13 +158,22 @@
 			path = "Personal Info";
 			sourceTree = "<group>";
 		};
-		F0917E1D20BBB85900641C04 /* All Exercises */ = {
+		F0917E1D20BBB85900641C04 /* All Exercises List */ = {
 			isa = PBXGroup;
 			children = (
 				F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */,
 				F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */,
 			);
-			path = "All Exercises";
+			path = "All Exercises List";
+			sourceTree = "<group>";
+		};
+		F0917E1E20C4ADD900641C04 /* My Exercises List */ = {
+			isa = PBXGroup;
+			children = (
+				F0917E1F20C4AE2500641C04 /* MyExercisesListVC.swift */,
+				F0917E2120C4B04A00641C04 /* MyExercisesTableCell.swift */,
+			);
+			path = "My Exercises List";
 			sourceTree = "<group>";
 		};
 		F094BEBE20AC8AA100D158AA /* My Exercises */ = {
@@ -168,7 +181,8 @@
 			children = (
 				F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */,
 				F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */,
-				F0917E1D20BBB85900641C04 /* All Exercises */,
+				F0917E1E20C4ADD900641C04 /* My Exercises List */,
+				F0917E1D20BBB85900641C04 /* All Exercises List */,
 			);
 			path = "My Exercises";
 			sourceTree = "<group>";
@@ -450,8 +464,10 @@
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
 				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
+				F0917E2020C4AE2500641C04 /* MyExercisesListVC.swift in Sources */,
 				F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
+				F0917E2220C4B04A00641C04 /* MyExercisesTableCell.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
 				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,

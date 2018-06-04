@@ -15,6 +15,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var allExerciseIDList = [String]()
     var allExerciseName = [String]()
     var myExerciseIDList = [String]()
+    var myExerciseNameList = [String]()
     var userID = String()
     var exerciseToAdd = String()
     @IBOutlet weak var allExercisesTableView: UITableView!
@@ -46,8 +47,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
-        userID = String(Auth.auth().currentUser!.uid)
+        
+        //set up database credentials
+        setUserID()
         
         //function to get all exercises
         getListOfExercises {
@@ -67,8 +69,12 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             //reload table to refresh all the data
             self.allExercisesTableView.reloadData()
         }
-        
-        
+    }
+    
+    //set database reference and the user id so functions can be run from an outside class (myExerciseListVC)
+    func setUserID() {
+        self.userID = String(Auth.auth().currentUser!.uid)
+        ref = Database.database().reference()
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,7 +130,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     if let exerciseID = obj?["ExerciseID"] as? String {
 //                        print("exercise name: \(exerciseID)")
                         self.myExerciseIDList.append(exerciseID)
-                        
+                    }
+                    if let exerciseName = obj?["Name"] as? String {
+//                        print("exercise name: \(exerciseName)")
+                        self.myExerciseNameList.append(exerciseName)
                     }
                 }
                 print("MyExercises list populated")
