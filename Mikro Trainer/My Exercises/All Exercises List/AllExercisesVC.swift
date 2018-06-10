@@ -18,6 +18,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var myExerciseNameList = [String]()
     var userID = String()
     var exerciseToAdd = String()
+    var workoutName = String()
     @IBOutlet weak var allExercisesTableView: UITableView!
     
     //tells the table how many rows we need
@@ -34,6 +35,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //tag selected cell with index
         cell.addExerciseButton.tag = indexPath.row
+        //cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         
         return cell
@@ -42,12 +44,12 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     //returns the row that was selected and reacts somehow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("workout name: \(self.workoutName)")
         //set up database credentials
         setUserID()
         
@@ -56,15 +58,15 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             //logic to make one final list without already included exercises goes here.
             print("modifying list of workouts to add...")
             
-            //create a list of exercises i already have
-            for x in self.myExerciseIDList {
-                if self.allExerciseIDList.contains(x){
-                    //only display exercises that are not currently in MyExercises
-                    let q = self.allExerciseIDList.index(of: x)!
-                    self.allExerciseIDList.remove(at: q)
-                    self.allExerciseName.remove(at: q)
-                }
-            }
+//            //create a list of exercises i already have
+//            for x in self.myExerciseIDList {
+//                if self.allExerciseIDList.contains(x){
+//                    //only display exercises that are not currently in MyExercises
+//                    let q = self.allExerciseIDList.index(of: x)!
+//                    self.allExerciseIDList.remove(at: q)
+//                    self.allExerciseName.remove(at: q)
+//                }
+//            }
             
             //reload table to refresh all the data
             self.allExercisesTableView.reloadData()
@@ -82,7 +84,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     
-    //api call to get the list of exercises
+    //api call to get the list of ALL exercises
     func getListOfExercises(completion: @escaping ()->()){
         self.ref?.child("Exercises").observeSingleEvent(of: .value, with: { snapshot in
             //populate array with all exercise id's if value is not null. if null return and dont fail
@@ -156,8 +158,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         addAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
             //assign exercise ID to variable that is being queried
             self.exerciseToAdd = self.allExerciseIDList[sender.tag]
+                //function to
                 self.addExerciseToMyExercises {
-                    print("exercise added to my exercise (hopefully)")
+                    print("exercise added to my exercise")
                     addAlert.dismiss(animated: true, completion: nil)
                     
                     //delete added item from table view so you cannot add it again
@@ -180,24 +183,24 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func addExerciseToMyExercises(completion: @escaping ()->()){
         self.ref?.child("Exercises/\(self.exerciseToAdd)").observeSingleEvent(of: .value, with: { snapshot in
             //get data from exercises branch and put it in my exercises branch
-            var r = ""
-            var s = ""
-            var w = ""
+//            var r = ""
+//            var s = ""
+            var w = self.workoutName
             var g = ""
             var n = ""
             var e = ""
             var i = 0
 
             if let dict = snapshot.value as? NSDictionary {
-                if let baseReps = dict["BaseReps"] as? String {
-                    r = baseReps
-                }
-                if let baseSets = dict["BaseSets"] as? String {
-                    s = baseSets
-                }
-                if let baseWeight = dict["BaseWeight"] as? String {
-                    w = baseWeight
-                }
+//                if let baseReps = dict["BaseReps"] as? String {
+//                    r = baseReps
+//                }
+//                if let baseSets = dict["BaseSets"] as? String {
+//                    s = baseSets
+//                }
+//                if let baseWeight = dict["BaseWeight"] as? String {
+//                    w = baseWeight
+//                }
                 if let muscleGroup = dict["MuscleGroup"] as? String {
                     g = muscleGroup
                 }
@@ -208,16 +211,15 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     e = exerciseID
                 }
                 
-                let workoutDetails = [n, g, w, s, r, e ]
-                let workoutFields = ["Name", "MuscleGroup","BaseWeight", "BaseSets", "BaseReps", "ExerciseID" ]
-
-                for x in workoutFields {
-                    
-                    //create new branch of exercise under MyExercises
-                    self.ref?.child("Users").child(self.userID).child("MyExercises").child("My Exercise \(e)").child(x).setValue(workoutDetails[i])
-                    i = i + 1
+                let workoutDetails = [n, g, e, w ]
+                let workoutFields = ["Name", "MuscleGroup", "ExerciseID", "WorkoutName" ]
+                
+                //add exercise to workout wuth minimal metadata
+               for x in workoutFields {
+                self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.workoutName).child("Exercise \(e)").child(x).setValue(workoutDetails[i])
+                i = i + 1
                 }
-
+                
                 //complete if exercise was added successfully
                 print("exercise added successfully")
                 completion()

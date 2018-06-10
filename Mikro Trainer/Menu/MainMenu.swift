@@ -49,7 +49,14 @@ class MainMenu: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-
+    
+    @IBAction func MyWorkoutsButton(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MyWorkoutsVC") as! MyWorkoutsVC
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

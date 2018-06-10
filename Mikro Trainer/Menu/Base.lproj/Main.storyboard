@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cBp-JG-0oc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cBp-JG-0oc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Menu-->
+        <!--Mikro Trainer-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="MainMenu" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MainMenu" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,11 +42,19 @@
                                     <action selector="myExercisesButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vFX-t5-MvZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uia-7f-ivd">
+                                <rect key="frame" x="142" y="526" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="My Workouts"/>
+                                <connections>
+                                    <action selector="MyWorkoutsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AfO-dq-mkv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wbz-Ca-6kP"/>
+                    <navigationItem key="navigationItem" title="Mikro Trainer" id="wbz-Ca-6kP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -61,7 +69,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WIo-MQ-7M7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="53" width="375" height="614"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="YJU-ol-r7o" customClass="AllExercisesTableViewCell" customModule="Mikro_Trainer" customModuleProvider="target">
@@ -97,13 +105,26 @@
                                     <outlet property="delegate" destination="pT9-5y-fQR" id="GAq-6W-ooH"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C9s-Fg-U2q">
+                                <rect key="frame" x="43.5" y="25" width="287" height="29"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Past "/>
+                                    <segment title="This Workout"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="WIo-MQ-7M7" firstAttribute="trailing" secondItem="Ebe-qL-Jw5" secondAttribute="trailing" id="7EJ-yz-cyV"/>
-                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="top" secondItem="FO2-Q9-34x" secondAttribute="top" id="7g0-Hv-0Gi"/>
+                            <constraint firstItem="C9s-Fg-U2q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ebe-qL-Jw5" secondAttribute="leading" id="RTw-n7-H2m"/>
+                            <constraint firstItem="Ebe-qL-Jw5" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="C9s-Fg-U2q" secondAttribute="trailing" id="Wti-iP-n4B"/>
                             <constraint firstItem="WIo-MQ-7M7" firstAttribute="leading" secondItem="Ebe-qL-Jw5" secondAttribute="leading" id="ZF3-Ga-vao"/>
+                            <constraint firstItem="C9s-Fg-U2q" firstAttribute="centerX" secondItem="FO2-Q9-34x" secondAttribute="centerX" id="dGs-XY-BQ4"/>
                             <constraint firstItem="WIo-MQ-7M7" firstAttribute="bottom" secondItem="Ebe-qL-Jw5" secondAttribute="bottom" id="efm-nE-t2C"/>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="top" secondItem="C9s-Fg-U2q" secondAttribute="bottom" id="n1v-go-Xv9"/>
+                            <constraint firstItem="C9s-Fg-U2q" firstAttribute="top" secondItem="Ebe-qL-Jw5" secondAttribute="top" constant="5" id="pP3-8l-IfI"/>
+                            <constraint firstItem="WIo-MQ-7M7" firstAttribute="bottom" secondItem="Ebe-qL-Jw5" secondAttribute="bottom" id="w7h-xc-5oo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ebe-qL-Jw5"/>
                     </view>
@@ -113,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8x-WC-BQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42.399999999999999" y="749.7751124437782"/>
+            <point key="canvasLocation" x="-882.39999999999998" y="1520.6896551724139"/>
         </scene>
         <!--My ExercisesVC-->
         <scene sceneID="NRe-zq-IUT">
@@ -131,20 +152,20 @@
                                     <action selector="addExcerciseButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="BRU-7e-APy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dv-n5-Wt8">
-                                <rect key="frame" x="114" y="467" width="146" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Existing Exercise"/>
-                                <connections>
-                                    <action selector="addExistingExerciseButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="Sr5-xJ-9mq"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTr-Sd-Eri">
                                 <rect key="frame" x="86" y="240" width="202" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="List of My Exercises"/>
                                 <connections>
                                     <action selector="ListOfMyExercisesButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="0Hc-r3-gJS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dv-n5-Wt8">
+                                <rect key="frame" x="47" y="466" width="281" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Existing Exercise From List of All"/>
+                                <connections>
+                                    <action selector="addExistingExerciseButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="Sr5-xJ-9mq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -154,7 +175,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRd-v9-Q7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749.60000000000002" y="749.7751124437782"/>
+            <point key="canvasLocation" x="-42.399999999999999" y="783.95802098950526"/>
         </scene>
         <!--My Exercises ListVC-->
         <scene sceneID="jfq-vA-AIe">
@@ -211,6 +232,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtu-kt-9jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-42.399999999999999" y="1516.1919040479761"/>
+        </scene>
+        <!--My WorkoutsVC-->
+        <scene sceneID="YAJ-Do-9uD">
+            <objects>
+                <viewController storyboardIdentifier="MyWorkoutsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bCK-Tf-i5O" customClass="MyWorkoutsVC" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bdz-ru-adf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Taw-pU-KBN">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyPrevWorkCell" id="wmV-Wv-nWu" customClass="MyPreviousWorkoutsCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wmV-Wv-nWu" id="PMI-jP-gkL" customClass="MyPreviousWorkoutsCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wi6-my-h3r">
+                                                    <rect key="frame" x="15" y="11" width="146" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="MyPrevWorkoutCellLabel" destination="Wi6-my-h3r" id="v3A-FS-VDg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bCK-Tf-i5O" id="BaN-bK-PZ1"/>
+                                    <outlet property="delegate" destination="bCK-Tf-i5O" id="EVp-vo-7X6"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Taw-pU-KBN" firstAttribute="bottom" secondItem="yGg-Hy-KU0" secondAttribute="bottom" id="06s-ZU-Zxm"/>
+                            <constraint firstItem="Taw-pU-KBN" firstAttribute="leading" secondItem="yGg-Hy-KU0" secondAttribute="leading" id="IN3-tK-sjt"/>
+                            <constraint firstItem="Taw-pU-KBN" firstAttribute="trailing" secondItem="yGg-Hy-KU0" secondAttribute="trailing" id="OgQ-wT-tDS"/>
+                            <constraint firstItem="Taw-pU-KBN" firstAttribute="top" secondItem="Bdz-ru-adf" secondAttribute="top" id="ct9-4f-ds7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yGg-Hy-KU0"/>
+                    </view>
+                    <connections>
+                        <outlet property="MyWorkoutsTableView" destination="Taw-pU-KBN" id="IBN-I1-Jgc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XHI-fh-4LY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="752.79999999999995" y="783.95802098950526"/>
         </scene>
         <!--Add ExcerciseVC-->
         <scene sceneID="QYt-1A-xpV">
