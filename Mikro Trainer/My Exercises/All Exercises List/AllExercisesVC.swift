@@ -12,30 +12,43 @@ import FirebaseDatabase
 
 class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var ref: DatabaseReference?
-    var allExerciseIDList = [String]()
-    var allExerciseName = [String]()
-    var myExerciseIDList = [String]()
+
+    var myExerciseIDList = [String]()    //location 0
     var myExerciseNameList = [String]()
+
+    var allExerciseIDList = [String]()    //location 1
+    var allExerciseNameList = [String]()
+
+    var thisWorkoutIDList = [String]()    //location 2
+    var thisWorkoutNameList = [String]()
+
+    var currentNameList = [String]()    //whatever current list is
+    
     var userID = String()
-    var exerciseToAdd = String()
+    var exerciseIDToAdd = String()
+    var exerciseNameToAdd = String()
     var workoutName = String()
     @IBOutlet weak var allExercisesTableView: UITableView!
     
+    @IBOutlet weak var segmentController: UISegmentedControl!
+    
     //tells the table how many rows we need
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (allExerciseName.count)
+        return (currentNameList.count)
     }
     
     //tells the prototype cell what it functions like
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.allExercisesTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AllExercisesTableViewCell
         
+        if self.segmentController.selectedSegmentIndex == 2 {
+            cell.addExerciseButton.isHidden = true
+        }
         //customize each specific cell
-        cell.cellHeaderLabel.text = allExerciseName[indexPath.row]
+        cell.cellHeaderLabel.text = currentNameList[indexPath.row]
         
         //tag selected cell with index
         cell.addExerciseButton.tag = indexPath.row
-        //cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         
         return cell
@@ -49,7 +62,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("workout name: \(self.workoutName)")
+//        print("workout name: \(self.workoutName)")
         //set up database credentials
         setUserID()
         
@@ -69,9 +82,28 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 //            }
             
             //reload table to refresh all the data
+            self.currentNameList = self.myExerciseNameList
             self.allExercisesTableView.reloadData()
         }
     }
+    
+    @IBAction func segmentControlValueChangeButton(_ sender: Any) {
+        let location = self.segmentController.selectedSegmentIndex
+        
+        if location == 0 {
+            self.currentNameList = self.myExerciseNameList
+            self.allExercisesTableView.reloadData()
+        }
+        if location == 1{
+            self.currentNameList = self.allExerciseNameList
+            self.allExercisesTableView.reloadData()
+        }
+        if location == 2 {
+            self.currentNameList = self.thisWorkoutNameList
+            self.allExercisesTableView.reloadData()
+        }
+    }
+    
     
     //set database reference and the user id so functions can be run from an outside class (myExerciseListVC)
     func setUserID() {
@@ -98,7 +130,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     if let exerciseName = obj?["Name"] as? String {
 //                        print("exercise name: \(exerciseName)")
-                        self.allExerciseName.append(exerciseName)
+                        self.allExerciseNameList.append(exerciseName)
                     }
                 }
                 //do not complete this function until my list of exercises is already found
@@ -151,22 +183,70 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //add exercise from all exercises to my exercises
     @objc func addSelectedExercise(sender: UIButton){
-        self.exerciseToAdd = ""
+        self.exerciseIDToAdd = ""
+        self.exerciseNameToAdd = ""
 
-        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.allExerciseName[sender.tag]) to your exercise list?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        //assign exercise ID to variable that is being queried based on segment location
+        if self.segmentController.selectedSegmentIndex == 0{
+            self.exerciseNameToAdd = self.myExerciseNameList[sender.tag]
+            self.exerciseIDToAdd = self.myExerciseIDList[sender.tag]
+        }
+        if self.segmentController.selectedSegmentIndex == 1{
+            self.exerciseNameToAdd = self.allExerciseNameList[sender.tag]
+            self.exerciseIDToAdd = self.allExerciseIDList[sender.tag]
+        }
+        
+        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.exerciseNameToAdd) to your exercise list?", preferredStyle: UIAlertControllerStyle.alert)
 
         addAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-            //assign exercise ID to variable that is being queried
-            self.exerciseToAdd = self.allExerciseIDList[sender.tag]
-                //function to
-                self.addExerciseToMyExercises {
+
+            //delete added item from table views so you cannot add it again
+            var i = 0
+            if self.segmentController.selectedSegmentIndex == 0{
+                //remove name and id from other lists
+                self.myExerciseNameList.remove(at: sender.tag)
+                self.myExerciseIDList.remove(at: sender.tag)
+                //test
+                self.currentNameList = self.myExerciseNameList
+                
+                //find the exercise in the other list and remove it
+                for x in self.allExerciseIDList {
+                    if x == self.exerciseIDToAdd{
+                        self.allExerciseIDList.remove(at: i)
+                        self.allExerciseNameList.remove(at: i)
+                    }
+                    i = i + 1
+                }
+            }
+            
+            var q = 0
+            if self.segmentController.selectedSegmentIndex == 1{
+                //remove name and id from other lists
+                self.allExerciseIDList.remove(at: sender.tag)
+                self.allExerciseNameList.remove(at: sender.tag)
+                //test
+                self.currentNameList = self.allExerciseNameList
+                
+                //find the exercise in the other list and remove it
+                for x in self.myExerciseIDList {
+                    if x == self.exerciseIDToAdd{
+                        self.myExerciseIDList.remove(at: q)
+                        self.myExerciseNameList.remove(at: q)
+                    }
+                    q = q + 1
+                }
+            }
+            
+            self.thisWorkoutIDList.append(self.exerciseIDToAdd)
+            self.thisWorkoutNameList.append(self.exerciseNameToAdd)
+            
+            //add exercises to the database
+            self.allExercisesTableView.reloadData()
+                self.addExerciseToMyWorkout {
                     print("exercise added to my exercise")
                     addAlert.dismiss(animated: true, completion: nil)
-                    
-                    //delete added item from table view so you cannot add it again
-                    self.allExerciseIDList.remove(at: sender.tag)
-                    self.allExerciseName.remove(at: sender.tag)
-                    
+   
                     //reload table to refresh all the data
                     self.allExercisesTableView.reloadData()
                 }
@@ -179,9 +259,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(addAlert, animated: true, completion: nil)
     }
     
-    //function to add exercises to MyExercises list
-    func addExerciseToMyExercises(completion: @escaping ()->()){
-        self.ref?.child("Exercises/\(self.exerciseToAdd)").observeSingleEvent(of: .value, with: { snapshot in
+    //function to add exercises to MyWorkouts list in Firebase
+    func addExerciseToMyWorkout(completion: @escaping ()->()){
+        self.ref?.child("Exercises/\(self.exerciseIDToAdd)").observeSingleEvent(of: .value, with: { snapshot in
             //get data from exercises branch and put it in my exercises branch
 //            var r = ""
 //            var s = ""
