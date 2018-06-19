@@ -73,8 +73,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             
             let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
                 if let field = nameController.textFields?[0]  {
-                // store your data
-//                print(field.text!)
+
                     //if the user doesnt enter any name request a new name
                     if field.text! == "" {
                         //put logic to make sure names do not repeat in here
@@ -83,9 +82,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     }else{
                         self.workoutNameToAdd = field.text!
                         //create new workout in MyWorkouts
-                        print("adding:")
-                        let workoutTitleFull = "\(self.month)-\(self.day): \(self.workoutNameToAdd)"
-                        print("\(self.month)/\(self.day)- \(self.workoutNameToAdd)")
+                        let workoutTitleFull = "\(self.month)-\(self.day): \(self.workoutNameToAdd)" //create workout name
                         self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutTitleFull).setValue("")
                         
                         //go to all exercises page

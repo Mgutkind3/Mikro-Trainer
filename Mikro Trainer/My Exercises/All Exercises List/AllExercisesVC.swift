@@ -15,6 +15,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var myExerciseIDList = [String]()    //location 0
     var myExerciseNameList = [String]()
+    var originalMyExNameList = [String]() //constant list used to see if exercise was previously in this list
+    
+    var myExercises = [String: String]() //impliment a dictionary for better performance later?
 
     var allExerciseIDList = [String]()    //location 1
     var allExerciseNameList = [String]()
@@ -23,6 +26,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var thisWorkoutNameList = [String]()
 
     var currentNameList = [String]()    //whatever current list is
+    var currentIDList = [String]()
     
     var userID = String()
     var exerciseIDToAdd = String()
@@ -42,7 +46,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = self.allExercisesTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! AllExercisesTableViewCell
         
         if self.segmentController.selectedSegmentIndex == 2 {
-            cell.addExerciseButton.isHidden = true
+            cell.addExerciseButton.isEnabled = false
+        }else{
+            //gets rid of bug that sets all buttons to hidden
+            cell.addExerciseButton.isEnabled = true
         }
         //customize each specific cell
         cell.cellHeaderLabel.text = currentNameList[indexPath.row]
@@ -58,48 +65,82 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if self.segmentController.selectedSegmentIndex == 2 {
+            return .delete
+        }
+        
+        return .none
+    }
+    
+    //delete an exercise from my list
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete{
+            print("Delete row: \(thisWorkoutNameList[indexPath.row])")
+            print("id number: \(thisWorkoutIDList[indexPath.row])")
+            
+            //always add it back to list of all available exercises
+            allExerciseNameList.append(thisWorkoutNameList[indexPath.row] ) //upon removal, add back to original lists
+            allExerciseIDList.append(thisWorkoutIDList[indexPath.row])
+            
+            //logic to see if this exercise was previously in "my exercise 'past'" list
+            if self.originalMyExNameList.contains(thisWorkoutNameList[indexPath.row]){
+                print("add it back to my list")
+                myExerciseNameList.append(thisWorkoutNameList[indexPath.row])
+                myExerciseIDList.append(thisWorkoutIDList[indexPath.row])
+            }
+
+            //remove my exercise from firebase data
+            self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutName).child("Exercise \(thisWorkoutIDList[indexPath.row])").setValue(nil)
+
+            //remove name and id from current list lists
+            self.thisWorkoutNameList.remove(at: indexPath.row)
+            self.thisWorkoutIDList.remove(at: indexPath.row)
+            
+            //refresh table data according to lists
+            self.currentIDList = self.thisWorkoutIDList
+            self.currentNameList = self.thisWorkoutNameList
+            self.allExercisesTableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        print("workout name: \(self.workoutName)")
         //set up database credentials
         setUserID()
         
         //function to get all exercises
         getListOfExercises {
-            //logic to make one final list without already included exercises goes here.
-            print("modifying list of workouts to add...")
             
-//            //create a list of exercises i already have
-//            for x in self.myExerciseIDList {
-//                if self.allExerciseIDList.contains(x){
-//                    //only display exercises that are not currently in MyExercises
-//                    let q = self.allExerciseIDList.index(of: x)!
-//                    self.allExerciseIDList.remove(at: q)
-//                    self.allExerciseName.remove(at: q)
-//                }
-//            }
-            
-            //reload table to refresh all the data
+            //reload table to refresh all the data after call has come back
             self.currentNameList = self.myExerciseNameList
+            self.currentIDList = self.myExerciseIDList
             self.allExercisesTableView.reloadData()
+            
+            //constant list of names. dont change.
+            self.originalMyExNameList = self.myExerciseNameList
         }
     }
     
+    //segment controller changed
     @IBAction func segmentControlValueChangeButton(_ sender: Any) {
         let location = self.segmentController.selectedSegmentIndex
         
         if location == 0 {
             self.currentNameList = self.myExerciseNameList
+            self.currentIDList = self.myExerciseIDList
             self.allExercisesTableView.reloadData()
         }
         if location == 1{
             self.currentNameList = self.allExerciseNameList
+            self.currentIDList = self.allExerciseIDList
             self.allExercisesTableView.reloadData()
         }
         if location == 2 {
             self.currentNameList = self.thisWorkoutNameList
+            self.currentIDList = self.thisWorkoutIDList
             self.allExercisesTableView.reloadData()
         }
     }
@@ -125,11 +166,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for y in (dict) {
                     let obj = y as? NSDictionary
                     if let exerciseID = obj?["ExerciseID"] as? String {
-//                        print("exercise name: \(exerciseID)")
                         self.allExerciseIDList.append(exerciseID)
                     }
                     if let exerciseName = obj?["Name"] as? String {
-//                        print("exercise name: \(exerciseName)")
                         self.allExerciseNameList.append(exerciseName)
                     }
                 }
@@ -162,13 +201,13 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
                     let obj = y.value as? NSDictionary
                     if let exerciseID = obj?["ExerciseID"] as? String {
-//                        print("exercise name: \(exerciseID)")
                         self.myExerciseIDList.append(exerciseID)
+
                     }
                     if let exerciseName = obj?["Name"] as? String {
-//                        print("exercise name: \(exerciseName)")
                         self.myExerciseNameList.append(exerciseName)
                     }
+
                 }
                 print("MyExercises list populated")
                 completion()
@@ -186,7 +225,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.exerciseIDToAdd = ""
         self.exerciseNameToAdd = ""
 
-        
         //assign exercise ID to variable that is being queried based on segment location
         if self.segmentController.selectedSegmentIndex == 0{
             self.exerciseNameToAdd = self.myExerciseNameList[sender.tag]
@@ -207,8 +245,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //remove name and id from other lists
                 self.myExerciseNameList.remove(at: sender.tag)
                 self.myExerciseIDList.remove(at: sender.tag)
-                //test
+                
+                //set table data and reload table
                 self.currentNameList = self.myExerciseNameList
+                self.currentIDList = self.myExerciseIDList
                 
                 //find the exercise in the other list and remove it
                 for x in self.allExerciseIDList {
@@ -225,8 +265,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //remove name and id from other lists
                 self.allExerciseIDList.remove(at: sender.tag)
                 self.allExerciseNameList.remove(at: sender.tag)
-                //test
+                
+                //set table data and reload data
                 self.currentNameList = self.allExerciseNameList
+                self.currentIDList = self.myExerciseIDList
                 
                 //find the exercise in the other list and remove it
                 for x in self.myExerciseIDList {
@@ -263,8 +305,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func addExerciseToMyWorkout(completion: @escaping ()->()){
         self.ref?.child("Exercises/\(self.exerciseIDToAdd)").observeSingleEvent(of: .value, with: { snapshot in
             //get data from exercises branch and put it in my exercises branch
-//            var r = ""
-//            var s = ""
             var w = self.workoutName
             var g = ""
             var n = ""
@@ -272,15 +312,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             var i = 0
 
             if let dict = snapshot.value as? NSDictionary {
-//                if let baseReps = dict["BaseReps"] as? String {
-//                    r = baseReps
-//                }
-//                if let baseSets = dict["BaseSets"] as? String {
-//                    s = baseSets
-//                }
-//                if let baseWeight = dict["BaseWeight"] as? String {
-//                    w = baseWeight
-//                }
                 if let muscleGroup = dict["MuscleGroup"] as? String {
                     g = muscleGroup
                 }
