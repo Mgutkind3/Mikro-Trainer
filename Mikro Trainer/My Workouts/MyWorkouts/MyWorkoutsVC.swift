@@ -23,6 +23,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Workouts"
         
         let date = Date()
         let calendar = Calendar.current
@@ -90,7 +91,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
                         vc.workoutName = workoutTitleFull //pass data between view controllers
                         self.navigationController?.pushViewController(vc, animated: true)
-                        //go to all exercises page
                         
                     }
             } else {
@@ -98,40 +98,23 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 // user did not fill field
                 }
             }
-            
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
-            
             nameController.addTextField { (textField) in
                 textField.placeholder = "Name"
             }
-            
             nameController.addAction(confirmAction)
             nameController.addAction(cancelAction)
-            
             self.present(nameController, animated: true, completion: nil)
+        }else{
+            //go to workout exercises page
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
+            vc.workoutTitle = myPreviousWorkouts[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+
         }
     }
     
-    //function to get list of my previous workouts
-    func getAllMyWorkouts(completion: @escaping ()->()){
-        self.ref?.child("Users/\(self.userID)/MyWorkouts").observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let dict = snapshot.value as? NSDictionary{
-                
-                //add every workout to myPrevousWorkouts list and show in table
-                for y in (dict) {
-                    self.myPreviousWorkouts.append(y.key as! String)
-                }
-                print("My workouts populated")
-                completion()
-            }else{
-                //return cause the array was full of null values
-                print("my array not populated cause no 'MyWorkouts' found")
-                completion()
-            }
-        })
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

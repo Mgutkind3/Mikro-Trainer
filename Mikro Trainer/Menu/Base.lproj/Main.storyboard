@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a8x-WC-BQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-882.39999999999998" y="1520.6896551724139"/>
+            <point key="canvasLocation" x="-42" y="1511"/>
         </scene>
         <!--My ExercisesVC-->
         <scene sceneID="NRe-zq-IUT">
@@ -235,7 +235,63 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rtu-kt-9jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-42.399999999999999" y="1516.1919040479761"/>
+            <point key="canvasLocation" x="-42" y="2239"/>
+        </scene>
+        <!--Workout ExercisesVC-->
+        <scene sceneID="M9m-hf-8Ks">
+            <objects>
+                <viewController storyboardIdentifier="WorkoutExercisesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dQr-Em-ijU" customClass="WorkoutExercisesVC" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SCm-Om-pLj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TI1-oJ-jrW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wECell" id="pfL-t8-qJc" customClass="WorkoutExercisesCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pfL-t8-qJc" id="lUD-4n-V2z" customClass="WorkoutExercisesCell" customModule="Mikro_Trainer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7CY-NV-n9E">
+                                                    <rect key="frame" x="15" y="11" width="166" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="wExCellLabel" destination="7CY-NV-n9E" id="3hR-RN-ePx"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="dQr-Em-ijU" id="Kzo-eq-jHq"/>
+                                    <outlet property="delegate" destination="dQr-Em-ijU" id="KqN-E0-3Wr"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="bottom" secondItem="dGm-9E-27m" secondAttribute="bottom" id="A2h-GL-2uY"/>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="trailing" secondItem="dGm-9E-27m" secondAttribute="trailing" id="JYX-vN-NTR"/>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="top" secondItem="SCm-Om-pLj" secondAttribute="top" id="jDu-4S-KWg"/>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="leading" secondItem="dGm-9E-27m" secondAttribute="leading" id="y3G-dQ-kt2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dGm-9E-27m"/>
+                    </view>
+                    <connections>
+                        <outlet property="workoutExercisesTableView" destination="TI1-oJ-jrW" id="YXn-xX-jdi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8cI-GV-bZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="759.20000000000005" y="1510.7946026986508"/>
         </scene>
         <!--My WorkoutsVC-->
         <scene sceneID="YAJ-Do-9uD">

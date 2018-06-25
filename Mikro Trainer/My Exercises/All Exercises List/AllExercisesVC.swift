@@ -66,6 +66,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         print(indexPath.row)
     }
     
+    //dont let seg control sections 0 and 1 delete cells
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if self.segmentController.selectedSegmentIndex == 2 {
             return .delete
