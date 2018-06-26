@@ -19,12 +19,10 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var userID = String()
     var day = String()
     var month = String()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Workouts"
-        
         let date = Date()
         let calendar = Calendar.current
         self.day = String(calendar.component(.day, from: date))
@@ -33,7 +31,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         //set user id and database reference
         self.userID = String(Auth.auth().currentUser!.uid)
         ref = Database.database().reference()
-        
     }
     
     //reload table view everytime its seen
@@ -46,6 +43,23 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         getAllMyWorkouts {
             self.MyWorkoutsTableView.reloadData()
         }
+    }
+    
+    //if it is not the first item, let it delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row != 0 {
+            return .delete
+        }
+        return .none
+    }
+    //delete workout
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete{
+            self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
+            self.myPreviousWorkouts.remove(at: indexPath.row)
+            self.MyWorkoutsTableView.reloadData()
+        }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
