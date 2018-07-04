@@ -32,6 +32,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var exerciseIDToAdd = String()
     var exerciseNameToAdd = String()
     var workoutName = String()
+    var flag = Int()//0 is create new. 1 is editing current
     @IBOutlet weak var allExercisesTableView: UITableView!
     
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -112,7 +113,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         //set up database credentials
         setUserID()
         
-        //function to get all exercises
+        //function to get all exercises that also calls exercises i've done before
         getListOfExercises {
             
             //reload table to refresh all the data after call has come back
@@ -123,6 +124,19 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             //constant list of names. dont change.
             self.originalMyExNameList = self.myExerciseNameList
         }
+        
+        //signify which mode this page is in
+        if flag == 1 {
+            self.title = "Editing"
+        }else{
+            self.title = "New Workout"
+        }
+    }
+    
+    //done editing current workout
+    @IBAction func doneEditingButton(_ sender: Any) {
+        print("dismissing current view")
+        self.navigationController?.popViewController(animated: true)
     }
     
     //segment controller changed

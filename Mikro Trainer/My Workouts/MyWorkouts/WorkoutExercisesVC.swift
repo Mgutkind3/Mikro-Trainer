@@ -46,6 +46,16 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         
     }
 
+    //edit the current workout you are have selected
+    @IBAction func editThisWorkoutList(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
+        vc.flag = 1 //editing current workout
+        vc.thisWorkoutIDList = self.workoutExerciseIDs
+        vc.thisWorkoutNameList = self.workoutExerciseNames
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -69,7 +69,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WIo-MQ-7M7">
-                                <rect key="frame" x="0.0" y="53" width="375" height="614"/>
+                                <rect key="frame" x="0.0" y="97" width="375" height="570"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="YJU-ol-r7o" customClass="AllExercisesTableViewCell" customModule="Mikro_Trainer" customModuleProvider="target">
@@ -106,7 +106,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="C9s-Fg-U2q">
-                                <rect key="frame" x="43.5" y="25" width="287" height="29"/>
+                                <rect key="frame" x="43.5" y="69" width="287" height="29"/>
                                 <segments>
                                     <segment title="Past"/>
                                     <segment title="All"/>
@@ -131,6 +131,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ebe-qL-Jw5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="aPv-vR-xQ3">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="hpV-7Y-N1N">
+                            <connections>
+                                <action selector="doneEditingButton:" destination="pT9-5y-fQR" id="3zo-ke-UiQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="allExercisesTableView" destination="WIo-MQ-7M7" id="7YT-J7-XQb"/>
                         <outlet property="segmentController" destination="C9s-Fg-U2q" id="bod-g1-hqu"/>
@@ -246,7 +254,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TI1-oJ-jrW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="479"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wECell" id="pfL-t8-qJc" customClass="WorkoutExercisesCell" customModule="Mikro_Trainer" customModuleProvider="target">
@@ -275,16 +283,34 @@
                                     <outlet property="delegate" destination="dQr-Em-ijU" id="KqN-E0-3Wr"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5X-1X-lzG">
+                                <rect key="frame" x="0.0" y="114" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.17215758562088013" green="0.92996001243591309" blue="0.26843610405921936" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Start"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TI1-oJ-jrW" firstAttribute="bottom" secondItem="dGm-9E-27m" secondAttribute="bottom" id="A2h-GL-2uY"/>
+                            <constraint firstItem="M5X-1X-lzG" firstAttribute="leading" secondItem="dGm-9E-27m" secondAttribute="leading" id="A9g-Im-FHY"/>
+                            <constraint firstItem="M5X-1X-lzG" firstAttribute="trailing" secondItem="dGm-9E-27m" secondAttribute="trailing" id="JUB-oX-aaq"/>
                             <constraint firstItem="TI1-oJ-jrW" firstAttribute="trailing" secondItem="dGm-9E-27m" secondAttribute="trailing" id="JYX-vN-NTR"/>
-                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="top" secondItem="SCm-Om-pLj" secondAttribute="top" id="jDu-4S-KWg"/>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="top" secondItem="dGm-9E-27m" secondAttribute="top" constant="80" id="LCk-i1-9no"/>
+                            <constraint firstItem="TI1-oJ-jrW" firstAttribute="top" secondItem="M5X-1X-lzG" secondAttribute="bottom" id="amA-rV-Ksh"/>
                             <constraint firstItem="TI1-oJ-jrW" firstAttribute="leading" secondItem="dGm-9E-27m" secondAttribute="leading" id="y3G-dQ-kt2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dGm-9E-27m"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="dsq-6c-lBi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Mag-Dy-cKg">
+                            <connections>
+                                <action selector="editThisWorkoutList:" destination="dQr-Em-ijU" id="WZk-S8-w1s"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="workoutExercisesTableView" destination="TI1-oJ-jrW" id="YXn-xX-jdi"/>
                     </connections>

@@ -103,6 +103,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         //go to all exercises page
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
+                        vc.flag = 0
                         vc.workoutName = workoutTitleFull //pass data between view controllers
                         self.navigationController?.pushViewController(vc, animated: true)
                         

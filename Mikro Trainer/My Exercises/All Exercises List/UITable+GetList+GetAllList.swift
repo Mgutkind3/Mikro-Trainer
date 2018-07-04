@@ -67,4 +67,7 @@ extension AllExercisesVC {
             }
         })
     }
-}
+    
+}//end of class
+
+
