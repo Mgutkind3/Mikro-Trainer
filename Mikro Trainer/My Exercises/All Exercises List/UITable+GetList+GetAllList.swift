@@ -68,6 +68,33 @@ extension AllExercisesVC {
         })
     }
     
+    //remove exercises from past and all when editing for a new workout
+    func removeExerciseFromOtherLists(exerciseToRemove: String){
+        //delete added item from table views so you cannot add it again
+        var i = 0//index location
+        print("exercise to remove is: \(exerciseToRemove)")
+            //find the exercise in the other list and remove it
+            for x in self.allExerciseIDList {
+                if x == exerciseToRemove{
+                    self.allExerciseIDList.remove(at: i)
+                    self.allExerciseNameList.remove(at: i)
+                }
+                i = i + 1
+            }
+    
+        var q = 0
+            //find the exercise in the other list and remove it
+            for x in self.myExerciseIDList {
+                if x == exerciseToRemove{
+                    self.myExerciseIDList.remove(at: q)
+                    self.myExerciseNameList.remove(at: q)
+                }
+                q = q + 1
+            }
+        
+        self.allExercisesTableView.reloadData()
+    }
+    
 }//end of class
 
 

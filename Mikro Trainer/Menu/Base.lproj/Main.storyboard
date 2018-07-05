@@ -303,7 +303,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="dsq-6c-lBi">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Mag-Dy-cKg">
+                        <barButtonItem key="rightBarButtonItem" title="Rebuild" id="Mag-Dy-cKg">
                             <connections>
                                 <action selector="editThisWorkoutList:" destination="dQr-Em-ijU" id="WZk-S8-w1s"/>
                             </connections>

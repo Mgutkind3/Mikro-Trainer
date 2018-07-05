@@ -28,6 +28,8 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var currentNameList = [String]()    //whatever current list is
     var currentIDList = [String]()
     
+    var day = String()
+    var month = String()
     var userID = String()
     var exerciseIDToAdd = String()
     var exerciseNameToAdd = String()
@@ -55,7 +57,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         //customize each specific cell
         cell.cellHeaderLabel.text = currentNameList[indexPath.row]
         
-        //tag selected cell with index
+        //tag selected cell with index "sender.tag"
         cell.addExerciseButton.tag = indexPath.row
         cell.addExerciseButton.addTarget(self, action: #selector(self.addSelectedExercise), for: .touchUpInside)
         
@@ -72,7 +74,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.segmentController.selectedSegmentIndex == 2 {
             return .delete
         }
-        
         return .none
     }
     
@@ -112,30 +113,91 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //set up database credentials
         setUserID()
+        let date = Date()
+        let calendar = Calendar.current
+        self.day = String(calendar.component(.day, from: date))
+        self.month = String(calendar.component(.month, from: date))
         
-        //function to get all exercises that also calls exercises i've done before
+        //function to get all exercises that also gets past exercises done before
         getListOfExercises {
+            
+            //constant list of names. dont change.
+            self.originalMyExNameList = self.myExerciseNameList
+            
+            //signify which mode this page is in
+            if self.flag == 1 {
+                self.title = "Editing"
+                
+                let oldWorkoutName = self.workoutName
+                let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your new workout", preferredStyle: UIAlertControllerStyle.alert)
+                
+                let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
+                    if let field = nameAlert.textFields?[0]  {
+                        
+                        //if the user doesnt enter any name request a new name
+                        if field.text! == "" || field.text! == oldWorkoutName{
+                            //put logic to make sure names do not repeat in here
+                            nameAlert.message = "Please use a valid name"
+                            self.present(nameAlert, animated: true, completion: nil)
+                        }else{
+                            let workoutNameDescr = field.text!
+                            //create new workout in MyWorkouts
+                            self.workoutName = "\(self.month)-\(self.day): \(workoutNameDescr)" //create workout name
+                            self.title = self.workoutName
+                            
+                            //set up new workout with old info
+                            for x in self.thisWorkoutIDList{
+                                //add all the previous exercises from base workout to this new workout
+                                self.addExerciseToMyWorkout(completion: {
+                                    self.allExercisesTableView.reloadData()
+                                    print("done creating new list")
+                                    //                        self.title = self.workoutName //set the new name of the workoutexercises page
+                                }, exIDAdd: x)
+                            }
+                        }
+                    } else {
+                        print("IT BROKE!")
+                        //should never get to this
+                        // user did not fill field
+                    }
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+                    nameAlert.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
+                }
+                nameAlert.addTextField { (textField) in
+                    textField.placeholder = oldWorkoutName
+                }
+                
+                //remove existing workouts from other lists so they cannot be reselected
+                for y in self.thisWorkoutIDList{
+                    self.removeExerciseFromOtherLists(exerciseToRemove: y)
+                }
+
+                nameAlert.addAction(confirmAction)
+                nameAlert.addAction(cancelAction)
+                self.present(nameAlert, animated: true, completion: nil)
+
+            }else{
+                self.title = "New Workout"
+            }
             
             //reload table to refresh all the data after call has come back
             self.currentNameList = self.myExerciseNameList
             self.currentIDList = self.myExerciseIDList
             self.allExercisesTableView.reloadData()
             
-            //constant list of names. dont change.
-            self.originalMyExNameList = self.myExerciseNameList
         }
         
-        //signify which mode this page is in
-        if flag == 1 {
-            self.title = "Editing"
-        }else{
-            self.title = "New Workout"
-        }
+        
+
     }
     
     //done editing current workout
     @IBAction func doneEditingButton(_ sender: Any) {
-        print("dismissing current view")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
+        vc.workoutTitle = self.workoutName
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -237,13 +299,13 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             //add exercises to the database
             self.allExercisesTableView.reloadData()
-                self.addExerciseToMyWorkout {
-                    print("exercise added to my exercise")
-                    addAlert.dismiss(animated: true, completion: nil)
-   
-                    //reload table to refresh all the data
-                    self.allExercisesTableView.reloadData()
-                }
+            self.addExerciseToMyWorkout(completion: {
+                print("exercise added to my exercise")
+                addAlert.dismiss(animated: true, completion: nil)
+                
+                //reload table to refresh all the data
+                self.allExercisesTableView.reloadData()
+            }, exIDAdd: self.exerciseIDToAdd)
         }))
 
         addAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -254,8 +316,8 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //function to add exercises to MyWorkouts list in Firebase
-    func addExerciseToMyWorkout(completion: @escaping ()->()){
-        self.ref?.child("Exercises/\(self.exerciseIDToAdd)").observeSingleEvent(of: .value, with: { snapshot in
+    func addExerciseToMyWorkout(completion: @escaping ()->(), exIDAdd: String){
+        self.ref?.child("Exercises/\(exIDAdd)").observeSingleEvent(of: .value, with: { snapshot in
             //get data from exercises branch and put it in my exercises branch
             var w = self.workoutName
             var g = ""

@@ -39,11 +39,16 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         self.userID = String(Auth.auth().currentUser!.uid)
         ref = Database.database().reference()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.title = self.workoutTitle
+        workoutExerciseNames.removeAll()
+        workoutExerciseIDs.removeAll()
         //get list of workouts that are specifically in that workout
         getMyWorkoutExercises(completion: {
             self.workoutExercisesTableView.reloadData()
         }, workoutName: workoutTitle)
-        
     }
 
     //edit the current workout you are have selected
@@ -53,6 +58,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         vc.flag = 1 //editing current workout
         vc.thisWorkoutIDList = self.workoutExerciseIDs
         vc.thisWorkoutNameList = self.workoutExerciseNames
+        vc.workoutName = self.workoutTitle
         navigationController?.pushViewController(vc, animated: true)
     }
     
