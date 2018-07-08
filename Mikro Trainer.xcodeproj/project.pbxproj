@@ -34,6 +34,7 @@
 		F0CBB7D520AB4D25001643C4 /* Mikro_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7D420AB4D25001643C4 /* Mikro_TrainerTests.swift */; };
 		F0CBB7E020AB4D25001643C4 /* Mikro_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */; };
 		F0CBB7EE20AB518D001643C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */; };
+		F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D0415F20F1AB0F00465505 /* CurrentExerciseVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mikro_TrainerUITests.swift; sourceTree = "<group>"; };
 		F0CBB7E120AB4D25001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F0D0415F20F1AB0F00465505 /* CurrentExerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentExerciseVC.swift; sourceTree = "<group>"; };
 		F311AAAF5B1F8EEC51DD0985 /* Pods-Mikro TrainerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerTests/Pods-Mikro TrainerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,6 +188,7 @@
 				F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */,
 				F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */,
 				F0535CCA20E069BB0016DC81 /* WorkoutExercisesVC.swift */,
+				F0D0415E20F1AABB00465505 /* CurrentExercise */,
 				F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */,
 				F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */,
 				F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */,
@@ -278,6 +281,14 @@
 				F0CBB7E120AB4D25001643C4 /* Info.plist */,
 			);
 			path = "Mikro TrainerUITests";
+			sourceTree = "<group>";
+		};
+		F0D0415E20F1AABB00465505 /* CurrentExercise */ = {
+			isa = PBXGroup;
+			children = (
+				F0D0415F20F1AB0F00465505 /* CurrentExerciseVC.swift */,
+			);
+			path = CurrentExercise;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +514,7 @@
 				F0535CCB20E069BB0016DC81 /* WorkoutExercisesVC.swift in Sources */,
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
 				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
+				F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */,
 				F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
 				F0917E2020C4AE2500641C04 /* MyExercisesListVC.swift in Sources */,

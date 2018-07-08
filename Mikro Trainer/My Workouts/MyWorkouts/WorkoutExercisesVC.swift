@@ -10,14 +10,19 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewDataSource {
 
+class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewDataSource, WorkoutNamesDelegate {
+
+    
     @IBOutlet weak var workoutExercisesTableView: UITableView!
     var workoutTitle = ""
     var ref: DatabaseReference?
     var userID = String()
     var workoutExerciseNames = [String]()
     var workoutExerciseIDs = [String]() //for references (order matters)
+    @IBOutlet weak var startStopBtn: UIButton!
+    var startStopFlag = 0 //0 it should be stopped, 1 it should be in progress
+    @IBOutlet weak var rebuildBtnOutlet: UIBarButtonItem!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return workoutExerciseNames.count
@@ -27,6 +32,17 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         let wExCell = self.workoutExercisesTableView.dequeueReusableCell(withIdentifier: "wECell", for: indexPath) as! WorkoutExercisesCell
         
         wExCell.wExCellLabel.text = workoutExerciseNames[indexPath.row]
+        if startStopFlag == 0 {
+            //cant select workout without starting workout
+            wExCell.selectionStyle = .none
+            wExCell.isUserInteractionEnabled = false
+            wExCell.accessoryType = UITableViewCellAccessoryType.detailButton
+        }else{
+            //can select exercise once workout has begun
+            wExCell.selectionStyle = .default
+            wExCell.isUserInteractionEnabled = true
+            wExCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        }
         
         return wExCell
     }
@@ -41,20 +57,72 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         
     }
     
+    //called by the delegate in 'allExercisesVC' to get new rebuilt name
+    func setNewName(name: String) {
+        self.workoutTitle = name
+        self.title = name
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-        self.title = self.workoutTitle
         workoutExerciseNames.removeAll()
         workoutExerciseIDs.removeAll()
+        self.title = self.workoutTitle
+        
         //get list of workouts that are specifically in that workout
         getMyWorkoutExercises(completion: {
             self.workoutExercisesTableView.reloadData()
         }, workoutName: workoutTitle)
     }
+    
+    //go to specific workout after an exercise has begun
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CurrentExerciseVC") as! CurrentExerciseVC
+        vc.exerciseTitle = self.workoutExerciseNames[indexPath.row]
+        vc.exerciseID = self.workoutExerciseIDs[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //begin/end workout
+    @IBAction func startWorkoutButton(_ sender: Any) {
+        if startStopFlag == 0{
+            //start logic
+//            print("start")
+            startStopBtn.backgroundColor = UIColor.red
+            startStopBtn.setTitle("Stop", for: .normal)
+            startStopFlag = 1
+            self.rebuildBtnOutlet.isEnabled = false
+            self.workoutExercisesTableView.reloadData()
+            
+        }else{
+            //stop logic
+            //double check to make sure user wants to end workout
+            let stopWarn = UIAlertController(title: "End Workout", message: "Are you sure you want to finish your workout?", preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
+                self.startStopBtn.backgroundColor = UIColor.green
+                self.startStopBtn.setTitle("Start", for: .normal)
+                self.startStopFlag = 0
+                self.rebuildBtnOutlet.isEnabled = true
+                self.workoutExercisesTableView.reloadData()
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+                print("cancel!")
+            }
+            stopWarn.addAction(confirmAction)
+            stopWarn.addAction(cancelAction)
+            self.present(stopWarn, animated: true, completion: nil)
+            
+        }
+    }
+    
 
-    //edit the current workout you are have selected
+    //edit the current workout you are have selected "rebuild"
     @IBAction func editThisWorkoutList(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
+        vc.delegate = self
         vc.flag = 1 //editing current workout
         vc.thisWorkoutIDList = self.workoutExerciseIDs
         vc.thisWorkoutNameList = self.workoutExerciseNames
@@ -66,7 +134,5 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-
-}
+}//class

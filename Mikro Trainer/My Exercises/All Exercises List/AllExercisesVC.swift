@@ -10,6 +10,11 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+//delegate for myWorkoutExercisesVC
+protocol WorkoutNamesDelegate{
+    func setNewName(name: String)
+}
+
 class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var ref: DatabaseReference?
 
@@ -34,6 +39,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var exerciseIDToAdd = String()
     var exerciseNameToAdd = String()
     var workoutName = String()
+    var delegate:WorkoutNamesDelegate? //delegate to return data to MyWorkoutExercisesVC
     var flag = Int()//0 is create new. 1 is editing current
     @IBOutlet weak var allExercisesTableView: UITableView!
     
@@ -129,7 +135,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.title = "Editing"
                 
                 let oldWorkoutName = self.workoutName
-                let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your new workout", preferredStyle: UIAlertControllerStyle.alert)
+                let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your edited workout", preferredStyle: UIAlertControllerStyle.alert)
                 
                 let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
                     if let field = nameAlert.textFields?[0]  {
@@ -144,6 +150,9 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                             //create new workout in MyWorkouts
                             self.workoutName = "\(self.month)-\(self.day): \(workoutNameDescr)" //create workout name
                             self.title = self.workoutName
+                            
+                            //use delegate to set previouse view controller title as well
+                            self.delegate?.setNewName(name: self.workoutName)
                             
                             //set up new workout with old info
                             for x in self.thisWorkoutIDList{
@@ -196,8 +205,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //done editing current workout
     @IBAction func doneEditingButton(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
-        vc.workoutTitle = self.workoutName
         self.navigationController?.popViewController(animated: true)
     }
     
