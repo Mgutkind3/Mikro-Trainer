@@ -28,10 +28,12 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var allExerciseNameList = [String]()
 
     var thisWorkoutIDList = [String]()    //location 2
-    var thisWorkoutNameList = [String]()
+    var thisWorkoutNameList = [String]()  //exercises
 
     var currentNameList = [String]()    //whatever current list is
     var currentIDList = [String]()
+    
+    var myPrevWorkouts = [String]() //list of previous workouts
     
     var day = String()
     var month = String()
@@ -140,9 +142,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
                     if let field = nameAlert.textFields?[0]  {
                         
+                        let newName = "\(self.month)-\(self.day): \(field.text!)"
                         //if the user doesnt enter any name request a new name
-                        if field.text! == "" || field.text! == oldWorkoutName{
-                            //put logic to make sure names do not repeat in here
+                        if field.text! == "" || newName == oldWorkoutName || self.myPrevWorkouts.contains(newName) {
+
                             nameAlert.message = "Please use a valid name"
                             self.present(nameAlert, animated: true, completion: nil)
                         }else{

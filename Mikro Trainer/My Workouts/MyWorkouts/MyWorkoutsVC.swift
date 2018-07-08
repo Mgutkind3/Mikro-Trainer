@@ -89,6 +89,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         return myPrevWorkCell
     }
     
+    //go to specific workout page
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             //do nothing
@@ -97,6 +98,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
             vc.workoutTitle = myPreviousWorkouts[indexPath.row]
+            vc.myPrevWorkouts = self.myPreviousWorkouts
             self.navigationController?.pushViewController(vc, animated: true)
 
         }
@@ -110,7 +112,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if let field = nameController.textFields?[0]  {
         
                     //if the user doesnt enter any name request a new name
-                    if field.text! == "" {
+                    if field.text! == "" || self.myPreviousWorkouts.contains("\(self.month)-\(self.day): \(field.text!)") {
                         //put logic to make sure names do not repeat in here
                         nameController.message = "Please use a valid name"
                         self.present(nameController, animated: true, completion: nil)
@@ -120,6 +122,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         let workoutTitleFull = "\(self.month)-\(self.day): \(self.workoutNameToAdd)" //create workout name
                         self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutTitleFull).setValue("")
         
+                        print("count: \(self.myPreviousWorkouts.count)")
                         //go to all exercises page
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC

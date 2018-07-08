@@ -20,6 +20,8 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     var userID = String()
     var workoutExerciseNames = [String]()
     var workoutExerciseIDs = [String]() //for references (order matters)
+    var myPrevWorkouts = [String]()
+    
     @IBOutlet weak var startStopBtn: UIButton!
     var startStopFlag = 0 //0 it should be stopped, 1 it should be in progress
     @IBOutlet weak var rebuildBtnOutlet: UIBarButtonItem!
@@ -127,6 +129,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         vc.thisWorkoutIDList = self.workoutExerciseIDs
         vc.thisWorkoutNameList = self.workoutExerciseNames
         vc.workoutName = self.workoutTitle
+        vc.myPrevWorkouts = self.myPrevWorkouts
         navigationController?.pushViewController(vc, animated: true)
     }
     
