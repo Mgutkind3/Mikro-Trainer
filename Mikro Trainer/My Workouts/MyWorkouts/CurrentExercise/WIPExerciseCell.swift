@@ -18,18 +18,26 @@ class WIPExerciseCell: UITableViewCell {
     @IBOutlet weak var setTxtField: UITextField!
     var delegate: CellCheckDelegate?
     
+    @IBOutlet weak var repsTxtField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    @IBAction func editingStartedAction(_ sender: Any) {
-        print("editing started")
+    @IBAction func repsEditingStarted(_ sender: Any) {
         delegate?.deactivateSave()
     }
+    
+    @IBAction func repsEditingEnded(_ sender: Any) {
+        self.delegate?.checkWeightValidity()
+    }
+    
+    @IBAction func editingStartedAction(_ sender: Any) {
+        delegate?.deactivateSave()
+    }
+    
     @IBAction func editingEndedAct(_ sender: Any) {
-        print("editing ended")
         self.delegate?.checkWeightValidity()
     }
     

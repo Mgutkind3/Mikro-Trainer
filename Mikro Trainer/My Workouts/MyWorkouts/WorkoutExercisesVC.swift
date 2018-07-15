@@ -44,6 +44,8 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
             wExCell.selectionStyle = .default
             wExCell.isUserInteractionEnabled = true
             wExCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            //logic to check the exercise that has been completed
+            
         }
         
         return wExCell
@@ -90,12 +92,12 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     @IBAction func startWorkoutButton(_ sender: Any) {
         if startStopFlag == 0{
             //start logic
-//            print("start")
             startStopBtn.backgroundColor = UIColor.red
             startStopBtn.setTitle("Stop", for: .normal)
             startStopFlag = 1
             self.rebuildBtnOutlet.isEnabled = false
             self.workoutExercisesTableView.reloadData()
+            self.navigationItem.hidesBackButton = true
             
         }else{
             //stop logic
@@ -108,6 +110,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
                 self.startStopFlag = 0
                 self.rebuildBtnOutlet.isEnabled = true
                 self.workoutExercisesTableView.reloadData()
+                self.navigationItem.hidesBackButton = false
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 print("cancel!")
@@ -120,7 +123,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     }
     
 
-    //edit the current workout you are have selected "rebuild"
+    //edit the current workout you are have selected "modify"
     @IBAction func editThisWorkoutList(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC

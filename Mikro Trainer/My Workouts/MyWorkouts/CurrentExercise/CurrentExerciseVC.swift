@@ -18,8 +18,16 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var exerciseSets = 0
     var exerciseReps = 0
     var saveBtnFlag = 0 //deactivated
+    var workoutName = ""
     var ref: DatabaseReference?
     var userID = String()
+    
+    //calendar variables
+    var minute = String()
+    var hour = String()
+    var day = String()
+    var month = String()
+    var year = String()
     
     @IBOutlet weak var WipExCellTableView: UITableView!
     override func viewDidLoad() {
@@ -33,7 +41,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         
         self.title = exerciseTitle
         print("exerciseID: \(exerciseID)")
-        
         
         //get all of the information in regards to this exercise
         getMyExerciseData {
@@ -54,7 +61,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         let wipExCell = self.WipExCellTableView.dequeueReusableCell(withIdentifier: "WipExCell", for: indexPath) as! WIPExerciseCell
         
         wipExCell.setLabel.text = "Set \(indexPath.row)"
-        wipExCell.setTxtField.text = "0.0"
         wipExCell.errorLabel.text = ""
         wipExCell.errorLabel.textColor = UIColor.red
         wipExCell.delegate = self
@@ -62,29 +68,44 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return wipExCell
     }
     
-
+    //save to historical workouts
     @IBAction func saveExerBtn(_ sender: Any) {
         print("saving....")
+        let date = Date()
+        let calendar = Calendar.current
+        self.minute = String(calendar.component(.minute, from: date))
+        self.hour = String(calendar.component(.hour, from: date))
+        self.day = String(calendar.component(.day, from: date))
+        self.month = String(calendar.component(.month, from: date))
+        self.year = String(calendar.component(.year, from: date))
         
+        let timestamp = "\(month)-\(day)-\(year):\(hour):\(minute)"
+        print(timestamp)
+        
+        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(timestamp)").setValue("1")
     }
     
     //function to check users input called in WIPExerciseCell
     func checkWeightValidity(){
         self.saveBtnFlag = 0
         for setsCount in 0...exerciseSets-1{
-            print("sets count: \(setsCount)")
+//            print("sets count: \(setsCount)")
             let index = IndexPath(row: setsCount, section: 0)
             let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: index) as! WIPExerciseCell
             
             //check if inputs only have numbers
-            if let d = Double(cell.setTxtField.text!){
-                print("do something with: \(d)")
+            if (Double(cell.setTxtField.text!) != nil) && (Int(cell.repsTxtField.text!) != nil) {
                 cell.errorLabel.text = ""
             }else{
-                cell.errorLabel.text = "Invalid Number Entry"
-                self.saveBtnFlag = 1
+                if cell.setTxtField.text! == "" && cell.repsTxtField.text! == ""{
+                    cell.errorLabel.text = ""
+                }else{
+                    cell.errorLabel.text = "Invalid Number Entry"
+                    self.saveBtnFlag = 1
+                }
             }
             
+            //activate or deactivate save button
             if saveBtnFlag == 0 {
                 self.saveBtnOutlet.isEnabled = true
             }else{

@@ -306,7 +306,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="dsq-6c-lBi">
-                        <barButtonItem key="rightBarButtonItem" title="Rebuild" id="Mag-Dy-cKg">
+                        <barButtonItem key="rightBarButtonItem" title="Modify" id="Mag-Dy-cKg">
                             <connections>
                                 <action selector="editThisWorkoutList:" destination="dQr-Em-ijU" id="WZk-S8-w1s"/>
                             </connections>
@@ -357,8 +357,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-cm-XGX">
-                                                    <rect key="frame" x="241" y="24" width="97" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEO-8T-MOZ">
+                                                    <rect key="frame" x="15" y="52" width="201" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-cm-XGX">
+                                                    <rect key="frame" x="279" y="24" width="81" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -369,17 +376,22 @@
                                                         <action selector="touchAction:" destination="DNN-Ul-I8A" eventType="touchUpInside" id="r1B-uO-sn5"/>
                                                     </connections>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEO-8T-MOZ">
-                                                    <rect key="frame" x="15" y="52" width="201" height="21"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0B-Os-ccs">
+                                                    <rect key="frame" x="224" y="24" width="47" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <action selector="repsEditingEnded:" destination="DNN-Ul-I8A" eventType="editingDidEnd" id="rS4-IE-had"/>
+                                                        <action selector="repsEditingStarted:" destination="DNN-Ul-I8A" eventType="editingDidBegin" id="161-lA-gjw"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="errorLabel" destination="xEO-8T-MOZ" id="bef-No-wL2"/>
+                                            <outlet property="repsTxtField" destination="a0B-Os-ccs" id="dgl-cK-hN2"/>
                                             <outlet property="setLabel" destination="dNh-Ew-vfS" id="dTH-QQ-grP"/>
                                             <outlet property="setTxtField" destination="BOR-cm-XGX" id="Sd3-py-879"/>
                                         </connections>
@@ -412,7 +424,7 @@
                         <viewLayoutGuide key="safeArea" id="TBF-lm-zkj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="a7h-4a-TK3">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="tup-Yg-tfD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="tup-Yg-tfD">
                             <connections>
                                 <action selector="saveExerBtn:" destination="715-9X-gDc" id="hg6-RE-1fj"/>
                             </connections>

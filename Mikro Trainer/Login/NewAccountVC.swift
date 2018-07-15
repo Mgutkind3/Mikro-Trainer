@@ -73,7 +73,7 @@ class NewAccountVC: UIViewController {
         self.ref?.child("Users").child(self.userID).child("MyExercises").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyFriends").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").setValue("")
-        self.ref?.child("Users").child(self.userID).child("HistoricalWorkouts").setValue("")
+        self.ref?.child("Users").child(self.userID).child("HistoricalExercises").setValue("")
         
     }
     

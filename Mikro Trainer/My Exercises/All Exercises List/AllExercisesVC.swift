@@ -37,6 +37,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var day = String()
     var month = String()
+    var year = String()
     var userID = String()
     var exerciseIDToAdd = String()
     var exerciseNameToAdd = String()
@@ -125,6 +126,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let calendar = Calendar.current
         self.day = String(calendar.component(.day, from: date))
         self.month = String(calendar.component(.month, from: date))
+        self.year = String(calendar.component(.year, from: date))
         
         //function to get all exercises that also gets past exercises done before
         getListOfExercises {
@@ -142,7 +144,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
                     if let field = nameAlert.textFields?[0]  {
                         
-                        let newName = "\(self.month)-\(self.day): \(field.text!)"
+                        let newName = "\(self.month)-\(self.day)-\(self.year): \(field.text!)"
                         //if the user doesnt enter any name request a new name
                         if field.text! == "" || newName == oldWorkoutName || self.myPrevWorkouts.contains(newName) {
 
@@ -151,7 +153,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                         }else{
                             let workoutNameDescr = field.text!
                             //create new workout in MyWorkouts
-                            self.workoutName = "\(self.month)-\(self.day): \(workoutNameDescr)" //create workout name
+                            self.workoutName = "\(self.month)-\(self.day)-\(self.year): \(workoutNameDescr)" //create workout name
                             self.title = self.workoutName
                             
                             //use delegate to set previouse view controller title as well
@@ -349,7 +351,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let workoutDetails = [n, g, e, w ]
                 let workoutFields = ["Name", "MuscleGroup", "ExerciseID", "WorkoutName" ]
                 
-                //add exercise to workout wuth minimal metadata
+                //add exercise to workout with minimal metadata
                for x in workoutFields {
                 self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.workoutName).child("Exercise \(e)").child(x).setValue(workoutDetails[i])
                 i = i + 1

@@ -19,6 +19,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var userID = String()
     var day = String()
     var month = String()
+    var year = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let calendar = Calendar.current
         self.day = String(calendar.component(.day, from: date))
         self.month = String(calendar.component(.month, from: date))
+        self.year = String(calendar.component(.year, from: date))
         
         //set user id and database reference
         self.userID = String(Auth.auth().currentUser!.uid)
@@ -76,8 +78,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         if indexPath.row == 0 {
             myPrevWorkCell.MyPrevWorkoutCellLabel.textColor = UIColor.gray
             myPrevWorkCell.MyPrevWorkoutCellLabel.textAlignment = .center
-//            myPrevWorkCell.MyPrevWorkoutCellLabel.numberOfLines = 0
-//            myPrevWorkCell.MyPrevWorkoutCellLabel.lineBreakMode = .byWordWrapping
             myPrevWorkCell.accessoryType = UITableViewCellAccessoryType.none
             myPrevWorkCell.selectionStyle = .none
             myPrevWorkCell.isUserInteractionEnabled = false
@@ -112,14 +112,14 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if let field = nameController.textFields?[0]  {
         
                     //if the user doesnt enter any name request a new name
-                    if field.text! == "" || self.myPreviousWorkouts.contains("\(self.month)-\(self.day): \(field.text!)") {
+                    if field.text! == "" || self.myPreviousWorkouts.contains("\(self.month)-\(self.day)-\(self.year): \(field.text!)") {
                         //put logic to make sure names do not repeat in here
                         nameController.message = "Please use a valid name"
                         self.present(nameController, animated: true, completion: nil)
                     }else{
                         self.workoutNameToAdd = field.text!
                         //create new workout in MyWorkouts
-                        let workoutTitleFull = "\(self.month)-\(self.day): \(self.workoutNameToAdd)" //create workout name
+                        let workoutTitleFull = "\(self.month)-\(self.day)-\(self.year): \(self.workoutNameToAdd)" //create workout name
                         self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutTitleFull).setValue("")
         
                         print("count: \(self.myPreviousWorkouts.count)")
