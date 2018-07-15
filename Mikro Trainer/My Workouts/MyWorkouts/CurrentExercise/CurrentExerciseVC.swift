@@ -57,10 +57,25 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         return 80
     }
     
+    //if it is not the first item, let it be deleteable
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row != 0 {
+            return .delete
+        }
+        return .none
+    }
+    //delete set
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete{
+            self.exerciseSets = self.exerciseSets-1
+            self.WipExCellTableView.reloadData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let wipExCell = self.WipExCellTableView.dequeueReusableCell(withIdentifier: "WipExCell", for: indexPath) as! WIPExerciseCell
         
-        wipExCell.setLabel.text = "Set \(indexPath.row)"
+        wipExCell.setLabel.text = "Set \(indexPath.row+1)"
         wipExCell.errorLabel.text = ""
         wipExCell.errorLabel.textColor = UIColor.red
         wipExCell.delegate = self
