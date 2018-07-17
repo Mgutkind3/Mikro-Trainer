@@ -18,6 +18,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var exerciseSets = 0
     var exerciseReps = 0
     var saveBtnFlag = 0 //deactivated
+    var deactivateTableFlag = 0 //deactivated
     var workoutName = ""
     var ref: DatabaseReference?
     var userID = String()
@@ -28,12 +29,13 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var day = String()
     var month = String()
     var year = String()
-    
+
+    @IBOutlet weak var addSetBtnOutlet: UIButton!
     @IBOutlet weak var WipExCellTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        self.saveBtnOutlet.isEnabled = false
+        self.addSetBtnOutlet.isEnabled = false
         
         //set user id and database reference
         self.userID = String(Auth.auth().currentUser!.uid)
@@ -64,6 +66,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         return .none
     }
+    
     //delete set
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete{
@@ -80,24 +83,58 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         wipExCell.errorLabel.textColor = UIColor.red
         wipExCell.delegate = self
         
+        //activate or deactivate table based on Start
+        if self.deactivateTableFlag == 0{
+            self.WipExCellTableView.isUserInteractionEnabled = false
+            wipExCell.setLabel.isEnabled = false
+            wipExCell.repsTxtField.isEnabled = false
+            wipExCell.setTxtField.isEnabled = false
+        }else{
+            self.WipExCellTableView.isUserInteractionEnabled = true
+            wipExCell.setLabel.isEnabled = true
+            wipExCell.repsTxtField.isEnabled = true
+            wipExCell.setTxtField.isEnabled = true
+        }
+        
         return wipExCell
     }
     
     //save to historical workouts
+    //now the "start" and "stop" buttons
     @IBAction func saveExerBtn(_ sender: Any) {
         print("saving....")
-        let date = Date()
-        let calendar = Calendar.current
-        self.minute = String(calendar.component(.minute, from: date))
-        self.hour = String(calendar.component(.hour, from: date))
-        self.day = String(calendar.component(.day, from: date))
-        self.month = String(calendar.component(.month, from: date))
-        self.year = String(calendar.component(.year, from: date))
         
-        let timestamp = "\(month)-\(day)-\(year):\(hour):\(minute)"
-        print(timestamp)
+        if self.saveBtnOutlet.title == "Start"{
+            print("start")
+            self.navigationItem.hidesBackButton = true
+            self.addSetBtnOutlet.isEnabled = true
+            self.saveBtnOutlet.title = "Stop"
+            self.deactivateTableFlag = 1
+            self.WipExCellTableView.reloadData()
+            //make the uitable view touchable
+        }else{
+            print("stop")
+            self.navigationItem.hidesBackButton = false
+            self.addSetBtnOutlet.isEnabled = false
+            self.saveBtnOutlet.title = "Start"
+            self.deactivateTableFlag = 0
+            self.WipExCellTableView.reloadData()
+            //make the uitable view untouchable
+            //have this save to firebase
+        }
         
-        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(timestamp)").setValue("1")
+//        let date = Date()
+//        let calendar = Calendar.current
+//        self.minute = String(calendar.component(.minute, from: date))
+//        self.hour = String(calendar.component(.hour, from: date))
+//        self.day = String(calendar.component(.day, from: date))
+//        self.month = String(calendar.component(.month, from: date))
+//        self.year = String(calendar.component(.year, from: date))
+//
+//        let timestamp = "\(month)-\(day)-\(year):\(hour):\(minute)"
+//        print(timestamp)
+//
+//        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(timestamp)").setValue("1")
     }
     
     //function to check users input called in WIPExerciseCell
@@ -133,11 +170,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //called from WIPExerciseCell to deactivate save button during editing
     func deactivateSave(){
         self.saveBtnOutlet.isEnabled = false
-    }
-    
-    //might not need this
-    @IBAction func finishExerciseBtn(_ sender: Any) {
-        
     }
     
     //append a set

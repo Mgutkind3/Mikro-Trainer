@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -332,15 +333,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fh9-Bv-RxY">
-                                <rect key="frame" x="136.5" y="637" width="102" height="30"/>
-                                <state key="normal" title="Finish Exercise"/>
-                                <connections>
-                                    <action selector="finishExerciseBtn:" destination="715-9X-gDc" eventType="touchUpInside" id="qNC-wp-wMM"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l3e-Ui-YvG">
-                                <rect key="frame" x="0.0" y="94" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="573"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WipExCell" rowHeight="80" id="DNN-Ul-I8A" customClass="WIPExerciseCell" customModule="Mikro_Trainer" customModuleProvider="target">
@@ -350,23 +344,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNh-Ew-vfS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNh-Ew-vfS">
                                                     <rect key="frame" x="15" y="29" width="127" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEO-8T-MOZ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xEO-8T-MOZ">
                                                     <rect key="frame" x="15" y="52" width="201" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-cm-XGX">
+                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Weight" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-cm-XGX">
                                                     <rect key="frame" x="279" y="24" width="81" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="81" id="cZR-0a-9DT"/>
+                                                    </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -376,9 +370,11 @@
                                                         <action selector="touchAction:" destination="DNN-Ul-I8A" eventType="touchUpInside" id="r1B-uO-sn5"/>
                                                     </connections>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0B-Os-ccs">
+                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Reps" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a0B-Os-ccs">
                                                     <rect key="frame" x="224" y="24" width="47" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="47" id="RWr-Wy-XfT"/>
+                                                    </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -388,6 +384,18 @@
                                                     </connections>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="BOR-cm-XGX" secondAttribute="trailing" constant="-1" id="79p-8B-de7"/>
+                                                <constraint firstItem="a0B-Os-ccs" firstAttribute="leading" secondItem="xEO-8T-MOZ" secondAttribute="trailing" constant="8" symbolic="YES" id="Cwf-A4-yPv"/>
+                                                <constraint firstItem="dNh-Ew-vfS" firstAttribute="leading" secondItem="hCx-YA-TlQ" secondAttribute="leadingMargin" constant="-1" id="GSo-O1-4JG"/>
+                                                <constraint firstItem="dNh-Ew-vfS" firstAttribute="centerY" secondItem="a0B-Os-ccs" secondAttribute="centerY" id="ISq-vX-taA"/>
+                                                <constraint firstItem="BOR-cm-XGX" firstAttribute="leading" secondItem="a0B-Os-ccs" secondAttribute="trailing" constant="8" symbolic="YES" id="JVj-kD-YoB"/>
+                                                <constraint firstItem="a0B-Os-ccs" firstAttribute="baseline" secondItem="BOR-cm-XGX" secondAttribute="baseline" id="aK6-Lm-gNB"/>
+                                                <constraint firstItem="xEO-8T-MOZ" firstAttribute="top" secondItem="dNh-Ew-vfS" secondAttribute="bottom" constant="2" id="jza-Tg-Ghd"/>
+                                                <constraint firstItem="a0B-Os-ccs" firstAttribute="centerY" secondItem="hCx-YA-TlQ" secondAttribute="centerY" id="mCK-Rr-AMl"/>
+                                                <constraint firstItem="dNh-Ew-vfS" firstAttribute="leading" secondItem="xEO-8T-MOZ" secondAttribute="leading" id="pii-RM-sFv"/>
+                                                <constraint firstItem="a0B-Os-ccs" firstAttribute="leading" secondItem="dNh-Ew-vfS" secondAttribute="trailing" constant="82" id="tE7-8S-bKv"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="errorLabel" destination="xEO-8T-MOZ" id="bef-No-wL2"/>
@@ -403,7 +411,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBr-gz-c72">
-                                <rect key="frame" x="159.5" y="64" width="55" height="30"/>
+                                <rect key="frame" x="160" y="64" width="55" height="30"/>
                                 <state key="normal" title="Add Set"/>
                                 <connections>
                                     <action selector="addSetButton:" destination="715-9X-gDc" eventType="touchUpInside" id="CSf-7a-V92"/>
@@ -413,18 +421,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="l3e-Ui-YvG" firstAttribute="top" secondItem="tBr-gz-c72" secondAttribute="bottom" id="BGB-Ef-p86"/>
-                            <constraint firstItem="Fh9-Bv-RxY" firstAttribute="top" secondItem="l3e-Ui-YvG" secondAttribute="bottom" id="HQf-ar-NjN"/>
                             <constraint firstItem="l3e-Ui-YvG" firstAttribute="trailing" secondItem="TBF-lm-zkj" secondAttribute="trailing" id="WU4-Mo-2Ev"/>
-                            <constraint firstItem="Fh9-Bv-RxY" firstAttribute="centerX" secondItem="nh0-lI-ZkI" secondAttribute="centerX" id="b9H-oJ-eoA"/>
                             <constraint firstItem="tBr-gz-c72" firstAttribute="top" secondItem="TBF-lm-zkj" secondAttribute="top" id="bKJ-q7-2RO"/>
                             <constraint firstItem="tBr-gz-c72" firstAttribute="centerX" secondItem="nh0-lI-ZkI" secondAttribute="centerX" id="fdM-hg-CNq"/>
                             <constraint firstItem="l3e-Ui-YvG" firstAttribute="leading" secondItem="TBF-lm-zkj" secondAttribute="leading" id="qyC-Lb-uil"/>
-                            <constraint firstItem="Fh9-Bv-RxY" firstAttribute="bottom" secondItem="TBF-lm-zkj" secondAttribute="bottom" id="yTY-Fj-7rg"/>
+                            <constraint firstItem="l3e-Ui-YvG" firstAttribute="bottom" secondItem="TBF-lm-zkj" secondAttribute="bottom" id="wZc-Ef-6WY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TBF-lm-zkj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="a7h-4a-TK3">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="tup-Yg-tfD">
+                        <barButtonItem key="rightBarButtonItem" title="Start" id="tup-Yg-tfD">
                             <connections>
                                 <action selector="saveExerBtn:" destination="715-9X-gDc" id="hg6-RE-1fj"/>
                             </connections>
@@ -433,6 +439,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="WipExCellTableView" destination="l3e-Ui-YvG" id="yzH-Qk-Aed"/>
+                        <outlet property="addSetBtnOutlet" destination="tBr-gz-c72" id="Gj9-G2-XqX"/>
                         <outlet property="saveBtnOutlet" destination="tup-Yg-tfD" id="0Ol-4n-M1B"/>
                     </connections>
                 </viewController>
