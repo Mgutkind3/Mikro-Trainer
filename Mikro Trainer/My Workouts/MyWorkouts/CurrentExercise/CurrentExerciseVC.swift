@@ -23,6 +23,10 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var ref: DatabaseReference?
     var userID = String()
     
+    //lists to keep track of weights and reps
+    var setsWeightDict: [String: String] = [:]
+    var repsDict: [String: String] = [:]
+    
     //calendar variables
     var minute = String()
     var hour = String()
@@ -51,6 +55,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return self.exerciseSets
     }
     
@@ -70,8 +75,16 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //delete set
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete{
+            let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: indexPath) as! WIPExerciseCell
             self.exerciseSets = self.exerciseSets-1
+            //delete the data if the set was deleted
+            cell.repsTxtField.text = ""
+            cell.setTxtField.text = ""
             self.WipExCellTableView.reloadData()
+            self.repsDict[String(indexPath.row)] = ""
+            self.setsWeightDict[String(indexPath.row)] = ""
+            //delete from firebase eventually
+            
         }
     }
     
@@ -102,26 +115,41 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //save to historical workouts
     //now the "start" and "stop" buttons
     @IBAction func saveExerBtn(_ sender: Any) {
-        print("saving....")
         
         if self.saveBtnOutlet.title == "Start"{
             print("start")
             self.navigationItem.hidesBackButton = true
             self.addSetBtnOutlet.isEnabled = true
             self.saveBtnOutlet.title = "Stop"
+            //make the uitable view touchable
             self.deactivateTableFlag = 1
             self.WipExCellTableView.reloadData()
-            //make the uitable view touchable
+
         }else{
             print("stop")
             self.navigationItem.hidesBackButton = false
             self.addSetBtnOutlet.isEnabled = false
             self.saveBtnOutlet.title = "Start"
+            //make the uitable view untouchable
             self.deactivateTableFlag = 0
             self.WipExCellTableView.reloadData()
-            //make the uitable view untouchable
+            
             //have this save to firebase
+            print("saving....")
+            let uniqueID = Database.database().reference().childByAutoId()
+            print("unique id: \(uniqueID.key)")
+            
+            //working
+            for x in self.setsWeightDict{
+                print("key: \(x.key), value(sets): \(x.value)")
+            }
+            for y in self.repsDict{
+                print("key: \(y.key), value(reps): \(y.value)")
+            }
+//            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(uniqueID.key)").setValue("1")
         }
+        
+
         
 //        let date = Date()
 //        let calendar = Calendar.current
@@ -148,7 +176,12 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             //check if inputs only have numbers
             if (Double(cell.setTxtField.text!) != nil) && (Int(cell.repsTxtField.text!) != nil) {
                 cell.errorLabel.text = ""
+                //add weight lifted and reps to dictionaries
+                self.setsWeightDict[String(setsCount)] = cell.setTxtField.text!
+                self.repsDict[String(setsCount)] = cell.repsTxtField.text!
+
             }else{
+                //dont display error if value is null. just dont add it to the array.
                 if cell.setTxtField.text! == "" && cell.repsTxtField.text! == ""{
                     cell.errorLabel.text = ""
                 }else{
