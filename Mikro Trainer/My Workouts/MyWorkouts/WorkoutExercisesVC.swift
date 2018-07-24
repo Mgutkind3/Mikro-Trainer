@@ -111,6 +111,9 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
                 self.rebuildBtnOutlet.isEnabled = true
                 self.workoutExercisesTableView.reloadData()
                 self.navigationItem.hidesBackButton = false
+                //set flag that workouts has started to deactivated
+                UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
+                UserDefaults.standard.set("", forKey: flags.uniqueID)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 print("cancel!")

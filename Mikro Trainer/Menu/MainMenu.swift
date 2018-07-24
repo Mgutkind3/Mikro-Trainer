@@ -30,6 +30,8 @@ class MainMenu: UIViewController {
     //function to make the user sign in if they havent signed in yet
     override func viewDidAppear(_ animated: Bool) {
         if sessionLoginBool == false {
+            //set flag that workouts has started to deactivated
+            UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC

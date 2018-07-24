@@ -10,6 +10,12 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+//set flag in local storage
+struct flags{
+    static let hasStartedFlag = "0" //deactivated
+    static let uniqueID = ""
+}
+
 class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CellCheckDelegate {
     
     @IBOutlet weak var saveBtnOutlet: UIBarButtonItem!
@@ -22,12 +28,14 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var workoutName = ""
     var ref: DatabaseReference?
     var userID = String()
+    var uniqueIDString = String()
     
     //lists to keep track of weights and reps
     var setsWeightDict: [String: String] = [:]
     var repsDict: [String: String] = [:]
     
     //calendar variables
+    var second = String()
     var minute = String()
     var hour = String()
     var day = String()
@@ -55,7 +63,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.exerciseSets
     }
     
@@ -108,7 +115,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             wipExCell.repsTxtField.isEnabled = true
             wipExCell.setTxtField.isEnabled = true
         }
-        
         return wipExCell
     }
     
@@ -124,7 +130,39 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             //make the uitable view touchable
             self.deactivateTableFlag = 1
             self.WipExCellTableView.reloadData()
+            
+            //started workout flag set to
+            if let continueFlag =  UserDefaults.standard.string(forKey: flags.hasStartedFlag){
+                if continueFlag == "0"{
+                    UserDefaults.standard.set("1", forKey: flags.hasStartedFlag)
+                    print("set started string to: \(UserDefaults.standard.string(forKey: flags.hasStartedFlag) as Any)")
+                    
+//                    let uniqueID = Database.database().reference().childByAutoId()
+                    //generate timestamp
+                    let date = Date()
+                    let calendar = Calendar.current
+                    self.second = String(calendar.component(.second, from: date))
+                    self.minute = String(calendar.component(.minute, from: date))
+                    self.hour = String(calendar.component(.hour, from: date))
+                    self.day = String(calendar.component(.day, from: date))
+                    self.month = String(calendar.component(.month, from: date))
+                    self.year = String(calendar.component(.year, from: date))
+                    
+                    let timestamp = "\(month)-\(day)-\(year):\(hour):\(minute):\(second)"
+                    UserDefaults.standard.set(timestamp, forKey: flags.uniqueID)
+                    self.uniqueIDString = timestamp
+                    print("unique id: \(self.uniqueIDString)")
+                }else{
+                    //continuing workout
+                    print("continue flag: \(continueFlag)")
+                    print("unique string: \(self.uniqueIDString)")
+                    //retrieve data in regards to every set
+                }
+            }else{
+                print("workout has been started already")
+            }
 
+            
         }else{
             print("stop")
             self.navigationItem.hidesBackButton = false
@@ -136,8 +174,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             
             //have this save to firebase
             print("saving....")
-            let uniqueID = Database.database().reference().childByAutoId()
-            print("unique id: \(uniqueID.key)")
             
             //working
             for x in self.setsWeightDict{
@@ -146,21 +182,17 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             for y in self.repsDict{
                 print("key: \(y.key), value(reps): \(y.value)")
             }
-//            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(uniqueID.key)").setValue("1")
+            
+            if let tmp = UserDefaults.standard.string(forKey: flags.uniqueID){
+                self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)").setValue("1")
+            }else{
+                print("couldnt make the child node")
+            }
+
         }
         
 
-        
-//        let date = Date()
-//        let calendar = Calendar.current
-//        self.minute = String(calendar.component(.minute, from: date))
-//        self.hour = String(calendar.component(.hour, from: date))
-//        self.day = String(calendar.component(.day, from: date))
-//        self.month = String(calendar.component(.month, from: date))
-//        self.year = String(calendar.component(.year, from: date))
-//
-//        let timestamp = "\(month)-\(day)-\(year):\(hour):\(minute)"
-//        print(timestamp)
+    
 //
 //        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(timestamp)").setValue("1")
     }
