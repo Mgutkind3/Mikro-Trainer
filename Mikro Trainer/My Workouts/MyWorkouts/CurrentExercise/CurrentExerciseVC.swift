@@ -87,10 +87,26 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             //delete the data if the set was deleted
             cell.repsTxtField.text = ""
             cell.setTxtField.text = ""
+            //if row is deleted and move row below it then move their values as well
+//            if indexPath.row == self.exerciseSets{
+//                print("nothing below it. indexpath + 1 = \(indexPath.row) and sets = \(self.exerciseSets)")
+//            }else{
+//                let cellsBelow = self.exerciseSets-indexPath.row
+//                let x = false
+//                while x == false
+//                for x in indexPath.row+1...cellsBelow{
+//                    let index = IndexPath(row: x, section: 0)
+//                    let cellSwitch: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: index) as! WIPExerciseCell
+//                    cellSwitch.repsTxtField
+//                }
+//                print("Something below it indexpath + 1 = \(indexPath.row) and sets = \(self.exerciseSets)")
+//            }
             self.WipExCellTableView.reloadData()
             self.repsDict[String(indexPath.row)] = ""
             self.setsWeightDict[String(indexPath.row)] = ""
             //delete from firebase eventually
+            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(self.uniqueIDString)/sets_reps/\(indexPath.row+1)").setValue(nil)
+
             
         }
     }
@@ -135,7 +151,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             if let continueFlag =  UserDefaults.standard.string(forKey: flags.hasStartedFlag){
                 if continueFlag == "0"{
                     UserDefaults.standard.set("1", forKey: flags.hasStartedFlag)
-                    print("set started string to: \(UserDefaults.standard.string(forKey: flags.hasStartedFlag) as Any)")
+//                    print("set started string to: \(UserDefaults.standard.string(forKey: flags.hasStartedFlag) as Any)")
                     
 //                    let uniqueID = Database.database().reference().childByAutoId()
                     //generate timestamp
@@ -175,26 +191,32 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             //have this save to firebase
             print("saving....")
             
-            //working
-            for x in self.setsWeightDict{
-                print("key: \(x.key), value(sets): \(x.value)")
-            }
-            for y in self.repsDict{
-                print("key: \(y.key), value(reps): \(y.value)")
-            }
-            
             if let tmp = UserDefaults.standard.string(forKey: flags.uniqueID){
-                self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)").setValue("1")
+                
+                //check all the sets
+                for q in 0...self.exerciseSets-1{
+                    if (self.setsWeightDict[String(q)] != nil) && self.repsDict[String(q)] != nil {
+                        //save the date
+                        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/Date").setValue(tmp)
+                        
+                        print(" weight: \(String(describing: self.setsWeightDict[String(q)])) and reps: \(String(describing: self.repsDict[String(q)])) at: \(q)")
+                        
+                        let setInfo = ["weight","reps","set"]
+                        let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(q+1)]
+
+                        //store set metadata
+                        for x in setInfo{
+                            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(q+1)/\(x)").setValue("\(dataDict[x] as! String)")
+                        }
+                    }
+                    //dont ever reach here
+
+                }
             }else{
                 print("couldnt make the child node")
             }
 
         }
-        
-
-    
-//
-//        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(timestamp)").setValue("1")
     }
     
     //function to check users input called in WIPExerciseCell
@@ -216,6 +238,8 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                 //dont display error if value is null. just dont add it to the array.
                 if cell.setTxtField.text! == "" && cell.repsTxtField.text! == ""{
                     cell.errorLabel.text = ""
+                    self.setsWeightDict[String(setsCount)] = cell.setTxtField.text!
+                    self.repsDict[String(setsCount)] = cell.repsTxtField.text!
                 }else{
                     cell.errorLabel.text = "Invalid Number Entry"
                     self.saveBtnFlag = 1
