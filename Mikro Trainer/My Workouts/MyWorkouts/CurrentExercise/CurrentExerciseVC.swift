@@ -73,41 +73,47 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //if it is not the first item, let it be deleteable
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.row != 0 {
             return .delete
-        }
-        return .none
     }
     
     //delete set
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete{
-            let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: indexPath) as! WIPExerciseCell
-            self.exerciseSets = self.exerciseSets-1
-            //delete the data if the set was deleted
-            cell.repsTxtField.text = ""
-            cell.setTxtField.text = ""
+//            let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: indexPath) as! WIPExerciseCell
+            
             //if row is deleted and move row below it then move their values as well
-//            if indexPath.row == self.exerciseSets{
-//                print("nothing below it. indexpath + 1 = \(indexPath.row) and sets = \(self.exerciseSets)")
-//            }else{
-//                let cellsBelow = self.exerciseSets-indexPath.row
-//                let x = false
-//                while x == false
-//                for x in indexPath.row+1...cellsBelow{
-//                    let index = IndexPath(row: x, section: 0)
-//                    let cellSwitch: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: index) as! WIPExerciseCell
-//                    cellSwitch.repsTxtField
-//                }
-//                print("Something below it indexpath + 1 = \(indexPath.row) and sets = \(self.exerciseSets)")
-//            }
+            if (self.exerciseSets-(indexPath.row+1)) == 0{
+//                print("nothing underneath it, sets:\(self.exerciseSets), indexPath.row: \(indexPath.row)")
+            }else{
+//                print("something underneath it, sets:\(self.exerciseSets), indexPath.row: \(indexPath.row)")
+
+                //logic to move values up into the deleted slot
+                var i = indexPath.row
+                for _ in (indexPath.row+2)...self.exerciseSets{
+                    //cell 1
+                    let cell1Index = IndexPath(row: i, section: 0)
+                    let cell1: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: cell1Index) as! WIPExerciseCell
+                    //cell 2
+                    let cell2Index = IndexPath(row: i+1, section: 0)
+                    let cell2: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: cell2Index) as! WIPExerciseCell
+                    //move values
+                    cell1.setTxtField.text = cell2.setTxtField.text
+                    cell1.repsTxtField.text = cell2.repsTxtField.text
+                    i = i+1
+                }
+            }
+            
+            //delete entire sets_reps node
+            checkWeightValidity()
+            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(self.uniqueIDString)/sets_reps").setValue(nil)
+            //delete the data if the set was deleted
+            self.exerciseSets = self.exerciseSets-1
             self.WipExCellTableView.reloadData()
             self.repsDict[String(indexPath.row)] = ""
             self.setsWeightDict[String(indexPath.row)] = ""
             //delete from firebase eventually
             self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(self.uniqueIDString)/sets_reps/\(indexPath.row+1)").setValue(nil)
 
-            
         }
     }
     
@@ -187,35 +193,38 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
             //make the uitable view untouchable
             self.deactivateTableFlag = 0
             self.WipExCellTableView.reloadData()
+            self.checkWeightValidity()
             
             //have this save to firebase
             print("saving....")
+            saveSetData()
+        }
+    }
+    
+    //function to save specific set metadat (reps,sets, etc...)
+    func saveSetData(){
+        if let tmp = UserDefaults.standard.string(forKey: flags.uniqueID){
             
-            if let tmp = UserDefaults.standard.string(forKey: flags.uniqueID){
-                
-                //check all the sets
-                for q in 0...self.exerciseSets-1{
-                    if (self.setsWeightDict[String(q)] != nil) && self.repsDict[String(q)] != nil {
-                        //save the date
-                        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/Date").setValue(tmp)
-                        
-                        print(" weight: \(String(describing: self.setsWeightDict[String(q)])) and reps: \(String(describing: self.repsDict[String(q)])) at: \(q)")
-                        
-                        let setInfo = ["weight","reps","set"]
-                        let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(q+1)]
-
-                        //store set metadata
-                        for x in setInfo{
-                            self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(q+1)/\(x)").setValue("\(dataDict[x] as! String)")
-                        }
+            //check all the sets
+            for q in 0...self.exerciseSets-1{
+                if (self.setsWeightDict[String(q)] != nil) && self.repsDict[String(q)] != nil {
+                    //save the date
+                    self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/Date").setValue(tmp)
+                    
+                    print(" weight: \(String(describing: self.setsWeightDict[String(q)])) and reps: \(String(describing: self.repsDict[String(q)])) at: \(q)")
+                    
+                    let setInfo = ["weight","reps","set"]
+                    let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(q+1)]
+                    
+                    //store set metadata
+                    for x in setInfo{
+                        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(q+1)/\(x)").setValue("\(dataDict[x] as! String)")
                     }
-                    //dont ever reach here
-
                 }
-            }else{
-                print("couldnt make the child node")
+                //dont ever reach here
             }
-
+        }else{
+            print("couldnt make the child node")
         }
     }
     
@@ -264,6 +273,11 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //append a set
     @IBAction func addSetButton(_ sender: Any) {
         self.exerciseSets = self.exerciseSets + 1
+        self.WipExCellTableView.reloadData()
+        let newItem = IndexPath(row: self.exerciseSets-1, section: 0)
+        let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: newItem) as! WIPExerciseCell
+        cell.setTxtField.text = ""
+        cell.repsTxtField.text = ""
         self.WipExCellTableView.reloadData()
     }
     
