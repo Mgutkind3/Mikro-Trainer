@@ -29,6 +29,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var ref: DatabaseReference?
     var userID = String()
     var uniqueIDString = String()
+    var actualSetCount = 0
     
     //lists to keep track of weights and reps
     var setsWeightDict: [String: String] = [:]
@@ -204,22 +205,24 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //function to save specific set metadat (reps,sets, etc...)
     func saveSetData(){
         if let tmp = UserDefaults.standard.string(forKey: flags.uniqueID){
-            
+            self.actualSetCount = 0
             //check all the sets
             for q in 0...self.exerciseSets-1{
-                if (self.setsWeightDict[String(q)] != nil) && self.repsDict[String(q)] != nil {
+                if (self.setsWeightDict[String(q)] != "") && self.repsDict[String(q)] != "" {
+                    self.actualSetCount = self.actualSetCount+1
                     //save the date
                     self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/Date").setValue(tmp)
                     
                     print(" weight: \(String(describing: self.setsWeightDict[String(q)])) and reps: \(String(describing: self.repsDict[String(q)])) at: \(q)")
                     
                     let setInfo = ["weight","reps","set"]
-                    let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(q+1)]
+                    let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(self.actualSetCount)]
                     
                     //store set metadata
                     for x in setInfo{
-                        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(q+1)/\(x)").setValue("\(dataDict[x] as! String)")
+                        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(self.actualSetCount)/\(x)").setValue("\(dataDict[x] as! String)")
                     }
+
                 }
                 //dont ever reach here
             }
