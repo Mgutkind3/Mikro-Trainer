@@ -48,6 +48,37 @@ extension CurrentExerciseVC {
                         self.exerciseSets = Int(sets)!
                     }
                 
+                self.prevRepsList.removeAll()
+                self.prevWeightList.removeAll()
+                completion()
+            }else{
+                //no response
+                print("no response")
+                completion()
+            }
+        })
+        
+    }
+
+
+    //function to retrieve specific set placeholders
+    func getSpecificRepsSetsData(completion: @escaping ()->()){
+        self.prevRepsList.removeAll()
+        self.prevWeightList.removeAll()
+        self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(self.mostRecentTimestamp)/sets_reps").observeSingleEvent(of: .value, with: { snapshot in
+            if let dict = snapshot.value as? NSObject{
+                if let obj = dict as? NSArray{
+                    for key in obj {
+                        if let spec = key as? NSDictionary{
+                            self.prevRepsList.append(spec["reps"] as! String)
+//                            print("reps: \(spec["reps"] as! String)")
+                            self.prevWeightList.append(spec["weight"] as! String)
+//                            print("weight: \(spec["weight"] as! String)")
+                        }
+//                        print("obj: \(key)")
+                    }
+                }
+
                 completion()
             }else{
                 //no response

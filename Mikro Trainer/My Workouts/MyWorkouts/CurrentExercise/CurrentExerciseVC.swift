@@ -30,10 +30,15 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     var userID = String()
     var uniqueIDString = String()
     var actualSetCount = 0
+    var mostRecentTimestamp = ""
     
     //lists to keep track of weights and reps
     var setsWeightDict: [String: String] = [:]
     var repsDict: [String: String] = [:]
+    
+    //list to keep rep and weight place holders
+    var prevWeightList = [String]()
+    var prevRepsList = [String]()
     
     //calendar variables
     var second = String()
@@ -54,8 +59,20 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         self.userID = String(Auth.auth().currentUser!.uid)
         ref = Database.database().reference()
         
+        //get most recent workout data
+        self.getMostRecentExercise {
+            //call function to set placeholders with previous info
+            if self.mostRecentTimestamp == ""{
+                //do nothing
+            }else{
+                self.getSpecificRepsSetsData {
+                    print("kinda done")
+                }
+                //retrieve last values placeholders
+            }
+        }
+        
         self.title = exerciseTitle
-        print("exerciseID: \(exerciseID)")
         
         //get all of the information in regards to this exercise
         getMyExerciseData {
@@ -80,7 +97,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     //delete set
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete{
-//            let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: indexPath) as! WIPExerciseCell
             
             //if row is deleted and move row below it then move their values as well
             if (self.exerciseSets-(indexPath.row+1)) == 0{
@@ -118,6 +134,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     }
     
+    //set up each specific row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let wipExCell = self.WipExCellTableView.dequeueReusableCell(withIdentifier: "WipExCell", for: indexPath) as! WIPExerciseCell
         
@@ -125,6 +142,16 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         wipExCell.errorLabel.text = ""
         wipExCell.errorLabel.textColor = UIColor.red
         wipExCell.delegate = self
+        
+        //if never done before dont pre-populate placeholders
+        if self.prevRepsList.count == 0 {
+            //nothing
+        }else{
+            print("prevReps count= \(self.prevRepsList.count)")
+            print("indexPath.row2: \(indexPath.row)")
+            wipExCell.setTxtField.placeholder = prevWeightList[indexPath.row]
+            wipExCell.repsTxtField.placeholder = prevRepsList[indexPath.row]
+        }
         
         //activate or deactivate table based on Start
         if self.deactivateTableFlag == 0{
@@ -218,7 +245,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                     let setInfo = ["weight","reps","set"]
                     let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(self.actualSetCount)]
                     
-                    //store set metadata
+                    //store set metadata in historical
                     for x in setInfo{
                         self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(self.actualSetCount)/\(x)").setValue("\(dataDict[x] as! String)")
                     }

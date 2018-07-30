@@ -42,7 +42,7 @@ extension AllExercisesVC {
         })
     }
     
-    //fucntion to get the exercises in my list
+    //fucntion to get the exercises in 'my' list
     func getMyList(completion: @escaping ()->()){
         self.ref?.child("Users/\(self.userID)/MyExercises").observeSingleEvent(of: .value, with: { snapshot in
             //populate array with all my exercises if value is not null. if null return and dont fail
