@@ -40,13 +40,13 @@ extension CurrentExerciseVC{
 func makeDate(timestampString: String) -> Date {
     let dateFormatter = DateFormatter()
     
-    print("making date")
+//    print("making date")
     dateFormatter.dateFormat = "M-d-yyyy:H:m:s"
     dateFormatter.timeZone = TimeZone.current
     guard let date = dateFormatter.date(from: timestampString) else {
         fatalError("ERROR: Date conversion failed due to mismatched format.")
     }
-    print("Post converted date: \(date)")
+//    print("Post converted date: \(date)")
     return date
 }
 

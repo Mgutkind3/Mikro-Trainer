@@ -66,18 +66,49 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                 //do nothing
             }else{
                 self.getSpecificRepsSetsData {
-                    print("kinda done")
+                    print("done")
                 }
                 //retrieve last values placeholders
             }
         }
         
         self.title = exerciseTitle
-        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         //get all of the information in regards to this exercise
         getMyExerciseData {
             self.WipExCellTableView.reloadData()
+            
+            if self.exerciseSets != 0 {
+            for setsCount in 0...self.exerciseSets-1{
+                let index = IndexPath(row: setsCount, section: 0)
+                let cell: WIPExerciseCell = self.WipExCellTableView.cellForRow(at: index) as! WIPExerciseCell
+                
+                //if never done before dont pre-populate placeholders
+                if self.prevRepsList.count == 0 {
+                //nothing
+            }else{
+                print("prevReps count= \(self.prevRepsList.count)")
+                print("indexPath.row2: \(setsCount)")
+                    //if the exercise was already completed for this workout set the value not the placeholder
+                    if let continueFlag =  UserDefaults.standard.string(forKey: flags.hasStartedFlag){
+                        if continueFlag == "0"{
+                            cell.setTxtField.placeholder = self.prevWeightList[setsCount]
+                            cell.repsTxtField.placeholder = self.prevRepsList[setsCount]
+                        }else{
+                            cell.setTxtField.text = self.prevWeightList[setsCount]
+                            cell.repsTxtField.text = self.prevRepsList[setsCount]
+                        }
+                        
+                    }
+                }
+            }
+                self.WipExCellTableView.reloadData()
+            }
         }
+            
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,7 +122,12 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //if it is not the first item, let it be deleteable
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.row == 0 {
+            return .none
+        }else{
             return .delete
+        }
+
     }
     
     //delete set
@@ -143,15 +179,6 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         wipExCell.errorLabel.textColor = UIColor.red
         wipExCell.delegate = self
         
-        //if never done before dont pre-populate placeholders
-        if self.prevRepsList.count == 0 {
-            //nothing
-        }else{
-            print("prevReps count= \(self.prevRepsList.count)")
-            print("indexPath.row2: \(indexPath.row)")
-            wipExCell.setTxtField.placeholder = prevWeightList[indexPath.row]
-            wipExCell.repsTxtField.placeholder = prevRepsList[indexPath.row]
-        }
         
         //activate or deactivate table based on Start
         if self.deactivateTableFlag == 0{
@@ -203,10 +230,16 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                     self.uniqueIDString = timestamp
                     print("unique id: \(self.uniqueIDString)")
                 }else{
+//                    print("testing: \(UserDefaults.standard.string(forKey: flags.uniqueID))")
+                    self.uniqueIDString = (UserDefaults.standard.string(forKey: flags.uniqueID))!
+                        print("continue flag: \(continueFlag)")
+                        print("unique string: \(self.uniqueIDString)")
+                        //retrieve data in regards to every set
+//                    } else {
+//                        print("problem fetching unique string")
+//                    }
                     //continuing workout
-                    print("continue flag: \(continueFlag)")
-                    print("unique string: \(self.uniqueIDString)")
-                    //retrieve data in regards to every set
+
                 }
             }else{
                 print("workout has been started already")
@@ -245,6 +278,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                     let setInfo = ["weight","reps","set"]
                     let dataDict = ["weight": self.setsWeightDict[String(q)], "reps":self.repsDict[String(q)], "set": String(self.actualSetCount)]
                     
+                    
                     //store set metadata in historical
                     for x in setInfo{
                         self.ref?.child("Users/\(self.userID)/HistoricalExercises/Completed \(self.exerciseID)/\(tmp)/sets_reps/\(self.actualSetCount)/\(x)").setValue("\(dataDict[x] as! String)")
@@ -252,6 +286,21 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
 
                 }
                 //dont ever reach here
+            }
+            
+            //never let there be no sets
+            if self.actualSetCount == 0{
+                self.actualSetCount = 1
+            }
+            
+            //save data in myExercises
+            let workoutDetails = [self.exerciseTitle, self.uniqueIDString, String(self.actualSetCount), self.exerciseID ] as [Any]
+            let workoutFields = ["Name", "Timestamp", "BaseSets", "ExerciseID" ]
+            var i = 0
+            for x in workoutFields {
+                //make my list customizeable/yet gets original info from Exercises Branch
+                self.ref?.child("Users").child(self.userID).child("MyExercises").child("My Exercise \(self.exerciseID)").child(x).setValue(workoutDetails[i])
+                i=i+1
             }
         }else{
             print("couldnt make the child node")
