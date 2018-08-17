@@ -12,7 +12,7 @@ import FirebaseDatabase
 
 //delegate for myWorkoutExercisesVC
 protocol WorkoutNamesDelegate{
-    func setNewName(name: String)
+    func setNewName(name: String, fullName: String)
 }
 
 class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -75,7 +75,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //returns the row that was selected and reacts somehow
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
+        vc.exerciseTitle = self.currentNameList[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     //dont let seg control sections 0 and 1 delete cells
@@ -154,10 +157,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                             let workoutNameDescr = field.text!
                             //create new workout in MyWorkouts
                             self.workoutName = "\(self.month)-\(self.day)-\(self.year): \(workoutNameDescr)" //create workout name
-                            self.title = self.workoutName
+                            self.title = workoutNameDescr
                             
                             //use delegate to set previouse view controller title as well
-                            self.delegate?.setNewName(name: self.workoutName)
+                            self.delegate?.setNewName(name: workoutNameDescr, fullName: self.workoutName)
                             
                             //set up new workout with old info
                             for x in self.thisWorkoutIDList{

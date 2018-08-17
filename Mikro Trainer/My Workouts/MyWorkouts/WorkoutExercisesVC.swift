@@ -16,6 +16,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var workoutExercisesTableView: UITableView!
     var workoutTitle = ""
+    var workoutFullName = ""
     var ref: DatabaseReference?
     var userID = String()
     var workoutExerciseNames = [String]()
@@ -36,8 +37,8 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         wExCell.wExCellLabel.text = workoutExerciseNames[indexPath.row]
         if startStopFlag == 0 {
             //cant select workout without starting workout
-            wExCell.selectionStyle = .none
-            wExCell.isUserInteractionEnabled = false
+            wExCell.selectionStyle = .default
+            wExCell.isUserInteractionEnabled = true
             wExCell.accessoryType = UITableViewCellAccessoryType.detailButton
         }else{
             //can select exercise once workout has begun
@@ -62,30 +63,43 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     }
     
     //called by the delegate in 'allExercisesVC' to get new rebuilt name
-    func setNewName(name: String) {
+    func setNewName(name: String, fullName: String) {
         self.workoutTitle = name
         self.title = name
+        self.workoutFullName = fullName
     }
     
     override func viewWillAppear(_ animated: Bool) {
         workoutExerciseNames.removeAll()
         workoutExerciseIDs.removeAll()
         self.title = self.workoutTitle
+//        self.workoutFullName = //new workout title
         
         //get list of workouts that are specifically in that workout
         getMyWorkoutExercises(completion: {
             self.workoutExercisesTableView.reloadData()
-        }, workoutName: workoutTitle)
+        }, workoutName: workoutFullName)
     }
     
     //go to specific workout after an exercise has begun
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "CurrentExerciseVC") as! CurrentExerciseVC
-        vc.exerciseTitle = self.workoutExerciseNames[indexPath.row]
-        vc.exerciseID = self.workoutExerciseIDs[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
+        let cell = self.workoutExercisesTableView.cellForRow(at: indexPath) as! WorkoutExercisesCell
+        if cell.accessoryType == .disclosureIndicator {
+        
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "CurrentExerciseVC") as! CurrentExerciseVC
+            vc.exerciseTitle = self.workoutExerciseNames[indexPath.row]
+            vc.exerciseID = self.workoutExerciseIDs[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }else{
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
+            vc.exerciseTitle = workoutExerciseNames[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        
     }
     
     //begin/end workout

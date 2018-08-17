@@ -14,6 +14,11 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var MyWorkoutsTableView: UITableView!
     var myPreviousWorkouts = [String]()
+    
+    //list order corresponds with dates
+    var prevWorkoutsNames = [String]()
+    var prevWorkoutsDates = [String]()
+    
     var workoutNameToAdd = String()
     var ref: DatabaseReference?
     var userID = String()
@@ -38,11 +43,17 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     //reload table view everytime its seen
     override func viewWillAppear(_ animated: Bool) {
         self.myPreviousWorkouts.removeAll()
+        self.prevWorkoutsDates.removeAll()
+        self.prevWorkoutsNames.removeAll()
+        
         //always be the first or last item in the array
         self.myPreviousWorkouts.append("Select the '+' sign to create a new workout")
+        self.prevWorkoutsNames.append("Select the '+' sign to create a new workout")
         
         //get list of all workouts
         getAllMyWorkouts {
+            //run function to only get names and not the dates
+            self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
             self.MyWorkoutsTableView.reloadData()
         }
     }
@@ -57,14 +68,16 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     //delete workout
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete{
-            self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
+        self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
             self.myPreviousWorkouts.remove(at: indexPath.row)
+            self.prevWorkoutsNames.remove(at: indexPath.row)
             self.MyWorkoutsTableView.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myPreviousWorkouts.count
+//        return prevWorkoutsNames.count
     }
     
     //set up the cells
@@ -72,7 +85,8 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let myPrevWorkCell = self.MyWorkoutsTableView.dequeueReusableCell(withIdentifier: "MyPrevWorkCell", for: indexPath) as! MyPreviousWorkoutsCell
         
         //customize each cell
-        myPrevWorkCell.MyPrevWorkoutCellLabel.text = myPreviousWorkouts[indexPath.row]
+//        myPrevWorkCell.MyPrevWorkoutCellLabel.text = myPreviousWorkouts[indexPath.row]
+        myPrevWorkCell.MyPrevWorkoutCellLabel.text = prevWorkoutsNames[indexPath.row]
         
         //Make the "instructions" cell standout by highlighting it gray
         if indexPath.row == 0 {
@@ -97,7 +111,9 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             //go to workout exercises page
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
-            vc.workoutTitle = myPreviousWorkouts[indexPath.row]
+//            vc.workoutTitle = myPreviousWorkouts[indexPath.row]
+            vc.workoutFullName = myPreviousWorkouts[indexPath.row]
+            vc.workoutTitle = self.prevWorkoutsNames[indexPath.row]
             vc.myPrevWorkouts = self.myPreviousWorkouts
             self.navigationController?.pushViewController(vc, animated: true)
 
@@ -143,6 +159,24 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             nameController.addAction(confirmAction)
             nameController.addAction(cancelAction)
             self.present(nameController, animated: true, completion: nil)
+    }
+    
+    //function to split days from names
+    func seperateDatesNames(prevWorkoutsList: [String]){
+        for x in prevWorkoutsList{
+            if x.contains(":"){
+                let splitItems = x.split(separator: ":", maxSplits: 1)
+                print(splitItems)
+                self.prevWorkoutsNames.append(String(splitItems[1]))
+                self.prevWorkoutsDates.append(String(splitItems[0]))
+//            print("full name arr: \(fullNameArr)")
+            }else{
+                print("doesnt have : ")
+            }
+
+        }
+
+
     }
     
     

@@ -38,6 +38,7 @@
 		F0CBB7E020AB4D25001643C4 /* Mikro_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7DF20AB4D25001643C4 /* Mikro_TrainerUITests.swift */; };
 		F0CBB7EE20AB518D001643C4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */; };
 		F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D0415F20F1AB0F00465505 /* CurrentExerciseVC.swift */; };
+		F0F0C71F2127437100113F66 /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F0C71E2127437100113F66 /* DetailsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		F0CBB7E120AB4D25001643C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0D0415F20F1AB0F00465505 /* CurrentExerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentExerciseVC.swift; sourceTree = "<group>"; };
+		F0F0C71E2127437100113F66 /* DetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
 		F311AAAF5B1F8EEC51DD0985 /* Pods-Mikro TrainerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerTests/Pods-Mikro TrainerTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 		F094BEBE20AC8AA100D158AA /* My Exercises */ = {
 			isa = PBXGroup;
 			children = (
+				F0F0C71D2127434D00113F66 /* ExerciseDetails */,
 				F094BEBF20AC8ABD00D158AA /* MyExercisesVC.swift */,
 				F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */,
 				F0917E1E20C4ADD900641C04 /* My Exercises List */,
@@ -298,6 +301,14 @@
 				F0A558DF210E5A3C001CF59A /* +GetRecentExerciseInfo.swift */,
 			);
 			path = CurrentExercise;
+			sourceTree = "<group>";
+		};
+		F0F0C71D2127434D00113F66 /* ExerciseDetails */ = {
+			isa = PBXGroup;
+			children = (
+				F0F0C71E2127437100113F66 /* DetailsVC.swift */,
+			);
+			path = ExerciseDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,6 +546,7 @@
 				F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */,
 				F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
+				F0F0C71F2127437100113F66 /* DetailsVC.swift in Sources */,
 				F0917E2220C4B04A00641C04 /* MyExercisesTableCell.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
 				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
