@@ -14,6 +14,7 @@ import FirebaseAuth
 
 class MainMenu: UIViewController {
     
+    //https://resizeappicon.com/ great resource for app sizes
     var ref: DatabaseReference?
     var sessionLoginBool = false //change back to false when i want sign in service
     var userID = String()
