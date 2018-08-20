@@ -20,7 +20,7 @@ class MyExercisesListVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("my exercises vc!")
         self.userID = String(Auth.auth().currentUser!.uid)
         ref = Database.database().reference()
         

@@ -12,7 +12,9 @@ class PersonalInfoVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Personal Information"
+        self.tabBarItem.title = "Me"
+        self.navigationItem.title = "Personal Info"
+        self.tabBarController?.tabBar.isHidden = true
 
         // Do any additional setup after loading the view.
     }

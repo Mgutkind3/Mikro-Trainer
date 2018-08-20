@@ -10,13 +10,16 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class AddExcerciseVC: UIViewController {
+class AddExcerciseVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var excerciseNameTxtField: UITextField!
     @IBOutlet weak var muscGrpTxtField: UITextField!
     @IBOutlet weak var wtTxtField: UITextField!
     @IBOutlet weak var setTxtField: UITextField!
     @IBOutlet weak var repsTxtField: UITextField!
     @IBOutlet weak var addExcerciseErrorLabel: UILabel!
+    @IBOutlet weak var shortDescBox: UITextView!
+    @IBOutlet weak var aerobicNonAeroSegment: UISegmentedControl!
+    
     var ref: DatabaseReference?
     var userID = String()
     var exName = String()
@@ -25,17 +28,32 @@ class AddExcerciseVC: UIViewController {
     var sets = String()
     var reps = String()
     var exID = String()
+    var aero = String()
+    var desc = String()
     var highestID = 0
+    var descFlag = 0 //not edited yet
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         ref = Database.database().reference()
         userID = String(Auth.auth().currentUser!.uid)
+        shortDescBox.delegate = self
 
     }
     
-    @IBAction func addExcerciseButton(_ sender: Any) {
+    //set value to null when beginning to edit
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if descFlag == 0{
+            self.shortDescBox.text = ""
+            descFlag = 1
+        }else{
+            //dont reset text and do nothing
+        }
+    }
+    
+    
+    @IBAction func submitNewExerciseBtn(_ sender: Any) {
         addExcerciseErrorLabel.text = ""
         addExcerciseErrorLabel.textColor = UIColor.red
         
@@ -44,22 +62,32 @@ class AddExcerciseVC: UIViewController {
         wt = wtTxtField.text!
         sets = setTxtField.text!
         reps = repsTxtField.text!
+        desc = shortDescBox.text!
         
-        var i = 0//counter to make sure arrays mirror'
+        //get aerobic value depending on segmented control
+        if self.aerobicNonAeroSegment.selectedSegmentIndex == 0{
+            aero = self.aerobicNonAeroSegment.titleForSegment(at: 0)!
+        }else{
+            aero = self.aerobicNonAeroSegment.titleForSegment(at: 1)!
+        }
+        print("aero is: \(aero)")
+        
+        
+        var i = 0//counter to make sure arrays mirror
         
         //make sure all fields are filled in
-        if exName == "" || mGrp == "" || wt == "" || sets == "" || reps == "" {
+        if exName == "" || mGrp == "" || wt == "" || sets == "" || reps == "" || desc == "Short description of how to complete the workout." || desc == "" {
             addExcerciseErrorLabel.text = "Please fill in all the fields"
             return
         }
         
         //call exercise branch and see what number of exercises we are at completion must be completed before this contents is run
         exerciseNumber(completion: { () in
-//            print("highest id check: \(self.highestID)")
+            //            print("highest id check: \(self.highestID)")
             self.exID = String(self.highestID)
             
-            let workoutDetails = [self.exName, self.mGrp, self.wt, self.sets, self.reps, self.exID ]
-            let workoutFields = ["Name", "MuscleGroup","BaseWeight", "BaseSets", "BaseReps", "ExerciseID" ]
+            let workoutDetails = [self.exName, self.mGrp, self.wt, self.sets, self.reps, self.exID, self.aero, self.desc ]
+            let workoutFields = ["Name", "MuscleGroup","BaseWeight", "BaseSets", "BaseReps", "ExerciseID", "Type", "ExDescription" ]
             
             for x in workoutFields {
                 self.ref?.child("Exercises").child(self.exID).child(x).setValue(workoutDetails[i])
@@ -78,8 +106,10 @@ class AddExcerciseVC: UIViewController {
         wtTxtField.text = ""
         setTxtField.text = ""
         repsTxtField.text = ""
+        shortDescBox.text = "Short description of how to complete the workout."
         addExcerciseErrorLabel.textColor = UIColor.green
         addExcerciseErrorLabel.text = "Success!"
+        descFlag = 0
         //self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion?
 
     }

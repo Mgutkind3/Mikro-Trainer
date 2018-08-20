@@ -97,6 +97,8 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
                         if continueFlag == "0"{
                             cell.setTxtField.placeholder = self.prevWeightList[setsCount]
                             cell.repsTxtField.placeholder = self.prevRepsList[setsCount]
+                            cell.setTxtField.text = self.prevWeightList[setsCount]
+                            cell.repsTxtField.text = self.prevRepsList[setsCount]
                         }else{
                             cell.setTxtField.text = self.prevWeightList[setsCount]
                             cell.repsTxtField.text = self.prevRepsList[setsCount]

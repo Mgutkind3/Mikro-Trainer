@@ -23,43 +23,31 @@ class MainMenu: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //firebase reference created
-        self.title = "Mikro Trainer"
+        self.navigationItem.title = "Mikro Trainer"
+        self.tabBarItem.title = "Home"
         
         ref = Database.database().reference()
         userID = String(Auth.auth().currentUser!.uid)
     }
     
+    
     //function to make the user sign in if they havent signed in yet
     override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         if sessionLoginBool == false {
             //set flag that workouts has started to deactivated
             UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
-            
+
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-            navigationController?.present(vc, animated: true, completion: nil)
+            tabBarController?.present(vc, animated: true, completion: nil)
         }
         sessionLoginBool = true
     }
 
-    @IBAction func personalInfoButton(_ sender: Any) {
+    @IBAction func goToMe(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PersonalInfoVC") as! PersonalInfoVC
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @IBAction func myExercisesButton(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MyExercisesVC") as! MyExercisesVC
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
-    @IBAction func MyWorkoutsButton(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "MyWorkoutsVC") as! MyWorkoutsVC
         navigationController?.pushViewController(vc, animated: true)
     }
     
