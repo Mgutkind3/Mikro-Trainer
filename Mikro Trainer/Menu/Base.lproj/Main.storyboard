@@ -819,6 +819,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Bpb-X4-CNb">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5YK-0V-RNh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cBp-JG-0oc" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="b2g-bE-Ge3">
@@ -830,7 +831,6 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="9pP-vl-t4r"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5YK-0V-RNh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-41" y="60"/>
         </scene>

@@ -23,6 +23,7 @@ class MainMenu: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //firebase reference created
+        self.title = "Mikro Trainer"
         
         ref = Database.database().reference()
         userID = String(Auth.auth().currentUser!.uid)
@@ -42,7 +43,9 @@ class MainMenu: UIViewController {
     }
 
     @IBAction func personalInfoButton(_ sender: Any) {
-        print("personal Info")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PersonalInfoVC") as! PersonalInfoVC
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func myExercisesButton(_ sender: Any) {

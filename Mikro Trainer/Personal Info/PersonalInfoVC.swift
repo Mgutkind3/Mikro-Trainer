@@ -12,6 +12,7 @@ class PersonalInfoVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Personal Information"
 
         // Do any additional setup after loading the view.
     }
