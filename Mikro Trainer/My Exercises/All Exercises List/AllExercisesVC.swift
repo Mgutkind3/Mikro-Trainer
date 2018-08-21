@@ -122,6 +122,8 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //initially makethe right bar button nothing for location 0
+        self.navigationItem.rightBarButtonItem = nil
         
         //set up database credentials
         setUserID()
@@ -131,6 +133,21 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.month = String(calendar.component(.month, from: date))
         self.year = String(calendar.component(.year, from: date))
         
+        if self.flag == 1{
+            self.title = "Editing"
+        }else{
+            self.title = "New Workout"
+        }
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //clear all values within all lists
+        self.myExerciseIDList.removeAll()
+        self.myExerciseNameList.removeAll()
+        self.allExerciseNameList.removeAll()
+        self.allExerciseIDList.removeAll()
+        
         //function to get all exercises that also gets past exercises done before
         getListOfExercises {
             
@@ -139,7 +156,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             //signify which mode this page is in
             if self.flag == 1 {
-                self.title = "Editing"
+                //modifying workout mode
                 
                 let oldWorkoutName = self.workoutName
                 let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your edited workout", preferredStyle: UIAlertControllerStyle.alert)
@@ -150,7 +167,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                         let newName = "\(self.month)-\(self.day)-\(self.year): \(field.text!)"
                         //if the user doesnt enter any name request a new name
                         if field.text! == "" || newName == oldWorkoutName || self.myPrevWorkouts.contains(newName) {
-
+                            
                             nameAlert.message = "Please use a valid name"
                             self.present(nameAlert, animated: true, completion: nil)
                         }else{
@@ -168,7 +185,6 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                                 self.addExerciseToMyWorkout(completion: {
                                     self.allExercisesTableView.reloadData()
                                     print("done creating new list")
-                                    //                        self.title = self.workoutName //set the new name of the workoutexercises page
                                 }, exIDAdd: x)
                             }
                         }
@@ -187,33 +203,51 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                     textField.placeholder = oldWorkoutName
                 }
                 
-                //remove existing workouts from other lists so they cannot be reselected
-                for y in self.thisWorkoutIDList{
-                    self.removeExerciseFromOtherLists(exerciseToRemove: y)
-                }
-
                 nameAlert.addAction(confirmAction)
                 nameAlert.addAction(cancelAction)
                 self.present(nameAlert, animated: true, completion: nil)
-
+                
+                //make sure this is now the continuation of a current workout build
+                self.flag = 0
             }else{
-                self.title = "New Workout"
+                //creating workout from scratch
             }
             
-            //reload table to refresh all the data after call has come back
-            self.currentNameList = self.myExerciseNameList
-            self.currentIDList = self.myExerciseIDList
-            self.allExercisesTableView.reloadData()
+            //remove existing exercises from other lists so they cannot be reselected
+            for y in self.thisWorkoutIDList{
+                self.removeExerciseFromOtherLists(exerciseToRemove: y)
+            }
+            
+            let location = self.segmentController.selectedSegmentIndex
+            if location == 0{
+                self.currentNameList = self.myExerciseNameList
+                self.currentIDList = self.myExerciseIDList
+                self.allExercisesTableView.reloadData()
+            }
+            if location == 1{
+                self.currentNameList = self.allExerciseNameList
+                self.currentIDList = self.allExerciseIDList
+                self.allExercisesTableView.reloadData()
+            }
+            if location == 2{
+                self.currentNameList = self.thisWorkoutNameList
+                self.currentIDList = self.thisWorkoutIDList
+                self.allExercisesTableView.reloadData()
+            }
             
         }
-        
-        
-
     }
     
     //done editing current workout
     @IBAction func doneEditingButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //direct to create new exercise page
+    @objc func createNewExerciseButton(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AddExcerciseVC") as! AddExcerciseVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //segment controller changed
@@ -224,16 +258,20 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.currentNameList = self.myExerciseNameList
             self.currentIDList = self.myExerciseIDList
             self.allExercisesTableView.reloadData()
+            self.navigationItem.rightBarButtonItem = nil
         }
         if location == 1{
             self.currentNameList = self.allExerciseNameList
             self.currentIDList = self.allExerciseIDList
             self.allExercisesTableView.reloadData()
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createNewExerciseButton))
         }
         if location == 2 {
             self.currentNameList = self.thisWorkoutNameList
             self.currentIDList = self.thisWorkoutIDList
             self.allExercisesTableView.reloadData()
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneEditingButton(_:)))
+            
         }
     }
     

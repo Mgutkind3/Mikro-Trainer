@@ -130,96 +130,6 @@
             </objects>
             <point key="canvasLocation" x="1393" y="2630"/>
         </scene>
-        <!--My ExercisesVC-->
-        <scene sceneID="NRe-zq-IUT">
-            <objects>
-                <viewController storyboardIdentifier="MyExercisesVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fhJ-F2-MeQ" customClass="MyExercisesVC" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1Jk-RG-qgL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-Qv-sq5">
-                                <rect key="frame" x="139" y="106" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Excercise"/>
-                                <connections>
-                                    <action selector="addExcerciseButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="BRU-7e-APy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HTr-Sd-Eri">
-                                <rect key="frame" x="86" y="240" width="202" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="List of My Exercises"/>
-                                <connections>
-                                    <action selector="ListOfMyExercisesButton:" destination="fhJ-F2-MeQ" eventType="touchUpInside" id="0Hc-r3-gJS"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="7zp-c6-Fjf"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="H2E-8q-wAD"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iRd-v9-Q7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2834" y="890"/>
-        </scene>
-        <!--My Exercises ListVC-->
-        <scene sceneID="jfq-vA-AIe">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rtu-kt-9jk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="MyExercisesListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iGf-cK-zSS" customClass="MyExercisesListVC" customModule="Mikro_Trainer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dph-Uk-L8h">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gpC-kd-Uf7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyCell" id="9Gm-4e-JaR" customClass="MyExercisesTableCell" customModule="Mikro_Trainer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Gm-4e-JaR" id="WDD-dZ-b8U" customClass="MyExercisesTableCell" customModule="Mikro_Trainer" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eec-6t-okj">
-                                                    <rect key="frame" x="15" y="12" width="147" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="MyCellLabel" destination="Eec-6t-okj" id="ugS-mH-FgD"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="iGf-cK-zSS" id="ezA-pS-ihw"/>
-                                    <outlet property="delegate" destination="iGf-cK-zSS" id="r7y-7R-2Yx"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="trailing" secondItem="ze6-8D-ppy" secondAttribute="trailing" id="HIu-zJ-CCw"/>
-                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="bottom" secondItem="ze6-8D-ppy" secondAttribute="bottom" id="HXb-iT-kVt"/>
-                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="leading" secondItem="ze6-8D-ppy" secondAttribute="leading" id="KCn-qE-1aJ"/>
-                            <constraint firstItem="gpC-kd-Uf7" firstAttribute="top" secondItem="dph-Uk-L8h" secondAttribute="top" id="cr5-65-mgS"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ze6-8D-ppy"/>
-                    </view>
-                    <connections>
-                        <outlet property="myExercisesTableView" destination="gpC-kd-Uf7" id="TCe-VO-2Fs"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="3550" y="890"/>
-        </scene>
         <!--DetailsVC-->
         <scene sceneID="lZ3-h0-YFG">
             <objects>
@@ -601,7 +511,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IJb-Zz-3sV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4197.6000000000004" y="889.20539730134942"/>
+            <point key="canvasLocation" x="2097" y="2630"/>
         </scene>
         <!--PersonalInfoVC-->
         <scene sceneID="9dh-62-y0j">
@@ -815,13 +725,13 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="HfC-2A-td1"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KZe-bL-cof">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="GlF-qB-NAz" kind="relationship" relationship="viewControllers" id="0nH-oq-V8j"/>
                         <segue destination="zcx-Aa-sOX" kind="relationship" relationship="viewControllers" id="C59-cf-iZT"/>
-                        <segue destination="YMH-96-Vjy" kind="relationship" relationship="viewControllers" id="2TX-5P-rS6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="34Q-if-L5B" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -866,31 +776,11 @@
             </objects>
             <point key="canvasLocation" x="1644" y="59.820089955022496"/>
         </scene>
-        <!--New Exercise-->
-        <scene sceneID="RIP-Cy-oeq">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YMH-96-Vjy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="New Exercise" image="pencil" selectedImage="pencil" id="tur-dN-8ou"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dOY-lF-PiB">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="fhJ-F2-MeQ" kind="relationship" relationship="rootViewController" id="B5x-Tk-qG5"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GDL-7h-eaA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2034" y="891"/>
-        </scene>
     </scenes>
     <resources>
         <image name="book" width="30" height="30"/>
         <image name="home" width="30" height="30"/>
         <image name="mLogo" width="1024" height="1024"/>
-        <image name="pencil" width="30" height="30"/>
         <image name="user_male" width="30" height="30"/>
     </resources>
 </document>

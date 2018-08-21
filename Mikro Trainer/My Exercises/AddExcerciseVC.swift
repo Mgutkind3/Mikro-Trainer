@@ -91,9 +91,6 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
             
             for x in workoutFields {
                 self.ref?.child("Exercises").child(self.exID).child(x).setValue(workoutDetails[i])
-                
-                //make my list customizeable/yet gets original info from Exercises Branch
-                self.ref?.child("Users").child(self.userID).child("MyExercises").child("My Exercise \(self.exID)").child(x).setValue(workoutDetails[i])
                 i = i + 1
             }
         })
@@ -110,7 +107,7 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
         addExcerciseErrorLabel.textColor = UIColor.green
         addExcerciseErrorLabel.text = "Success!"
         descFlag = 0
-        //self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion?
+        self.navigationController?.popViewController(animated: true)//close current view controller upon successful completion?
 
     }
     
