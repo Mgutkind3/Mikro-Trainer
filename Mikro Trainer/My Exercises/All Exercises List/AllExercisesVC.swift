@@ -10,6 +10,9 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+//search for exercises
+//https://www.raywenderlich.com/472-uisearchcontroller-tutorial-getting-started
+
 //delegate for myWorkoutExercisesVC
 protocol WorkoutNamesDelegate{
     func setNewName(name: String, fullName: String)

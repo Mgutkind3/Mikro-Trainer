@@ -12,7 +12,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class MainMenu: UIViewController {
+class MainMenu: UIViewController, SignOutMethod {
     
     //https://resizeappicon.com/ great resource for app sizes
     var ref: DatabaseReference?
@@ -30,6 +30,9 @@ class MainMenu: UIViewController {
         userID = String(Auth.auth().currentUser!.uid)
     }
     
+    func endSession(){
+        self.sessionLoginBool = false
+    }
     
     //function to make the user sign in if they havent signed in yet
     override func viewDidAppear(_ animated: Bool) {
@@ -37,7 +40,7 @@ class MainMenu: UIViewController {
         if sessionLoginBool == false {
             //set flag that workouts has started to deactivated
             UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
-
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             tabBarController?.present(vc, animated: true, completion: nil)
@@ -48,6 +51,7 @@ class MainMenu: UIViewController {
     @IBAction func goToMe(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PersonalInfoVC") as! PersonalInfoVC
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     

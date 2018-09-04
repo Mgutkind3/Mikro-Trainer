@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var registrationErrorLabel: UILabel!
@@ -97,25 +98,23 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             UISelfieView.image = pickedImage
             picker.dismiss(animated: true, completion: nil)
             
-//            //new code
-//            var data = NSData()
-//            data = UIImageJPEGRepresentation(UISelfieView.image!, 0.8)! as NSData
-//            // set upload path
-//            let filePath = "\(Auth.auth().currentUser!.uid)/\("userPhoto")"
-//            let metaData = FIRStorageMetadata()
-//            metaData.contentType = "image/jpg"
-//            self.storageRef.child(filePath).putData(data, metadata: metaData){(metaData,error) in
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                    return
-//                }else{
-//                    //store downloadURL
-//                    let downloadURL = metaData!.downloadURL()!.absoluteString
-//                    //store downloadURL at database
-//                    self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
-//                }
-//                
+            //new
+//            let storageRef = Storage.storage().reference().child("selfie.png")
+//            if let uploadData = UIImagePNGRepresentation(pickedImage) {
+//                storageRef.putData(uploadData)
+//                storageRef.putData(uploadData, metadata: nil, completion: nil)
 //            }
+//                storageRef.put(uploadData, metadata: nil) { (metadata, error) in
+//                    if error != nil {
+//                        print("error")
+//                        completion(nil)
+//                    } else {
+//                        completion((metadata?.downloadURL()?.absoluteString)!))
+//                        // your uploaded photo url.
+//                    }
+//                }
+        
+
         }
     }
     

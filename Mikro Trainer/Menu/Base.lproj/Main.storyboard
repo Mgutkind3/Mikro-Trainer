@@ -520,10 +520,28 @@
                     <view key="view" contentMode="scaleToFill" id="Exd-KE-ryC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ybq-oI-dUe">
+                                <rect key="frame" x="160" y="617" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="signOutBtn:" destination="dVb-1c-RqS" eventType="touchUpInside" id="CQS-YU-3Bm"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="bGr-NY-sNc"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Me" image="user_male" selectedImage="user_male" id="iyj-9f-NXH"/>
+                    <navigationItem key="navigationItem" title="Title" id="KMM-xX-cL0">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" image="settings" id="LpS-wA-T97">
+                            <connections>
+                                <action selector="settingsPage:" destination="dVb-1c-RqS" id="N8g-7A-50V"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2fg-d6-DDp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -593,7 +611,7 @@
                                 <color key="backgroundColor" red="0.95686274509803926" green="0.61960784313725492" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.45138680930000002" green="0.99309605359999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Qda-6y-ij9" firstAttribute="leading" secondItem="cBx-lr-PuM" secondAttribute="trailing" constant="8" id="12X-h9-p0b"/>
                             <constraint firstItem="A7x-Wy-cbV" firstAttribute="top" secondItem="Enl-em-529" secondAttribute="top" constant="13" id="ED1-qi-pf1"/>
@@ -755,7 +773,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x82-7l-uTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-137" y="1960"/>
+            <point key="canvasLocation" x="-100" y="1960"/>
         </scene>
         <!--Home-->
         <scene sceneID="tSw-Py-Y8P">
@@ -781,6 +799,7 @@
         <image name="book" width="30" height="30"/>
         <image name="home" width="30" height="30"/>
         <image name="mLogo" width="1024" height="1024"/>
+        <image name="settings" width="30" height="30"/>
         <image name="user_male" width="30" height="30"/>
     </resources>
 </document>
