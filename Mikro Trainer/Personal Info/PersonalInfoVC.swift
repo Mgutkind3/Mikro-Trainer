@@ -42,6 +42,10 @@ class PersonalInfoVC: UIViewController {
         print("settings")
         //space to enable biometric security
         //https://codeburst.io/biometric-authentication-using-swift-bb2a1241f2be
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "SettingsVC") as! SettingsVC
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func didReceiveMemoryWarning() {

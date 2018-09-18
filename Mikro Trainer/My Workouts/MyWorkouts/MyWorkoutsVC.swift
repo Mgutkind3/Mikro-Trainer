@@ -77,7 +77,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myPreviousWorkouts.count
-//        return prevWorkoutsNames.count
     }
     
     //set up the cells
@@ -85,7 +84,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let myPrevWorkCell = self.MyWorkoutsTableView.dequeueReusableCell(withIdentifier: "MyPrevWorkCell", for: indexPath) as! MyPreviousWorkoutsCell
         
         //customize each cell
-//        myPrevWorkCell.MyPrevWorkoutCellLabel.text = myPreviousWorkouts[indexPath.row]
         myPrevWorkCell.MyPrevWorkoutCellLabel.text = prevWorkoutsNames[indexPath.row]
         
         //Make the "instructions" cell standout by highlighting it gray
@@ -111,7 +109,6 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             //go to workout exercises page
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "WorkoutExercisesVC") as! WorkoutExercisesVC
-//            vc.workoutTitle = myPreviousWorkouts[indexPath.row]
             vc.workoutFullName = myPreviousWorkouts[indexPath.row]
             vc.workoutTitle = self.prevWorkoutsNames[indexPath.row]
             vc.myPrevWorkouts = self.myPreviousWorkouts

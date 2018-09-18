@@ -10,6 +10,7 @@
 		7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */; };
 		B29C2BF1015358BE6DAAC1B9 /* Pods_Mikro_TrainerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */; };
 		D2A2C50C2299DB45CDEFB0C9 /* Pods_Mikro_TrainerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */; };
+		F017D05921509E4A00F9BFB7 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017D05821509E4A00F9BFB7 /* SettingsVC.swift */; };
 		F020637620AB577E00CAE33F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637520AB577E00CAE33F /* LoginVC.swift */; };
 		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
 		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
@@ -64,6 +65,7 @@
 		CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerUITests/Pods-Mikro TrainerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro Trainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F017D05821509E4A00F9BFB7 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		F020637520AB577E00CAE33F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
 		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				F020637B20AB788300CAE33F /* PersonalInfoVC.swift */,
+				F017D05821509E4A00F9BFB7 /* SettingsVC.swift */,
 			);
 			path = "Personal Info";
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
 				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,
+				F017D05921509E4A00F9BFB7 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

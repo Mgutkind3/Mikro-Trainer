@@ -14,6 +14,9 @@ import FirebaseDatabase
 struct flags{
     static let hasStartedFlag = "0" //deactivated
     static let uniqueID = ""
+//    static let switchState = "" //deactivated
+//    static let userPwd = ""
+//    static let userEmail = ""
 }
 
 class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CellCheckDelegate {

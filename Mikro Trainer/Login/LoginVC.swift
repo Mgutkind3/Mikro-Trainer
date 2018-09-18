@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import LocalAuthentication
 
 class LoginVC: UIViewController {
 
@@ -18,6 +19,49 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        print("user email: \(UserDefaults.standard.string(forKey: "emailCred"))")
+        if(UserDefaults.standard.string(forKey: "switchState") == "1"){
+            print("use touch id")
+            let context = LAContext()
+            var error: NSError?
+            
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                let reason = "Use Touch ID to sign in"
+                
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                    [unowned self] (success, authenticationError) in
+                    
+                    DispatchQueue.main.async {
+                        if success {
+                            let email = UserDefaults.standard.string(forKey: "emailCred")!
+                            let pwd = UserDefaults.standard.string(forKey: "usrPwd")!
+                            
+                            //attempt to sign in using firebase authentication
+                            Auth.auth().signIn(withEmail: email, password: pwd, completion: { user, error in
+                                if let firebaseError = error{
+                                    print(firebaseError.localizedDescription)
+                                    self.loginErrorLabel.text = String(firebaseError.localizedDescription)
+                                    return
+                                }
+                                
+                                //if error is not printed send a success message and dismiss modal
+                                print("Logged in!")
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            
+                            print("unlocked!")
+                            //attempt to sign in using firebase authentication
+
+                        } else {
+                            print("not unlocked!")
+                        }
+                    }
+                }
+            } else {
+                // no biometry
+            }//end of bio metrics
+        }
 
     }
 
@@ -47,6 +91,7 @@ class LoginVC: UIViewController {
             
             //if error is not printed send a success message and dismiss modal
             print("Logged in!")
+            UserDefaults.standard.set(emailLogin!, forKey: "emailCred")
             self.dismiss(animated: true, completion: nil)
         })
     }

@@ -26,8 +26,8 @@ class MainMenu: UIViewController, SignOutMethod {
         self.navigationItem.title = "Mikro Trainer"
         self.tabBarItem.title = "Home"
         
-        ref = Database.database().reference()
-        userID = String(Auth.auth().currentUser!.uid)
+//        ref = Database.database().reference()
+//        userID = String(Auth.auth().currentUser!.uid)
     }
     
     func endSession(){
@@ -46,6 +46,7 @@ class MainMenu: UIViewController, SignOutMethod {
             tabBarController?.present(vc, animated: true, completion: nil)
         }
         sessionLoginBool = true
+
     }
 
     @IBAction func goToMe(_ sender: Any) {
