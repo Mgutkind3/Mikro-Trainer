@@ -27,6 +27,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     var weights = [String]()
     var weightLabels = ["lbs", "Kg"]
     @IBOutlet weak var dobTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     
     var masterPicker = [[String]]()
     
@@ -35,12 +36,20 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     private var heightPicker: UIPickerView?
     private var genderPicker: UIPickerView?
     
+    //dictionary to contain all personal info for database population
+    var personalInfoDict = ["UserName": "",
+                            "UserAge": "",
+                            "UserSex": "",
+                            "UserHeight": "",
+                            "UserWeight": ""
+    ]
+    
     var ref: DatabaseReference?
     var userID = String()
     
     @IBOutlet weak var UISelfieView: UIImageView!
     
-    //always gonna be two
+    //return amount of picker columns
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView == weightPicker || pickerView == heightPicker{
             return 2
@@ -48,6 +57,8 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             return 1
         }
     }
+    
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == weightPicker{
             //append to a master array
@@ -81,14 +92,17 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             let weightNum = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
             let weightLabel = masterPicker[1][pickerView.selectedRow(inComponent: 1)]
             self.weightTextField.text = "\(weightNum) \(weightLabel)"
+            self.personalInfoDict["UserWeight"] = self.weightTextField.text
             
         }else if pickerView == heightPicker{
             let feet = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
             let inches = masterPicker[1][pickerView.selectedRow(inComponent: 1)]
             self.heightTextField.text = "\(feet) \(inches)"
+            self.personalInfoDict["UserHeight"] = self.heightTextField.text
         }else{
             //spot for male or female
             self.genderTextField.text = gender[row]
+            self.personalInfoDict["UserSex"] = self.genderTextField.text
         }
     }
     
@@ -104,10 +118,10 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         
         //append height in feet to a list
         for x in 1...7{
-            self.heightFt.append(String(x) + "\'")
+            self.heightFt.append(String(x) + " Ft.")
         }
         for x in 0...11{
-            self.heightInch.append(String(x) + "\"")
+            self.heightInch.append(String(x) + " In.")
         }
         
         //date of birth text box
@@ -143,6 +157,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         dobTextField.text = dateFormatter.string(from: datePicker.date)
+        self.personalInfoDict["UserAge"] = dobTextField.text
     }
 
     //button to confirm registration of new user
@@ -152,7 +167,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let password = firstPwdTextField.text
         
         //make sure all fields have been populated
-        if email == "" || password == "" || secondPwdTextField.text == ""{
+        if email == "" || password == "" || secondPwdTextField.text == "" || nameTextField.text == ""{
             registrationErrorLabel.text = "Please enter all required fields"
             return
         }
@@ -162,6 +177,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             return
         }
         
+        self.personalInfoDict["UserName"] = nameTextField.text
         Auth.auth().createUser(withEmail: email!, password: password!, completion: { user, error in
             if let firebaseError = error{
                 print(firebaseError.localizedDescription)
@@ -190,7 +206,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         
         //set the value of the personal info fields
         for x in personalInfoFields{
-            self.ref?.child("Users").child(self.userID).child("PersonalData").child(x).setValue("")
+            self.ref?.child("Users").child(self.userID).child("PersonalData").child(x).setValue(self.personalInfoDict[x])
         }
         //start nodes for schema development
         self.ref?.child("Users").child(self.userID).child("MyExercises").setValue("")

@@ -820,6 +820,7 @@
                         <outlet property="firstPwdTextField" destination="pz7-WX-VpT" id="BNP-Rj-YfG"/>
                         <outlet property="genderTextField" destination="cuA-fd-6V2" id="GE4-SH-lY6"/>
                         <outlet property="heightTextField" destination="KNs-wR-FcR" id="cvN-aM-6Wl"/>
+                        <outlet property="nameTextField" destination="WFq-dh-Ro2" id="jix-Uy-ylA"/>
                         <outlet property="regEmailTextField" destination="2sA-EO-Oat" id="39l-01-kax"/>
                         <outlet property="registrationErrorLabel" destination="XCY-Vf-fpX" id="8VR-O5-qvQ"/>
                         <outlet property="secondPwdTextField" destination="onF-XF-NP5" id="Qu2-64-O0d"/>
