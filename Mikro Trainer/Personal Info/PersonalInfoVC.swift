@@ -26,6 +26,7 @@ class PersonalInfoVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    //function to sign out of user profile
     @IBAction func signOutBtn(_ sender: Any) {
         print("Goodbye")
             do {
@@ -37,7 +38,7 @@ class PersonalInfoVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-
+    //go to settings page
     @IBAction func settingsPage(_ sender: Any) {
         print("settings")
         //space to enable biometric security

@@ -11,20 +11,138 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var registrationErrorLabel: UILabel!
     @IBOutlet weak var regEmailTextField: UITextField!
     @IBOutlet weak var firstPwdTextField: UITextField!
     @IBOutlet weak var secondPwdTextField: UITextField!
+    
+    //Optional text fields
+    @IBOutlet weak var genderTextField: UITextField!
+    var gender = ["Male", "Female"]
+    @IBOutlet weak var heightTextField: UITextField!
+    var heightFt = [String]()
+    var heightInch = [String]()
+    @IBOutlet weak var weightTextField: UITextField!
+    var weights = [String]()
+    var weightLabels = ["lbs", "Kg"]
+    @IBOutlet weak var dobTextField: UITextField!
+    
+    var masterPicker = [[String]]()
+    
+    private var datePicker: UIDatePicker?
+    private var weightPicker: UIPickerView?
+    private var heightPicker: UIPickerView?
+    private var genderPicker: UIPickerView?
+    
     var ref: DatabaseReference?
     var userID = String()
     
     @IBOutlet weak var UISelfieView: UIImageView!
     
+    //always gonna be two
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if pickerView == weightPicker || pickerView == heightPicker{
+            return 2
+        }else {
+            return 1
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == weightPicker{
+            //append to a master array
+            masterPicker.removeAll()
+            masterPicker.append(weights)
+            masterPicker.append(weightLabels)
+            
+            return self.masterPicker[component].count
+        }else if pickerView == heightPicker{
+            //append to a master array
+            masterPicker.removeAll()
+            masterPicker.append(heightFt)
+            masterPicker.append(heightInch)
+            
+            return self.masterPicker[component].count
+        }else{
+            //male or female option
+            return gender.count
+        }
+
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == weightPicker || pickerView == heightPicker{
+            return masterPicker[component][row]
+        }else {
+            return gender[row]//one dimensional array
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == weightPicker{
+            let weightNum = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
+            let weightLabel = masterPicker[1][pickerView.selectedRow(inComponent: 1)]
+            self.weightTextField.text = "\(weightNum) \(weightLabel)"
+            
+        }else if pickerView == heightPicker{
+            let feet = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
+            let inches = masterPicker[1][pickerView.selectedRow(inComponent: 1)]
+            self.heightTextField.text = "\(feet) \(inches)"
+        }else{
+            //spot for male or female
+            self.genderTextField.text = gender[row]
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         self.hideKeyboardWhenTappedAround()
+        
+        //append weight amounts into a single array
+        for x in 35...450{
+            weights.append(String(x))
+        }
+        
+        //append height in feet to a list
+        for x in 1...7{
+            self.heightFt.append(String(x) + "\'")
+        }
+        for x in 0...11{
+            self.heightInch.append(String(x) + "\"")
+        }
+        
+        //date of birth text box
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.maximumDate = Calendar.current.date(byAdding: .day, value: 0, to: Date())
+        datePicker?.addTarget(self, action: #selector(NewAccountVC.dateChanged(datePicker:)), for: .valueChanged)
+        
+        //weight picker view
+        weightPicker = UIPickerView()
+        weightPicker?.delegate = self
+        weightPicker?.dataSource = self
+        
+        //height picker view
+        heightPicker = UIPickerView()
+        heightPicker?.delegate = self
+        heightPicker?.dataSource = self
+        
+        //gender picker view
+        genderPicker = UIPickerView()
+        genderPicker?.delegate = self
+        genderPicker?.dataSource = self
+        
+        //set the picker input views
+        genderTextField.inputView = genderPicker
+        heightTextField.inputView = heightPicker
+        weightTextField.inputView = weightPicker
+        dobTextField.inputView = datePicker
+    }
+    
+    //function that formats and sets date for date of birth
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dobTextField.text = dateFormatter.string(from: datePicker.date)
     }
 
     //button to confirm registration of new user
@@ -69,6 +187,8 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     //create personal data section of the database
     func addNewUserNodes(){
         let personalInfoFields = ["UserName", "UserAge", "UserSex", "UserHeight", "UserWeight"]
+        
+        //set the value of the personal info fields
         for x in personalInfoFields{
             self.ref?.child("Users").child(self.userID).child("PersonalData").child(x).setValue("")
         }
@@ -98,7 +218,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             UISelfieView.image = pickedImage
             picker.dismiss(animated: true, completion: nil)
             
-            //new
+            //new way to store images in firebase
 //            let storageRef = Storage.storage().reference().child("selfie.png")
 //            if let uploadData = UIImagePNGRepresentation(pickedImage) {
 //                storageRef.putData(uploadData)
