@@ -59,15 +59,15 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     //if it is not the first item, let it be deleteable
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.row != 0 {
             return .delete
         }
         return .none
     }
     //delete workout
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete{
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete{
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
             self.myPreviousWorkouts.remove(at: indexPath.row)
             self.prevWorkoutsNames.remove(at: indexPath.row)
@@ -90,13 +90,13 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         if indexPath.row == 0 {
             myPrevWorkCell.MyPrevWorkoutCellLabel.textColor = UIColor.gray
             myPrevWorkCell.MyPrevWorkoutCellLabel.textAlignment = .center
-            myPrevWorkCell.accessoryType = UITableViewCellAccessoryType.none
+            myPrevWorkCell.accessoryType = UITableViewCell.AccessoryType.none
             myPrevWorkCell.selectionStyle = .none
             myPrevWorkCell.isUserInteractionEnabled = false
 
         }else{
             myPrevWorkCell.MyPrevWorkoutCellLabel.textColor = UIColor.black
-            myPrevWorkCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            myPrevWorkCell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         }
         return myPrevWorkCell
     }

@@ -26,17 +26,17 @@ class MainMenu: UIViewController, SignOutMethod {
         self.navigationItem.title = "Mikro Trainer"
         self.tabBarItem.title = "Home"
         
-//        ref = Database.database().reference()
-//        userID = String(Auth.auth().currentUser!.uid)
     }
     
     func endSession(){
         self.sessionLoginBool = false
     }
     
-    //function to make the user sign in if they havent signed in yet
+    
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        
+        //function to make the user sign in if they havent signed in yet
         if sessionLoginBool == false {
             //set flag that workouts has started to deactivated
             UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
@@ -44,7 +44,24 @@ class MainMenu: UIViewController, SignOutMethod {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
             tabBarController?.present(vc, animated: true, completion: nil)
+            
+
+        }else{
+            //logic to get personal data
+            //permission denied
+            //get database reference
+            ref = Database.database().reference()
+            userID = String(Auth.auth().currentUser!.uid)
+            print("ref is: \(ref)")
+            print("user id is: \(userID)")
+            
+            self.getListOfPersonalData {
+                print("done retrieving data")
+            }
         }
+        
+
+        
         sessionLoginBool = true
 
     }
@@ -62,8 +79,33 @@ class MainMenu: UIViewController, SignOutMethod {
     }
 
 
+//api call to get and parse personal data
+func getListOfPersonalData(completion: @escaping ()->()){
+    self.ref?.child("Users/\(userID)/PersonalData").observeSingleEvent(of: .value, with: { snapshot in
+        //populate list with all personal values. if null return and dont fail
+        //maybe use a dictionary?
+        print(snapshot.value)
+//        if let dict = snapshot.value as? [NSObject] {
+//            for y in (dict) {
+//                let obj = y as? NSDictionary
+//                if let exerciseID = obj?["ExerciseID"] as? String {
+//                    self.allExerciseIDList.append(exerciseID)
+//                }
+//                if let exerciseName = obj?["Name"] as? String {
+//                    self.allExerciseNameList.append(exerciseName)
+//                }
+//            }
+//            print("Personal data has been collected")
+//                completion()
+//        }else{
+//            print("Failed to get personal data")
+//                completion()
+//        }
+    })
 }
-
+    
+    
+}
 
 //function to dismiss keyboard when not in use (after class)
 extension UIViewController {

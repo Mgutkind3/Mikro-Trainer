@@ -126,7 +126,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     //if it is not the first item, let it be deleteable
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if indexPath.row == 0 {
             return .none
         }else{
@@ -136,8 +136,8 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     //delete set
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete{
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete{
             
             //if row is deleted and move row below it then move their values as well
             if (self.exerciseSets-(indexPath.row+1)) == 0{

@@ -39,12 +39,12 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
             //cant select workout without starting workout
             wExCell.selectionStyle = .default
             wExCell.isUserInteractionEnabled = true
-            wExCell.accessoryType = UITableViewCellAccessoryType.detailButton
+            wExCell.accessoryType = UITableViewCell.AccessoryType.detailButton
         }else{
             //can select exercise once workout has begun
             wExCell.selectionStyle = .default
             wExCell.isUserInteractionEnabled = true
-            wExCell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            wExCell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
             //logic to check the exercise that has been completed
             
         }

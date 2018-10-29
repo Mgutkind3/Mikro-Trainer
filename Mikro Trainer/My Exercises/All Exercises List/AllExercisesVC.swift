@@ -85,7 +85,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //dont let seg control sections 0 and 1 delete cells
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if self.segmentController.selectedSegmentIndex == 2 {
             return .delete
         }
@@ -93,8 +93,8 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //delete an exercise from my list
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete{
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete{
             print("Delete row: \(thisWorkoutNameList[indexPath.row])")
             print("id number: \(thisWorkoutIDList[indexPath.row])")
             
@@ -162,7 +162,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //modifying workout mode
                 
                 let oldWorkoutName = self.workoutName
-                let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your edited workout", preferredStyle: UIAlertControllerStyle.alert)
+                let nameAlert = UIAlertController(title: "New Name", message: "Please create a name for your edited workout", preferredStyle: UIAlertController.Style.alert)
                 
                 let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (_) in
                     if let field = nameAlert.textFields?[0]  {
@@ -305,7 +305,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.exerciseIDToAdd = self.allExerciseIDList[sender.tag]
         }
         
-        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.exerciseNameToAdd) to your exercise list?", preferredStyle: UIAlertControllerStyle.alert)
+        let addAlert = UIAlertController(title: "Add New Exercise", message: "Would you like to add \(self.exerciseNameToAdd) to your exercise list?", preferredStyle: UIAlertController.Style.alert)
 
         addAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
 
