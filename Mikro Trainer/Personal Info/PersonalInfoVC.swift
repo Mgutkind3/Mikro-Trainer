@@ -15,13 +15,26 @@ protocol SignOutMethod{
 
 class PersonalInfoVC: UIViewController {
 
+    var personalDict = [String: String]()
     var delegate:SignOutMethod?
+    @IBOutlet weak var nameLabel: UILabel!
+
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var WeightLabel: UILabel!
+    @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var birthdayLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarItem.title = "Me"
         self.navigationItem.title = "Personal Info"
         self.tabBarController?.tabBar.isHidden = true
+        
+        self.nameLabel.text = self.personalDict["UserName"]!
+        self.heightLabel.text = self.personalDict["UserHeight"]!
+        self.WeightLabel.text = self.personalDict["UserWeight"]!
+        self.genderLabel.text = self.personalDict["UserSex"]!
+        self.birthdayLabel.text = self.personalDict["UserAge"]!
 
         // Do any additional setup after loading the view.
     }

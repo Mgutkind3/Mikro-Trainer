@@ -67,6 +67,7 @@ class MainMenu: UIViewController, SignOutMethod {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PersonalInfoVC") as! PersonalInfoVC
         vc.delegate = self
+        vc.personalDict = self.personalDict
         navigationController?.pushViewController(vc, animated: true)
     }
     
