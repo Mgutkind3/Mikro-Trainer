@@ -19,7 +19,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     //Optional text fields
     @IBOutlet weak var genderTextField: UITextField!
-    var gender = ["Male", "Female"]
+    var gender = ["Male", "Female", "Other"]
     @IBOutlet weak var heightTextField: UITextField!
     var heightFt = [String]()
     var heightInch = [String]()
