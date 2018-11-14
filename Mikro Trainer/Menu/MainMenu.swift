@@ -19,7 +19,9 @@ class MainMenu: UIViewController, SignOutMethod {
     var sessionLoginBool = false //change back to false when i want sign in service
     var userID = String()
     var personalDict = [String: String]()
+    var masterDateList = [String]()
     @IBOutlet weak var welcomeLabel: UILabel!
+    @IBOutlet weak var lastWorkoutLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,10 +55,12 @@ class MainMenu: UIViewController, SignOutMethod {
             
             //call api to get the user's personal data
             self.getListOfPersonalData {
-                print("done retrieving data")
-                print("personal info dict: \(self.personalDict)")
                 //set welcome label
                 self.welcomeLabel.text = "Welcome, \(self.personalDict["UserName"]!)"
+            }
+            //get the date of the last workout
+            self.getLastWorkoutDate {
+                print("done getting last workout")
             }
         }
         
@@ -91,6 +95,56 @@ func getListOfPersonalData(completion: @escaping ()->()){
         }
     })
 }
+    
+func getLastWorkoutDate(completion: @escaping ()->()){
+    self.ref?.child("Users/\(userID)/HistoricalExercises").observeSingleEvent(of: .value, with: { snapshot in
+            //populate list with all personal values. if null return and dont fail
+        if let dict = snapshot.value as? NSDictionary {
+            for x in dict{
+                if let dateList = x.value as? NSDictionary{
+                    if let dateIn = dateList.allKeys as? [String]{
+                        self.masterDateList.append(contentsOf: dateIn)
+                    }
+                }
+            }
+//            print(self.masterDateList)
+            self.lastWorkoutLabel.text = self.calculateLastWorkoutDate(datesList: self.masterDateList)
+            completion()
+        }else{
+            print("Failed to get personal data")
+            completion()
+            }
+        })
+    }
+    
+    //compare dates to get the most recent one
+    func calculateLastWorkoutDate(datesList: [String])->String{
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "MM-dd-yyyy:HH:mm:ss"
+        var mostRecentDate = dateFormatterGet.date(from: "01-01-1900:01:01:01")
+        
+        //go through array and compare dates, keeping the most recent one
+        for x in datesList{
+            if let date = dateFormatterGet.date(from: x) {
+//                print(date)
+                if (date > mostRecentDate!){
+                    mostRecentDate = date
+                }
+            } else {
+                print("There was an error decoding the string")
+            }
+        }
+        //reformat latest date and return it
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "MM/dd/yyyy"
+        var solution = dateFormatterPrint.string(from: mostRecentDate!)
+        //incase there are no workouts logged
+        if(solution == "01/01/1900"){
+            solution = "No Prior Workouts Logged"
+        }
+        return(solution)
+    }
     
     
 }
