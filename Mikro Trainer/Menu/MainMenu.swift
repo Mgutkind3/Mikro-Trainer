@@ -31,9 +31,10 @@ class MainMenu: UIViewController, SignOutMethod {
         self.tabBarItem.title = "Home"
         
     }
-    
+    //login functionality
     func endSession(){
         self.sessionLoginBool = false
+        self.masterDateList.removeAll()
     }
     
     
@@ -96,6 +97,7 @@ func getListOfPersonalData(completion: @escaping ()->()){
     })
 }
     
+//function to retrieve last workout from historical exercises. Will fail if not populated
 func getLastWorkoutDate(completion: @escaping ()->()){
     self.ref?.child("Users/\(userID)/HistoricalExercises").observeSingleEvent(of: .value, with: { snapshot in
             //populate list with all personal values. if null return and dont fail
@@ -107,11 +109,11 @@ func getLastWorkoutDate(completion: @escaping ()->()){
                     }
                 }
             }
-//            print(self.masterDateList)
             self.lastWorkoutLabel.text = self.calculateLastWorkoutDate(datesList: self.masterDateList)
             completion()
         }else{
             print("Failed to get personal data")
+            self.lastWorkoutLabel.text = "No Prior Workouts available"
             completion()
             }
         })
@@ -140,9 +142,6 @@ func getLastWorkoutDate(completion: @escaping ()->()){
         dateFormatterPrint.dateFormat = "MM/dd/yyyy"
         var solution = dateFormatterPrint.string(from: mostRecentDate!)
         //incase there are no workouts logged
-        if(solution == "01/01/1900"){
-            solution = "No Prior Workouts Logged"
-        }
         return(solution)
     }
     
