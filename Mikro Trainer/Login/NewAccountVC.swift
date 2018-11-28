@@ -229,30 +229,30 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     
     //do something with the most recent image picked
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
             UISelfieView.contentMode = .scaleToFill
             UISelfieView.image = pickedImage
             picker.dismiss(animated: true, completion: nil)
             
-            //new way to store images in firebase
-//            let storageRef = Storage.storage().reference().child("selfie.png")
-//            if let uploadData = UIImagePNGRepresentation(pickedImage) {
-//                storageRef.putData(uploadData)
-//                storageRef.putData(uploadData, metadata: nil, completion: nil)
-//            }
-//                storageRef.put(uploadData, metadata: nil) { (metadata, error) in
-//                    if error != nil {
-//                        print("error")
-//                        completion(nil)
-//                    } else {
-//                        completion((metadata?.downloadURL()?.absoluteString)!))
-//                        // your uploaded photo url.
-//                    }
-//                }
-        
+            print(pickedImage)
+            
+            let storageRef = Storage.storage().reference().child("profile.png")
+            if let uploadData = UISelfieView.image!.pngData() {
+                
+                storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                    
+                    if error != nil {
+                        print(error)
+                        return
+                    }
+                    print(metadata)
+                }
+            }
+            
+
 
         }
     }

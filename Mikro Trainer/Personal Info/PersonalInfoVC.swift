@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 protocol SignOutMethod{
     func endSession()
@@ -28,6 +29,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var genderTxtFld: UITextField!
     @IBOutlet weak var dobTxtFld: UITextField!
     @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var profilePicImageView: UIImageView!
     
     //options for text fields
     var gender = ["Male", "Female", "Other"]
@@ -116,6 +118,10 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.weightTxtFld.text = self.personalDict["UserWeight"]!
         self.genderTxtFld.text = self.personalDict["UserSex"]!
         self.dobTxtFld.text = self.personalDict["UserAge"]!
+        
+        //retrieve the profile pricture
+//        https://www.youtube.com/watch?v=b1vrjt7Nvb0&t=5s //set up
+//        https://www.youtube.com/watch?v=GX4mcOOUrWQ //retrieve image
         
         // Do any additional setup after loading the view.
         //append weight amounts into a single array
