@@ -28,6 +28,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     var weightLabels = ["lbs", "Kg"]
     @IBOutlet weak var dobTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
+    var downloadURL = String()
     
     var masterPicker = [[String]]()
     
@@ -213,7 +214,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.ref?.child("Users").child(self.userID).child("MyFriends").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").setValue("")
         self.ref?.child("Users").child(self.userID).child("HistoricalExercises").setValue("")
-        
+        self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
     }
     
     //take a selfie button
@@ -233,27 +234,31 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
-            UISelfieView.contentMode = .scaleToFill
+//            UISelfieView.contentMode = .scaleToFill
             UISelfieView.image = pickedImage
             picker.dismiss(animated: true, completion: nil)
             
-            print(pickedImage)
-            
-            let storageRef = Storage.storage().reference().child("profile.png")
+            let storageRef = Storage.storage().reference().child("profile_pic.png")
             if let uploadData = UISelfieView.image!.pngData() {
                 
                 storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                     
                     if error != nil {
-                        print(error)
+                        print(error as Any)
                         return
                     }
-                    print(metadata)
+                    //get download url and save it in the database
+                    self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                        //load url string into firebase
+                        print("download url:  \(self.downloadURL)")
+                        //save the download url in the database
+                    
+                    //prevent crashing from false path?
+                    if self.userID != ""{ self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(self.downloadURL)
+                    }
+//                    print("testing: ", metadata?.downloadURL()!)
                 }
             }
-            
-
-
         }
     }
     

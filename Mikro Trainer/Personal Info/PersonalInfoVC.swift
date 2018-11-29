@@ -122,6 +122,21 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         //retrieve the profile pricture
 //        https://www.youtube.com/watch?v=b1vrjt7Nvb0&t=5s //set up
 //        https://www.youtube.com/watch?v=GX4mcOOUrWQ //retrieve image
+        //logic to set profile pic
+        let storageRef = Storage.storage().reference().child("profile_pic.png")
+            
+        storageRef.getData(maxSize: 20 * 1024 * 1024) { (data, error) in
+            if let error = error{
+                print(error)
+                return
+            } else {
+                print("image found")
+                let image = UIImage(data: data!)
+                self.profilePicImageView.image = image
+//                self.profilePicImageView
+            }
+        }
+
         
         // Do any additional setup after loading the view.
         //append weight amounts into a single array
