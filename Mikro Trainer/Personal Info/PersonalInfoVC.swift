@@ -122,21 +122,10 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         //retrieve the profile pricture
 //        https://www.youtube.com/watch?v=b1vrjt7Nvb0&t=5s //set up
 //        https://www.youtube.com/watch?v=GX4mcOOUrWQ //retrieve image
+        
         //logic to set profile pic
-        let storageRef = Storage.storage().reference().child("profile_pic.png")
-            
-        storageRef.getData(maxSize: 20 * 1024 * 1024) { (data, error) in
-            if let error = error{
-                print(error)
-                return
-            } else {
-                print("image found")
-                let image = UIImage(data: data!)
-                self.profilePicImageView.image = image
-//                self.profilePicImageView
-            }
-        }
-
+        print(" profile image url before function: \(self.personalDict["ProfileImageDownload"])")
+        setProfPic()
         
         // Do any additional setup after loading the view.
         //append weight amounts into a single array
@@ -185,6 +174,31 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.heightTxtFld.isEnabled = false
         self.genderTxtFld.isEnabled = false
         self.dobTxtFld.isEnabled = false
+    }
+    
+    //set profile picture
+    func setProfPic(){
+        print("SETTING PROFILE PIC")
+        //logic to set profile pic
+        print(" profile image url: \(self.personalDict["ProfileImageDownload"])")
+        if let profileImageURL = self.personalDict["ProfileImageDownload"] {
+            let url = URL(string: profileImageURL)
+            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                
+                //donwload having an error so lets force quit
+                if error != nil{
+                    print(error as Any)
+                    return
+                }else{
+                    let image = UIImage(data: data!)
+                    self.profilePicImageView.contentMode = .scaleAspectFill
+                    self.profilePicImageView.image = image
+                }
+            }).resume()
+        }else{
+            print("profileImageURL is null")
+            return
+        }
     }
     
     //function that formats and sets date for date of birth
@@ -259,3 +273,6 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
 
 }
+
+
+

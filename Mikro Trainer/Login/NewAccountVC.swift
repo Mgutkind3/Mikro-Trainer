@@ -188,6 +188,9 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             self.userID = String(Auth.auth().currentUser!.uid)
             print("user id: \(self.userID)")
             
+            //call function to upload prof pic download url
+            self.uploadProfPicURL()
+ 
             //call function to build backend schema for specific users
             self.addNewUserNodes()
             //if error is not printed send a success message and dismiss modal view
@@ -214,7 +217,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.ref?.child("Users").child(self.userID).child("MyFriends").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").setValue("")
         self.ref?.child("Users").child(self.userID).child("HistoricalExercises").setValue("")
-        self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
+//        self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
     }
     
     //take a selfie button
@@ -234,13 +237,18 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
-//            UISelfieView.contentMode = .scaleToFill
+            UISelfieView.contentMode = .scaleAspectFill
             UISelfieView.image = pickedImage
+            
+            //make image small for storing online
+            let compressedImage = pickedImage.resized(withPercentage: 0.1)
+            
             picker.dismiss(animated: true, completion: nil)
             
-            let storageRef = Storage.storage().reference().child("profile_pic.png")
-            if let uploadData = UISelfieView.image!.pngData() {
-                
+            //name the image uniquely
+            let imageName = NSUUID().uuidString
+            let storageRef = Storage.storage().reference().child("\(imageName).png")
+            if let uploadData = compressedImage!.pngData() {
                 storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
                     
                     if error != nil {
@@ -249,18 +257,28 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                     }
                     //get download url and save it in the database
                     self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
-                        //load url string into firebase
-                        print("download url:  \(self.downloadURL)")
-                        //save the download url in the database
                     
-                    //prevent crashing from false path?
-                    if self.userID != ""{ self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(self.downloadURL)
-                    }
-//                    print("testing: ", metadata?.downloadURL()!)
                 }
             }
         }
     }
+    
+    //upload the donwload url to firebase
+    func uploadProfPicURL(){
+        //prevent crashing from false path
+        print("download url is: \(self.downloadURL)")
+        print("user id broken: \(self.userID)")
+        print("ref is: \(self.ref)")
+        if self.userID != ""{ self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(self.downloadURL)
+
+        }else{
+            self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
+            print("userID is: \(self.userID), so the user id could never be set")
+        }
+
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -280,4 +298,15 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
+}
+
+//extension
+extension UIImage {
+    func resized(withPercentage percentage: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: size.width * percentage, height: size.height * percentage)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
 }

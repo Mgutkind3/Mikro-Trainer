@@ -57,7 +57,7 @@ class MainMenu: UIViewController, SignOutMethod {
             //call api to get the user's personal data
             self.getListOfPersonalData {
                 //set welcome label
-                self.welcomeLabel.text = "Welcome, \(self.personalDict["UserName"]!)"
+                self.welcomeLabel.text = "Welcome, \(self.personalDict["UserName"]!)"                
             }
             //get the date of the last workout
             self.getLastWorkoutDate {
@@ -68,6 +68,7 @@ class MainMenu: UIViewController, SignOutMethod {
         sessionLoginBool = true
     }
 
+    //go to personal profile
     @IBAction func goToMe(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "PersonalInfoVC") as! PersonalInfoVC
