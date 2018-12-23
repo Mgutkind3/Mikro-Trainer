@@ -96,6 +96,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
             vc.exerciseTitle = workoutExerciseNames[indexPath.row]
+            vc.exerciseID = self.workoutExerciseIDs[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
         }
         

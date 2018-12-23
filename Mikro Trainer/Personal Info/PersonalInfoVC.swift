@@ -15,7 +15,7 @@ protocol SignOutMethod{
     func endSession()
 }
 
-class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var personalDict = [String: String]()
     var delegate:SignOutMethod?
@@ -111,6 +111,10 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.hideKeyboardWhenTappedAround()
         ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
+        
+        //make profile picture pretty
+        self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.width / 2
+        self.profilePicImageView.layer.masksToBounds = true
 
         //Text Labels to
         self.nameTxtFld.text = self.personalDict["UserName"]!
@@ -124,8 +128,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 //        https://www.youtube.com/watch?v=GX4mcOOUrWQ //retrieve image
         
         //logic to set profile pic
-        print(" profile image url before function: \(self.personalDict["ProfileImageDownload"])")
-        setProfPic()
+        setProfPic() //testing
         
         // Do any additional setup after loading the view.
         //append weight amounts into a single array
@@ -180,11 +183,10 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func setProfPic(){
         print("SETTING PROFILE PIC")
         //logic to set profile pic
-        print(" profile image url: \(self.personalDict["ProfileImageDownload"])")
         if let profileImageURL = self.personalDict["ProfileImageDownload"] {
             let url = URL(string: profileImageURL)
             URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-                
+
                 //donwload having an error so lets force quit
                 if error != nil{
                     print(error as Any)
@@ -241,6 +243,85 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
+    //change profile picture
+    @IBAction func changeProfPic(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        
+    }
+    
+    //code reused from new account
+    //do something with the most recent image picked
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Local variable inserted by Swift 4.2 migrator.
+        let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+        
+        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+
+ 
+            self.profilePicImageView.contentMode = .scaleAspectFill
+            self.profilePicImageView.image = pickedImage
+            
+            //delete the old profile picture
+            deleteOldProfPoc()
+            
+            //make image small for storing online
+            let compressedImage = pickedImage.resized(withPercentage: 0.1)
+            
+            picker.dismiss(animated: true, completion: nil)
+            
+            //name the image uniquely
+            let imageName = NSUUID().uuidString
+            let storageRef = Storage.storage().reference().child("\(imageName).png")
+            if let uploadData = compressedImage!.pngData() {
+                storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                    
+                    if error != nil {
+                        print(error as Any)
+                        return
+                    }
+                    //get download url and save it in the database
+                    let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                    let imageName = "\(imageName).png"
+                    
+                    //upload new downloadable link and imageName
+               self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(downloadURL)
+                    self.ref?.child("Users").child(self.userID).child("PersonalData").child("ImageName").setValue(imageName)
+                
+                }
+            }
+        }
+    }
+    
+    func deleteOldProfPoc(){
+        if let imageName = self.personalDict["ImageName"]{
+            let imageRef = Storage.storage().reference().child(imageName)
+            
+            print("deleting: ", imageName)
+            // Delete the file
+            imageRef.delete { error in
+                if let error = error {
+                    print("Failed to delete old profile picture")
+                    print(error)
+                    // Uh-oh, an error occurred!
+                } else {
+                    // File deleted successfully
+                    print("Old profile picture deleted successfully")
+                }
+            }
+        }
+        
+//        let imageRef = storageRef.child("image.png")
+        
+
+    }
+    
+    
     
     //function to sign out of user profile
     @IBAction func signOutBtn(_ sender: Any) {
@@ -272,6 +353,16 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
 
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+    return input.rawValue
 }
 
 

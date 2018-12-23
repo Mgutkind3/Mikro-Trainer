@@ -81,6 +81,7 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "DetailsVC") as! DetailsVC
         vc.exerciseTitle = self.currentNameList[indexPath.row]
+        vc.exerciseID = self.currentIDList[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
     

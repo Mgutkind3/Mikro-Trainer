@@ -27,6 +27,7 @@
 		F0A558DE20FB9C89001CF59A /* WIPExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A558DD20FB9C89001CF59A /* WIPExerciseCell.swift */; };
 		F0A558E0210E5A3C001CF59A /* +GetRecentExerciseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A558DF210E5A3C001CF59A /* +GetRecentExerciseInfo.swift */; };
 		F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC128320E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift */; };
+		F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3D2C021D042080038D005 /* +getExerciseData.swift */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
 		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
 		F0CBB7C520AB4D23001643C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0CBB7C320AB4D23001643C4 /* Main.storyboard */; };
@@ -82,6 +83,7 @@
 		F0A558DD20FB9C89001CF59A /* WIPExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIPExerciseCell.swift; sourceTree = "<group>"; };
 		F0A558DF210E5A3C001CF59A /* +GetRecentExerciseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+GetRecentExerciseInfo.swift"; sourceTree = "<group>"; };
 		F0AC128320E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITable+GetList+GetAllList.swift"; sourceTree = "<group>"; };
+		F0B3D2C021D042080038D005 /* +getExerciseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+getExerciseData.swift"; sourceTree = "<group>"; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0CBB7C120AB4D23001643C4 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				F0F0C71E2127437100113F66 /* DetailsVC.swift */,
+				F0B3D2C021D042080038D005 /* +getExerciseData.swift */,
 			);
 			path = ExerciseDetails;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
 				F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */,
+				F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */,
 				F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */,
 				F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */,
 				F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */,
