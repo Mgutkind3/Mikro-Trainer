@@ -9,8 +9,9 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
-class AddExcerciseVC: UIViewController, UITextViewDelegate {
+class AddExcerciseVC: UIViewController, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var excerciseNameTxtField: UITextField!
     @IBOutlet weak var muscGrpTxtField: UITextField!
     @IBOutlet weak var wtTxtField: UITextField!
@@ -19,6 +20,7 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var addExcerciseErrorLabel: UILabel!
     @IBOutlet weak var shortDescBox: UITextView!
     @IBOutlet weak var aerobicNonAeroSegment: UISegmentedControl!
+    @IBOutlet weak var exerciseImgView: UIImageView!
     
     var ref: DatabaseReference?
     var userID = String()
@@ -50,6 +52,33 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
         }else{
             //dont reset text and do nothing
         }
+    }
+    
+    //upload image to firebase
+    @IBAction func uploadImageBtn(_ sender: Any) {
+        let image = UIImagePickerController()
+        image.delegate = self
+        
+        image.sourceType = UIImagePickerController.SourceType.photoLibrary
+        
+        image.allowsEditing = false
+        self.present(image, animated: true)
+        {
+            //after presenting is complete
+        }
+    }
+    
+    //get imahe and place it in the view befor submission
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage{
+            
+            self.exerciseImgView.contentMode = .scaleAspectFill
+            self.exerciseImgView.image = image
+            
+        }else{
+            //error
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -93,9 +122,12 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
                 self.ref?.child("Exercises").child(self.exID).child(x).setValue(workoutDetails[i])
                 i = i + 1
             }
+            
+            //fucntion to upload image to firebase storage
+            self.uploadImgToFir()
         })
         
-        
+
         
         //clear all text fields
         excerciseNameTxtField.text = ""
@@ -111,6 +143,36 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
 
     }
     
+    //upload image to firebase
+    func uploadImgToFir(){
+        
+        if let pickedImage = self.exerciseImgView.image{
+        //make image small for storing online
+        let compressedImage = pickedImage.resized(withPercentage: 0.1)
+        
+        //name the image uniquely
+        let imageName = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(imageName).png")
+        if let uploadData = compressedImage!.pngData() {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                
+                if error != nil {
+                    print(error as Any)
+                    return
+                }
+                //get download url and save it in the database
+                let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                
+                //upload new downloadable link url
+                self.ref?.child("Exercises/\(self.exID)").child("StorageURL").setValue(downloadURL)
+            }
+        }
+        }else{
+            print("no image selected")
+        }
+    }
+
+    
     //find the highest exercise number recorded in the database
     func exerciseNumber(completion: @escaping ()->()){
 
@@ -121,8 +183,6 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate {
                     for y in (dict) {
                 let obj = y as? NSDictionary
                 if let exerciseID = obj?["ExerciseID"] as? String {
-//                    print("ex: ")
-//                    print(exerciseID)
                     let exerciseIDInt = Int(exerciseID)
                     
                     // find the highest user id (if there are any) and create a new exercise id

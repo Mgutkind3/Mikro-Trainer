@@ -539,7 +539,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ics-o8-0gr">
-                                <rect key="frame" x="67" y="524" width="240" height="29"/>
+                                <rect key="frame" x="67" y="508" width="240" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Aerobic"/>
@@ -560,18 +560,20 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upload an Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3Q-H2-ut7">
-                                <rect key="frame" x="123" y="574" width="129" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="USv-gZ-wOL">
+                                <rect key="frame" x="210" y="551" width="115" height="107"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcO-IW-euc">
-                                <rect key="frame" x="171" y="586" width="32" height="49"/>
+                                <rect key="frame" x="67" y="551" width="120" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="UploadImage"/>
+                                <state key="normal" title="Upload Image">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="uploadImageBtn:" destination="cNL-Bl-xMD" eventType="touchUpInside" id="vow-gU-hkM"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -589,6 +591,7 @@
                         <outlet property="addExcerciseErrorLabel" destination="FM9-4z-NEs" id="AA3-Ek-u66"/>
                         <outlet property="aerobicNonAeroSegment" destination="ics-o8-0gr" id="3GO-sD-F9u"/>
                         <outlet property="excerciseNameTxtField" destination="oiZ-9N-tYi" id="NYh-uf-jdd"/>
+                        <outlet property="exerciseImgView" destination="USv-gZ-wOL" id="XW3-gg-dSB"/>
                         <outlet property="muscGrpTxtField" destination="Vas-Ed-FmC" id="xhd-jd-5KQ"/>
                         <outlet property="repsTxtField" destination="Yep-Al-Ibl" id="lFC-bc-mip"/>
                         <outlet property="setTxtField" destination="cRD-Ap-9ew" id="ijL-Au-LU1"/>
@@ -1085,7 +1088,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="UploadImage" width="30" height="30"/>
         <image name="book" width="30" height="30"/>
         <image name="home" width="30" height="30"/>
         <image name="mLogo" width="1024" height="1024"/>

@@ -42,7 +42,9 @@ class DetailsVC: UIViewController {
         print("DETAILS!")
         //load the information needed to complete this exercise
         self.getListOfExerciseDetails {
-            print("done retrieving details")
+            
+            //get image for display
+            self.exerImg()
             
             //set the text label values
             self.baseRepsLbl.text = "Base Reps: \(self.detailsDict["BaseReps"] ?? "")"
@@ -55,6 +57,31 @@ class DetailsVC: UIViewController {
         }
         
     }
+    
+    
+    //get image to display for each exercise
+    func exerImg(){
+        //set profile picture
+            print("SETTING PROFILE PIC")
+            //logic to set profile pic
+            if let profileImageURL = self.detailsDict["StorageURL"] {
+                let url = URL(string: profileImageURL)
+                URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                    
+                    //donwload having an error so lets force quit
+                    if error != nil{
+                        print(error as Any)
+                        return
+                    }else{
+                        let image = UIImage(data: data!)
+                        self.exerciseImgView.contentMode = .scaleAspectFill
+                        self.exerciseImgView.image = image
+                    }
+                }).resume()
+            }else{
+                print("exercise image is not available")
+            }
+        }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
