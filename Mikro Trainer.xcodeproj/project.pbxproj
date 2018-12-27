@@ -14,6 +14,9 @@
 		F020637620AB577E00CAE33F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637520AB577E00CAE33F /* LoginVC.swift */; };
 		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
 		F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637B20AB788300CAE33F /* PersonalInfoVC.swift */; };
+		F046A25221D4957C00CFE76F /* CalendarHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F046A25121D4957C00CFE76F /* CalendarHomeVC.swift */; };
+		F046A25521D4982B00CFE76F /* DashHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F046A25421D4982B00CFE76F /* DashHomeVC.swift */; };
+		F046A25821D49A9000CFE76F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F046A25721D49A9000CFE76F /* HealthKit.framework */; };
 		F0535CCB20E069BB0016DC81 /* WorkoutExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CCA20E069BB0016DC81 /* WorkoutExercisesVC.swift */; };
 		F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */; };
 		F0535CD420E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */; };
@@ -70,6 +73,10 @@
 		F020637520AB577E00CAE33F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
 		F020637B20AB788300CAE33F /* PersonalInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVC.swift; sourceTree = "<group>"; };
+		F046A25121D4957C00CFE76F /* CalendarHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeVC.swift; sourceTree = "<group>"; };
+		F046A25421D4982B00CFE76F /* DashHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashHomeVC.swift; sourceTree = "<group>"; };
+		F046A25621D49A5A00CFE76F /* Mikro Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Mikro Trainer.entitlements"; sourceTree = "<group>"; };
+		F046A25721D49A9000CFE76F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		F0535CCA20E069BB0016DC81 /* WorkoutExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExercisesVC.swift; sourceTree = "<group>"; };
 		F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UItableView+GetWorkouts.swift"; sourceTree = "<group>"; };
 		F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UItableView+GetWorkoutExercises.swift"; sourceTree = "<group>"; };
@@ -109,6 +116,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */,
+				F046A25821D49A9000CFE76F /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +155,7 @@
 		AA33BCBDB8136F0E801652C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F046A25721D49A9000CFE76F /* HealthKit.framework */,
 				DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */,
 				BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */,
 				658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */,
@@ -179,6 +188,22 @@
 				F017D05821509E4A00F9BFB7 /* SettingsVC.swift */,
 			);
 			path = "Personal Info";
+			sourceTree = "<group>";
+		};
+		F046A25021D4954500CFE76F /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				F046A25121D4957C00CFE76F /* CalendarHomeVC.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		F046A25321D4980200CFE76F /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F046A25421D4982B00CFE76F /* DashHomeVC.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		F06403B620CDAE1600A7FE72 /* My Workouts */ = {
@@ -248,12 +273,15 @@
 		F0CBB7BE20AB4D23001643C4 /* Mikro Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				F046A25621D49A5A00CFE76F /* Mikro Trainer.entitlements */,
 				F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */,
 				F020637720AB5C4000CAE33F /* Menu */,
 				F06403B620CDAE1600A7FE72 /* My Workouts */,
 				F020637220AB56E300CAE33F /* Login */,
 				F020637A20AB785200CAE33F /* Personal Info */,
 				F094BEBE20AC8AA100D158AA /* My Exercises */,
+				F046A25021D4954500CFE76F /* Calendar */,
+				F046A25321D4980200CFE76F /* Dashboard */,
 				F0CBB7C620AB4D24001643C4 /* Assets.xcassets */,
 				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
 				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
@@ -373,6 +401,14 @@
 					F0CBB7BB20AB4D23001643C4 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					F0CBB7CF20AB4D25001643C4 = {
 						CreatedOnToolsVersion = 9.3.1;
@@ -533,7 +569,9 @@
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
 				F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */,
 				F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */,
+				F046A25521D4982B00CFE76F /* DashHomeVC.swift in Sources */,
 				F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */,
+				F046A25221D4957C00CFE76F /* CalendarHomeVC.swift in Sources */,
 				F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */,
 				F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
@@ -715,6 +753,7 @@
 			baseConfigurationReference = D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mikro Trainer/Mikro Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q58G553SD;
 				INFOPLIST_FILE = "Mikro Trainer/Info.plist";
@@ -734,6 +773,7 @@
 			baseConfigurationReference = A7033F3AE8C7F54162E2223F /* Pods-Mikro Trainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Mikro Trainer/Mikro Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q58G553SD;
 				INFOPLIST_FILE = "Mikro Trainer/Info.plist";

@@ -11,6 +11,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import HealthKit
 
 class MainMenu: UIViewController, SignOutMethod {
     
@@ -22,6 +23,7 @@ class MainMenu: UIViewController, SignOutMethod {
     var masterDateList = [String]()
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var lastWorkoutLabel: UILabel!
+    let healthStore = HKHealthStore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +32,63 @@ class MainMenu: UIViewController, SignOutMethod {
         self.navigationItem.title = "Mikro Trainer"
         self.tabBarItem.title = "Home"
         
+        //get health kit access
+        self.healthKitSetup()
+        
     }
     //login functionality
     func endSession(){
         self.sessionLoginBool = false
         self.masterDateList.removeAll()
+    }
+    
+    //https://stackoverflow.com/questions/36559581/healthkit-swift-getting-todays-steps
+    //function to authenticate and use health kit
+    func healthKitSetup(){
+        //step 1- check to see if health kit is available on device
+        if HKHealthStore.isHealthDataAvailable(){
+            print("We can use health kit! :)")
+            
+            
+            let allTypes = Set([HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+                                HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
+                               HKObjectType.quantityType(forIdentifier: .stepCount)!])
+            
+            healthStore.requestAuthorization(toShare: allTypes, read: allTypes) { (success, error) in
+                if !success {
+                    // Handle the error here.
+                    print("We have an error: ", error as Any)
+                }else{
+                    print("authorization gained")
+                    //test
+                    self.getTodaysSteps(completion: { (steps) in
+                        print("steps: ", steps)
+                    })
+                    //test
+                }
+            }
+        }else{
+            print("we cant use health kit :(")
+        }
+    }
+    
+    func getTodaysSteps(completion: @escaping (Double) -> Void) {
+        let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+        
+        let now = Date()
+//        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        let query = HKStatisticsQuery(quantityType: stepsQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
+            guard let result = result, let sum = result.sumQuantity() else {
+                completion(0.0)
+                return
+            }
+            completion(sum.doubleValue(for: HKUnit.count()))
+        }
+        
+        healthStore.execute(query)
     }
     
     
