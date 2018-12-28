@@ -11,6 +11,8 @@ target 'Mikro Trainer' do
   pod 'Firebase/Auth'
   pod ‘Firebase/Database’
   pod 'Firebase/Storage'
+  pod 'Charts'
+  pod 'JTAppleCalendar', '~> 7.0'
 
   target 'Mikro TrainerTests' do
     inherit! :search_paths

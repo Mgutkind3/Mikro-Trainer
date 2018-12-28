@@ -21,6 +21,7 @@
 		F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */; };
 		F0535CD420E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */; };
 		F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */; };
+		F05C62DB21D6D78E009F0BF9 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */; };
 		F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */; };
 		F06403BC20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */; };
 		F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */; };
@@ -82,6 +83,7 @@
 		F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UItableView+GetWorkouts.swift"; sourceTree = "<group>"; };
 		F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UItableView+GetWorkoutExercises.swift"; sourceTree = "<group>"; };
 		F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExercisesCell.swift; sourceTree = "<group>"; };
+		F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsVC.swift; sourceTree = "<group>"; };
 		F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPreviousWorkoutsCell.swift; sourceTree = "<group>"; };
 		F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesTableViewCell.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				F046A25121D4957C00CFE76F /* CalendarHomeVC.swift */,
+				F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -535,15 +538,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -570,6 +577,7 @@
 				F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */,
 				F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
+				F05C62DB21D6D78E009F0BF9 /* CalendarCell.swift in Sources */,
 				F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */,
 				F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */,
 				F09E36DE21D5D79700954769 /* steps+distance+floors.swift in Sources */,

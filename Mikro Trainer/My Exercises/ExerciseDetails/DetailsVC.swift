@@ -67,9 +67,7 @@ class DetailsVC: UIViewController {
             print("SETTING PROFILE PIC")
             //logic to set profile pic
             if let profileImageURL = self.detailsDict["StorageURL"] {
-//                let url = URL(string: profileImageURL)
                 let httpsReference = self.storage.reference(forURL: profileImageURL)
-//                URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
                 //download to memory and limit to 1mb
                  httpsReference.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
                     
