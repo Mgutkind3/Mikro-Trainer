@@ -20,6 +20,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var personalDict = [String: String]()
     var delegate:SignOutMethod?
     var ref: DatabaseReference?
+    var storage: Storage!
     var userID = String()
 
     //text lables
@@ -110,6 +111,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.tabBarController?.tabBar.isHidden = true
         self.hideKeyboardWhenTappedAround()
         ref = Database.database().reference()
+        storage = Storage.storage()
         self.userID = String(Auth.auth().currentUser!.uid)
         
         //make profile picture pretty
@@ -184,19 +186,20 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         print("SETTING PROFILE PIC")
         //logic to set profile pic
         if let profileImageURL = self.personalDict["ProfileImageDownload"] {
-            let url = URL(string: profileImageURL)
-            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
-
-                //donwload having an error so lets force quit
+            // Create a storage reference from the URL
+            let httpsReference = self.storage.reference(forURL: profileImageURL)
+            // Download the data, assuming a max size of 1MB (you can change this as necessary)
+            httpsReference.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
+                // Create a UIImage, add it to the array
                 if error != nil{
-                    print(error as Any)
-                    return
+                print(error as Any)
+                return
                 }else{
                     let image = UIImage(data: data!)
                     self.profilePicImageView.contentMode = .scaleAspectFill
                     self.profilePicImageView.image = image
                 }
-            }).resume()
+            }
         }else{
             print("profileImageURL is null")
             return

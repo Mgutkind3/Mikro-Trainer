@@ -26,6 +26,7 @@ class DetailsVC: UIViewController {
     var exerciseTitle = String()
     var exerciseID = String()
     var ref: DatabaseReference?
+    var storage: Storage!
     var userID = String()
     
     override func viewDidLoad() {
@@ -35,6 +36,7 @@ class DetailsVC: UIViewController {
         //set user id and database reference
         self.userID = String(Auth.auth().currentUser!.uid)
         ref = Database.database().reference()
+        storage = Storage.storage()
         
         //format text box
         self.exerDescrLbl.isEditable = false
@@ -65,8 +67,11 @@ class DetailsVC: UIViewController {
             print("SETTING PROFILE PIC")
             //logic to set profile pic
             if let profileImageURL = self.detailsDict["StorageURL"] {
-                let url = URL(string: profileImageURL)
-                URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+//                let url = URL(string: profileImageURL)
+                let httpsReference = self.storage.reference(forURL: profileImageURL)
+//                URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                //download to memory and limit to 1mb
+                 httpsReference.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
                     
                     //donwload having an error so lets force quit
                     if error != nil{
@@ -77,7 +82,7 @@ class DetailsVC: UIViewController {
                         self.exerciseImgView.contentMode = .scaleAspectFill
                         self.exerciseImgView.image = image
                     }
-                }).resume()
+                }
             }else{
                 print("exercise image is not available")
             }
