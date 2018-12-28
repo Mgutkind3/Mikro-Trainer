@@ -24,6 +24,9 @@ class MainMenu: UIViewController, SignOutMethod {
     @IBOutlet weak var welcomeLabel: UILabel!
     @IBOutlet weak var lastWorkoutLabel: UILabel!
     let healthStore = HKHealthStore()
+    @IBOutlet weak var stepsLbl: UILabel!
+    @IBOutlet weak var distanceTrvldLbl: UILabel!
+    @IBOutlet weak var flightsClimbedLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,35 +63,28 @@ class MainMenu: UIViewController, SignOutMethod {
                     print("We have an error: ", error as Any)
                 }else{
                     print("authorization gained")
-                    //test
+                    //get amount of steps taken today
                     self.getTodaysSteps(completion: { (steps) in
-                        print("steps: ", steps)
+//                        print("steps: ", steps)
+                        self.stepsLbl.text = "Steps Today: \(Int(steps)) Steps"
                     })
-                    //test
+                    
+                    //get amount of distance traveled today
+                    self.getTodaysDistance(completion: { (dist) in
+//                        print("distance traveled: \(dist)")
+                        self.distanceTrvldLbl.text = "Distance Traveled Today: \(dist.rounded(toPlaces: 2)) Miles"
+                    })
+                    
+                    //get the amount of flights climbed
+                    self.getTodaysFloors(completion: { (floors) in
+//                        print("floors climbed: \(floors)")
+                        self.flightsClimbedLbl.text = "Flights Climbed Today: \(Int(floors)) Floors"
+                    })
                 }
             }
         }else{
             print("we cant use health kit :(")
         }
-    }
-    
-    func getTodaysSteps(completion: @escaping (Double) -> Void) {
-        let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-        
-        let now = Date()
-//        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        let startOfDay = Calendar.current.startOfDay(for: now)
-        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
-        
-        let query = HKStatisticsQuery(quantityType: stepsQuantityType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
-            guard let result = result, let sum = result.sumQuantity() else {
-                completion(0.0)
-                return
-            }
-            completion(sum.doubleValue(for: HKUnit.count()))
-        }
-        
-        healthStore.execute(query)
     }
     
     
@@ -118,6 +114,9 @@ class MainMenu: UIViewController, SignOutMethod {
             self.getLastWorkoutDate {
                 print("done getting last workout")
             }
+            
+            //get health kit access
+            self.healthKitSetup()
         }
         
         sessionLoginBool = true

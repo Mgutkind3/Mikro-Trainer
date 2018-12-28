@@ -15,11 +15,12 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var touchSwitch: UISwitch!
     var switchState = Int()
     @IBOutlet weak var wrongPwdLabel: UILabel!
+    //0 is not active, 1 is active
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        print("user Default settings: \(UserDefaults.standard.string(forKey: "switchState"))")
+        print("user Default settings: \(UserDefaults.standard.string(forKey: "switchState") ?? "")")
         if (UserDefaults.standard.string(forKey: "switchState") == "0" || UserDefaults.standard.string(forKey: "switchState") == "" ){
             self.touchSwitch.setOn(false, animated: true)
         }else{

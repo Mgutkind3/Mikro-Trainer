@@ -19,7 +19,10 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        print("user email: \(UserDefaults.standard.string(forKey: "emailCred"))")
+        //populate username of thumb print registered account
+        print("user email: \(UserDefaults.standard.string(forKey: "emailCred") ?? "")")
+        self.emailTextField.text = "\(UserDefaults.standard.string(forKey: "emailCred") ?? "")"
+        
         if(UserDefaults.standard.string(forKey: "switchState") == "1"){
             print("use touch id")
             let context = LAContext()
