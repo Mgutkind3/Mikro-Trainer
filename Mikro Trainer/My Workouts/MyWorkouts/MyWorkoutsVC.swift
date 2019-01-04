@@ -51,8 +51,10 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.prevWorkoutsNames.append("Select the '+' sign to create a new workout")
         
         //get list of all workouts
-        getAllMyWorkouts {
+        getAllMyWorkouts(userID: self.userID, ref: self.ref! ) { list in
             //run function to only get names and not the dates
+//            print("TESTING IT WORKED")
+            self.myPreviousWorkouts = list
             self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
             self.MyWorkoutsTableView.reloadData()
         }
@@ -170,10 +172,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             }else{
                 print("doesnt have : ")
             }
-
         }
-
-
     }
     
     
