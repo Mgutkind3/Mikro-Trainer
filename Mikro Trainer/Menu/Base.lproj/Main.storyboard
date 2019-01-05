@@ -295,11 +295,26 @@
                                 </constraints>
                             </stackView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Workout" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fr4-O5-ODD">
-                                <rect key="frame" x="116" y="579" width="183" height="30"/>
+                                <rect key="frame" x="116" y="568" width="183" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6Q-yN-6ya">
+                                <rect key="frame" x="43" y="548" width="328" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIv-VN-JMz">
+                                <rect key="frame" x="111" y="623" width="194" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Remove Scheduled Workout"/>
+                                <connections>
+                                    <action selector="removeWorkoutBtn:" destination="MgW-2L-Vy3" eventType="touchUpInside" id="ddt-tC-Krw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -313,17 +328,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="c5C-h4-oaM"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7us-J3-9k0">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hTs-IL-35w">
-                            <connections>
-                                <action selector="planNewWorkoutDate:" destination="MgW-2L-Vy3" id="FGz-sL-450"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="7us-J3-9k0"/>
                     <connections>
-                        <outlet property="addWrkSchBtn" destination="hTs-IL-35w" id="ih9-xM-mz0"/>
                         <outlet property="calendarGridView" destination="FS1-v6-usW" id="lkS-xl-4yg"/>
                         <outlet property="monthLabel" destination="Y9X-Pb-80n" id="pkO-kv-mOZ"/>
+                        <outlet property="removeBtnOut" destination="lIv-VN-JMz" id="tYj-uu-OQq"/>
+                        <outlet property="workoutSummaryLbl" destination="P6Q-yN-6ya" id="z0b-6K-78Y"/>
                         <outlet property="workoutTypeField" destination="Fr4-O5-ODD" id="oFj-Eo-7E9"/>
                         <outlet property="yearLabel" destination="3pc-EF-kuV" id="InP-zR-gRl"/>
                     </connections>

@@ -24,6 +24,7 @@
 		F05C62DB21D6D78E009F0BF9 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */; };
 		F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */; };
 		F06403BC20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */; };
+		F071D96021E1385C00408E38 /* scheduled+workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F071D95F21E1385C00408E38 /* scheduled+workouts.swift */; };
 		F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */; };
 		F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */; };
 		F094BEC420AE0B3200D158AA /* AllExercisesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */; };
@@ -86,6 +87,7 @@
 		F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsVC.swift; sourceTree = "<group>"; };
 		F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPreviousWorkoutsCell.swift; sourceTree = "<group>"; };
+		F071D95F21E1385C00408E38 /* scheduled+workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "scheduled+workouts.swift"; sourceTree = "<group>"; };
 		F0917E1B20BBB54900641C04 /* AllExercisesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesTableViewCell.swift; sourceTree = "<group>"; };
 		F094BEC120AC8DA100D158AA /* AddExcerciseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExcerciseVC.swift; sourceTree = "<group>"; };
 		F094BEC320AE0B3200D158AA /* AllExercisesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllExercisesVC.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				F046A25121D4957C00CFE76F /* CalendarHomeVC.swift */,
 				F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */,
+				F071D95F21E1385C00408E38 /* scheduled+workouts.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				F046A25221D4957C00CFE76F /* CalendarHomeVC.swift in Sources */,
 				F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */,
 				F0535CD120E0719C0016DC81 /* UItableView+GetWorkouts.swift in Sources */,
+				F071D96021E1385C00408E38 /* scheduled+workouts.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
 				F0F0C71F2127437100113F66 /* DetailsVC.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,

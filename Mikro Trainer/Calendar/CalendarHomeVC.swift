@@ -40,20 +40,22 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     let formatter = DateFormatter()
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet weak var monthLabel: UILabel!
+
+    @IBOutlet weak var removeBtnOut: UIButton!
     
     var selectedDates = [String]()//populate upon opening this document
-    let selectedDate = String()
+    var selectedDate = String()
     var workoutsList = [String]()//list of workouts
+    var workoutDict = [String: String]()//dictionary of workouts
     
     var userID = String()
     var ref: DatabaseReference?
     var myWorkoutsVC = MyWorkoutsVC()
     //picker
     private var workoutPicker: UIPickerView?
-    @IBOutlet weak var saveBtn: UIBarButtonItem!
-    @IBOutlet weak var addWrkSchBtn: UIBarButtonItem!
     @IBOutlet weak var workoutTypeField: UITextField!
     
+    @IBOutlet weak var workoutSummaryLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,11 +64,6 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         workoutPicker?.delegate = self
         workoutPicker?.dataSource = self
         workoutTypeField.inputView = workoutPicker
-        self.workoutTypeField.isHidden = true
-        self.hideKeyboardWhenTappedAround()
-        self.addWrkSchBtn.isEnabled = false
-        
-//        textField.layer.borderColor = UIColor.whiteColor().CGColor
         
         // ToolBar
         let toolBar = UIToolbar()
@@ -76,22 +73,74 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         toolBar.sizeToFit()
         
         let sButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(saveButtonFunc))
-        toolBar.setItems([sButton], animated: false)
+        let cButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(cancelButtonFunc))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil);
+        toolBar.setItems([sButton, flexibleSpace, cButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
         workoutTypeField.inputAccessoryView = toolBar
         
-        setUpCalendarView()
+//        setUpCalendarView()
         // Do any additional setup after loading the view.
     }
     
+    //save right now
     @objc func saveButtonFunc(){
         print("saving")
         self.workoutTypeField.isHidden = true
         self.dismissKeyboard()
+        
+        //dont let the default text fill the value if the picker isnt touched
+        if workoutTypeField.text == "Schedule Workout"{
+            workoutTypeField.text = workoutsList[0]
+        }
+        //present alert to confirm scheduled workout
+        let alert = UIAlertController(title: "Confirm", message: "Confirm your scheduled workout of \(self.workoutTypeField.text!) on \(self.selectedDate)?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: { action in
+            
+        self.ref?.child("Users").child(self.userID).child("ScheduledWorkouts").child(self.selectedDate).setValue(self.workoutTypeField.text!)
+            //add newly cheduled date to workoutDict
+            self.workoutDict[self.selectedDate] = self.workoutTypeField.text!
+            self.calendarGridView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        //prompt the user with a notification if they'd like to save the app
+    }
+    
+    @objc func cancelButtonFunc(){
+        self.dismissKeyboard()
+        self.workoutTypeField.isHidden = true
+        self.workoutTypeField.text = "Schedule Workout"
+    }
+    
+    //action to remove workout from databse and the calendar
+    @IBAction func removeWorkoutBtn(_ sender: Any) {
+        print("removing workout")
+        let workoutToRemove = self.workoutDict[self.selectedDate]!
+        let removeAlert = UIAlertController(title: "Remove Scheduled Workout", message: "Are you sure you wwant to remove \(workoutToRemove) on \(self.selectedDate)?", preferredStyle: UIAlertController.Style.alert)
+        removeAlert.addAction(UIAlertAction(title: "Remove it!", style: UIAlertAction.Style.default, handler: { action in
+            //remove date from database
+            self.ref?.child("Users").child(self.userID).child("ScheduledWorkouts").child(self.selectedDate).setValue(nil)
+            //remove workout from dictionary
+            self.workoutDict.removeValue(forKey: self.selectedDate)
+            self.workoutSummaryLbl.isHidden = true
+            self.removeBtnOut.isHidden = true
+
+            self.calendarGridView.reloadData()
+        }))
+        removeAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(removeAlert, animated: true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        setUpCalendarView()
+        
+        self.workoutTypeField.isHidden = true
+        self.workoutSummaryLbl.text = ""
+        self.workoutSummaryLbl.isHidden = true
+        self.removeBtnOut.isHidden = true
         
         //get user id
         self.ref = Database.database().reference()
@@ -101,6 +150,13 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             self.workoutsList = list
             self.seperateDatesNames(prevWorkoutsList: self.workoutsList)
             self.workoutPicker?.reloadAllComponents()
+        }
+        
+        //get scheduled workouts
+        self.getMyScheduledWorkouts {
+            print("done getting scheduled workouts")
+            
+            self.calendarGridView.reloadData()
         }
     }
     
@@ -136,22 +192,6 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.calendarGridView.scrollToDate(Date(),animateScroll: false)
 
     }
-    
-    //function to add a planned workout
-    @IBAction func planNewWorkoutDate(_ sender: Any) {
-        
-        if selectedDates.contains(selectedDate){
-            //ask user whether they want to delete or not
-        }else{
-            //ask user if they want to plan a new workout
-            self.workoutTypeField.isHidden = false
-        }
-    }
-    
-    @IBAction func saveBtnAction(_ sender: Any) {
-        self.workoutTypeField.isHidden = true
-    }
-    
 
 }
 
@@ -168,10 +208,9 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         self.monthLabel.text = formatter.string(from: date)
     }
     
-    
+    //developer fix for bugs
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        let myCalendarCell = cell as! CalendarCell
-        print(myCalendarCell)
+        _ = cell as! CalendarCell
     }
     
     
@@ -201,6 +240,10 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         
         cell.dateLabel.text = cellState.text
         
+        //highlight scheduled workouts
+        formatter.dateFormat = "MM-dd-yyyy"
+        formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
+        let curDate = formatter.string(from: date)
         
         //make days of this month black and days of other month's dark grey
         if cellState.dateBelongsTo == .thisMonth{
@@ -213,12 +256,17 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         if Calendar.current.isDateInToday(date){
             //today
             cell.backgroundColor = UIColor.cyan
-            cell.layer.cornerRadius = cell.frame.width / 2
         }else{
-            //not today
+            //highlight scheduled days
+            if let _ = self.workoutDict[curDate]{//how to check if a value is within a dictionary
+                cell.backgroundColor = UIColor.orange
+            }else{
+            //not today and not a scheduled workout
             cell.backgroundColor = UIColor.white
-            cell.layer.cornerRadius = cell.frame.width / 2
+            }
         }
+        
+        cell.layer.cornerRadius = cell.frame.width / 2
         
         return cell
     }
@@ -228,22 +276,69 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         guard let validCell = cell as? CalendarCell else {return}
         
         validCell.backgroundColor = UIColor.orange
-        self.addWrkSchBtn.isEnabled = true
         
+        let now = Date()
         formatter.dateFormat = "MM-dd-yyyy"
         formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
-        let selectedDate = formatter.string(from: date)//date of selected day
+        self.selectedDate = formatter.string(from: date)//date of selected day
         print("selected date: ", selectedDate)
+        
+        //if statement checking if date is in the past
+        //make sure date doesnt already exist in the list
+        if date < now {
+            print("Date is in the past")
+            self.workoutTypeField.isHidden = true
+            self.removeBtnOut.isHidden = true
+            //todays date
+            if Calendar.current.isDateInToday(date){
+                self.tabBarController?.selectedIndex = 1
+            }
+            //previous date with completed workout
+            if let val = self.workoutDict[selectedDate]{
+                self.workoutSummaryLbl.text = "Completed Workout: \(val) on \(self.selectedDate)"
+                self.workoutSummaryLbl.isHidden = false
+            }else{
+                //previous date without scheduled workout
+                self.workoutSummaryLbl.isHidden = true
+            }
+        }else{
+            //planned workout in the future
+            if let val = self.workoutDict[selectedDate]{
+                self.workoutSummaryLbl.text = "Cancel Workout: \(val) on \(self.selectedDate)?"
+                self.workoutSummaryLbl.isHidden = false
+                self.removeBtnOut.isHidden = false
+                self.workoutTypeField.isHidden = true
+            }else{
+                //unplanned workout in the future
+                self.workoutTypeField.text = "Schedule Workout"
+                self.workoutTypeField.isHidden = false
+                self.workoutSummaryLbl.isHidden = true
+                self.removeBtnOut.isHidden = true
+            }
+        }
         
     }
     
     //deselect date
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let validCell = cell as? CalendarCell else {return}
+        
+        //highlight scheduled workouts
+        formatter.dateFormat = "MM-dd-yyyy"
+        formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
+        let curDate = formatter.string(from: date)
+        
         if Calendar.current.isDateInToday(date){
             validCell.backgroundColor = UIColor.cyan
         }else{
-            validCell.backgroundColor = UIColor.white
+            
+            //highlight scheduled days
+            if let _ = self.workoutDict[curDate]{//how to check if a value is within a dictionary
+                validCell.backgroundColor = UIColor.orange
+            }else{
+                //not today and not a scheduled workout
+                validCell.backgroundColor = UIColor.white
+            }
         }
         
     }
