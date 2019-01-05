@@ -66,6 +66,8 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.hideKeyboardWhenTappedAround()
         self.addWrkSchBtn.isEnabled = false
         
+//        textField.layer.borderColor = UIColor.whiteColor().CGColor
+        
         // ToolBar
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
@@ -76,6 +78,7 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let sButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(saveButtonFunc))
         toolBar.setItems([sButton], animated: false)
         toolBar.isUserInteractionEnabled = true
+        
         workoutTypeField.inputAccessoryView = toolBar
         
         setUpCalendarView()
@@ -85,6 +88,7 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @objc func saveButtonFunc(){
         print("saving")
         self.workoutTypeField.isHidden = true
+        self.dismissKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {

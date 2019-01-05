@@ -294,11 +294,10 @@
                                     <constraint firstItem="Y9X-Pb-80n" firstAttribute="top" secondItem="3pc-EF-kuV" secondAttribute="bottom" constant="3" id="pXR-02-34t"/>
                                 </constraints>
                             </stackView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Workout Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fr4-O5-ODD">
-                                <rect key="frame" x="211" y="124" width="183" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select Workout" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fr4-O5-ODD">
+                                <rect key="frame" x="116" y="579" width="183" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
@@ -315,11 +314,6 @@
                         <viewLayoutGuide key="safeArea" id="c5C-h4-oaM"/>
                     </view>
                     <navigationItem key="navigationItem" id="7us-J3-9k0">
-                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="EQO-AE-CgR">
-                            <connections>
-                                <action selector="saveBtnAction:" destination="MgW-2L-Vy3" id="zUN-U2-FkB"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="hTs-IL-35w">
                             <connections>
                                 <action selector="planNewWorkoutDate:" destination="MgW-2L-Vy3" id="FGz-sL-450"/>
@@ -330,7 +324,6 @@
                         <outlet property="addWrkSchBtn" destination="hTs-IL-35w" id="ih9-xM-mz0"/>
                         <outlet property="calendarGridView" destination="FS1-v6-usW" id="lkS-xl-4yg"/>
                         <outlet property="monthLabel" destination="Y9X-Pb-80n" id="pkO-kv-mOZ"/>
-                        <outlet property="saveBtn" destination="EQO-AE-CgR" id="N6J-TD-2H5"/>
                         <outlet property="workoutTypeField" destination="Fr4-O5-ODD" id="oFj-Eo-7E9"/>
                         <outlet property="yearLabel" destination="3pc-EF-kuV" id="InP-zR-gRl"/>
                     </connections>
@@ -1324,11 +1317,11 @@
             </objects>
             <point key="canvasLocation" x="1644" y="2678"/>
         </scene>
-        <!--Dashboard-->
+        <!--Preformance-->
         <scene sceneID="3HT-Dd-h2M">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2TW-iO-M2P" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Dashboard" image="dashboard" selectedImage="dashboard" id="COO-4K-KqB"/>
+                    <tabBarItem key="tabBarItem" title="Preformance" image="dashboard" selectedImage="dashboard" id="COO-4K-KqB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QOL-mt-0Fs">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
