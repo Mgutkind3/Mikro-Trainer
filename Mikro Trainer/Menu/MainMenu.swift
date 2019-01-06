@@ -27,6 +27,7 @@ class MainMenu: UIViewController, SignOutMethod {
     @IBOutlet weak var stepsLbl: UILabel!
     @IBOutlet weak var distanceTrvldLbl: UILabel!
     @IBOutlet weak var flightsClimbedLbl: UILabel!
+    @IBOutlet weak var nextWorkoutLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +116,11 @@ class MainMenu: UIViewController, SignOutMethod {
                 print("done getting last workout")
             }
             
+            self.getNextWorkouts { nextWorkout in
+                print("done getting next workouts")
+                self.nextWorkoutLbl.text = nextWorkout
+            }
+            
             //get health kit access
             self.healthKitSetup()
         }
@@ -195,7 +201,7 @@ func getLastWorkoutDate(completion: @escaping ()->()){
         //reformat latest date and return it
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "MM/dd/yyyy"
-        var solution = dateFormatterPrint.string(from: mostRecentDate!)
+        let solution = dateFormatterPrint.string(from: mostRecentDate!)
         //incase there are no workouts logged
         return(solution)
     }

@@ -58,6 +58,7 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var workoutSummaryLbl: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Calendar"
         
         //weight picker view
         workoutPicker = UIPickerView()
@@ -79,9 +80,6 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         toolBar.isUserInteractionEnabled = true
         
         workoutTypeField.inputAccessoryView = toolBar
-        
-//        setUpCalendarView()
-        // Do any additional setup after loading the view.
     }
     
     //save right now
@@ -118,7 +116,7 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func removeWorkoutBtn(_ sender: Any) {
         print("removing workout")
         let workoutToRemove = self.workoutDict[self.selectedDate]!
-        let removeAlert = UIAlertController(title: "Remove Scheduled Workout", message: "Are you sure you wwant to remove \(workoutToRemove) on \(self.selectedDate)?", preferredStyle: UIAlertController.Style.alert)
+        let removeAlert = UIAlertController(title: "Remove Scheduled Workout", message: "Are you sure you want to remove \(workoutToRemove) on \(self.selectedDate)?", preferredStyle: UIAlertController.Style.alert)
         removeAlert.addAction(UIAlertAction(title: "Remove it!", style: UIAlertAction.Style.default, handler: { action in
             //remove date from database
             self.ref?.child("Users").child(self.userID).child("ScheduledWorkouts").child(self.selectedDate).setValue(nil)
@@ -243,7 +241,8 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         //highlight scheduled workouts
         formatter.dateFormat = "MM-dd-yyyy"
         formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
-        let curDate = formatter.string(from: date)
+        let curDate = formatter.string(from: date)//current date selected
+        let now = Date()//todays date
         
         //make days of this month black and days of other month's dark grey
         if cellState.dateBelongsTo == .thisMonth{
@@ -259,7 +258,12 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         }else{
             //highlight scheduled days
             if let _ = self.workoutDict[curDate]{//how to check if a value is within a dictionary
-                cell.backgroundColor = UIColor.orange
+                //if day is in the past highlight green
+                if date < now {
+                    cell.backgroundColor = UIColor.green
+                }else{
+                    cell.backgroundColor = UIColor.yellow
+                }
             }else{
             //not today and not a scheduled workout
             cell.backgroundColor = UIColor.white
@@ -327,6 +331,7 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         formatter.dateFormat = "MM-dd-yyyy"
         formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
         let curDate = formatter.string(from: date)
+        let now = Date()
         
         if Calendar.current.isDateInToday(date){
             validCell.backgroundColor = UIColor.cyan
@@ -334,7 +339,11 @@ extension CalendarHomeVC: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
             
             //highlight scheduled days
             if let _ = self.workoutDict[curDate]{//how to check if a value is within a dictionary
-                validCell.backgroundColor = UIColor.orange
+                if date < now {
+                    validCell.backgroundColor = UIColor.green
+                }else{
+                    validCell.backgroundColor = UIColor.yellow
+                }
             }else{
                 //not today and not a scheduled workout
                 validCell.backgroundColor = UIColor.white
