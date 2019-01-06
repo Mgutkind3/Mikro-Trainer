@@ -125,12 +125,8 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.genderTxtFld.text = self.personalDict["UserSex"]!
         self.dobTxtFld.text = self.personalDict["UserAge"]!
         
-        //retrieve the profile pricture
-//        https://www.youtube.com/watch?v=b1vrjt7Nvb0&t=5s //set up
-//        https://www.youtube.com/watch?v=GX4mcOOUrWQ //retrieve image
-        
         //logic to set profile pic
-        setProfPic() //testing
+        setProfPic()
         
         // Do any additional setup after loading the view.
         //append weight amounts into a single array
@@ -186,6 +182,8 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         print("SETTING PROFILE PIC")
         //logic to set profile pic
         if let profileImageURL = self.personalDict["ProfileImageDownload"] {
+            if profileImageURL != ""{
+            print("PROFILE IMAGE URL:\(profileImageURL):")
             // Create a storage reference from the URL
             let httpsReference = self.storage.reference(forURL: profileImageURL)
             // Download the data, assuming a max size of 1MB (you can change this as necessary)
@@ -199,6 +197,10 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     self.profilePicImageView.contentMode = .scaleAspectFill
                     self.profilePicImageView.image = image
                 }
+            }
+            }else{
+                print("profileImageURL is null")
+                return
             }
         }else{
             print("profileImageURL is null")
@@ -318,8 +320,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 }
             }
         }
-        
-//        let imageRef = storageRef.child("image.png")
+
         
 
     }

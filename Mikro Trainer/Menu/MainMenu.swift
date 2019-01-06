@@ -40,7 +40,7 @@ class MainMenu: UIViewController, SignOutMethod {
         self.healthKitSetup()
         
     }
-    //login functionality
+    //logout functionality
     func endSession(){
         self.sessionLoginBool = false
         self.masterDateList.removeAll()

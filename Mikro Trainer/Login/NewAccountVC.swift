@@ -218,7 +218,6 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.ref?.child("Users").child(self.userID).child("MyFriends").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").setValue("")
         self.ref?.child("Users").child(self.userID).child("HistoricalExercises").setValue("")
-//        self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
     }
     
     //take a selfie button
@@ -267,15 +266,19 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     //upload the donwload url to firebase
     func uploadProfPicURL(){
         //prevent crashing from false path
-//        print("download url is: \(self.downloadURL)")
-//        print("user id broken: \(self.userID)")
-//        print("ref is: \(self.ref)")
+        print("download url is: \(self.downloadURL)")
+        print("user id broken: \(self.userID)")
+        print("ref is: \(self.ref!)")
+        print("image name: \(self.imageName)")
+        print("HEREEEEE")
+        
         if self.userID != ""{ self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(self.downloadURL)
             
         self.ref?.child("Users").child(self.userID).child("PersonalData").child("ImageName").setValue(self.imageName)
             
 
         }else{
+            print("HERE!")
             self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
             print("userID is: \(self.userID), so the user id could never be set")
             
