@@ -254,7 +254,7 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
         
@@ -266,17 +266,23 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // Local variable inserted by Swift 4.2 migrator.
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+        var selectedImage = UIImage()
+        
+        if let editedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
+            selectedImage = editedImage
+        }else if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+            selectedImage = pickedImage
+        }
 
  
             self.profilePicImageView.contentMode = .scaleAspectFill
-            self.profilePicImageView.image = pickedImage
+            self.profilePicImageView.image = selectedImage
             
             //delete the old profile picture
             deleteOldProfPoc()
             
             //make image small for storing online
-            let compressedImage = pickedImage.resized(withPercentage: 0.1)
+            let compressedImage = selectedImage.resized(withPercentage: 0.1)
             
             picker.dismiss(animated: true, completion: nil)
             
@@ -301,7 +307,6 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                 }
             }
         }
-    }
     
     func deleteOldProfPoc(){
         if let imageName = self.personalDict["ImageName"]{

@@ -30,6 +30,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     @IBOutlet weak var nameTextField: UITextField!
     var downloadURL = String()
     var imageName = String()
+    var tmpImg = UIImage()
     
     var masterPicker = [[String]]()
     
@@ -189,8 +190,11 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             self.userID = String(Auth.auth().currentUser!.uid)
             print("user id: \(self.userID)")
             
-            //call function to upload prof pic download url
-            self.uploadProfPicURL()
+            //upload actual image to storage
+            self.putDataInStorage {
+                //call function to upload prof pic download url to noSQL
+                self.uploadProfPicURL()
+            }
  
             //call function to build backend schema for specific users
             self.addNewUserNodes()
@@ -226,7 +230,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true //try changing this to true in a minute
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -235,42 +239,60 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Local variable inserted by Swift 4.2 migrator.
         let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+        var selectedImage = UIImage()
+        
+        //give user option to edit the image
+        if let editedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] as? UIImage {
+            selectedImage = editedImage
+        }else if let pickedImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage {
+            selectedImage = pickedImage
+        }
             UISelfieView.contentMode = .scaleAspectFill
-            UISelfieView.image = pickedImage
+            UISelfieView.image = selectedImage
             
             //make image small for storing online
-            let compressedImage = pickedImage.resized(withPercentage: 0.1)
+            let compressedImage = selectedImage.resized(withPercentage: 0.1)
+            self.tmpImg = compressedImage! //set the image to a global variable temporarily to make sure it is stored in time
             
             picker.dismiss(animated: true, completion: nil)
             
-            //name the image uniquely
-            let imageName = NSUUID().uuidString
-            let storageRef = Storage.storage().reference().child("\(imageName).png")
-            if let uploadData = compressedImage!.pngData() {
-                storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-                    
-                    if error != nil {
-                        print(error as Any)
-                        return
-                    }
-                    //get download url and save it in the database
-                    self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
-                    self.imageName = "\(imageName).png"
+//        }
+    }
+    
+    //function to store profile pick in firebase storage
+    func putDataInStorage(completion: @escaping () -> ()){
+        let compressedImage = self.tmpImg
+        
+        //name the image uniquely
+        let imageName = NSUUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(imageName).png")
+        if let uploadData = compressedImage.pngData() {
+            storageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+                
+                if error != nil {
+                    print(error as Any)
+                    return
                 }
+                //get download url and save it in the database
+                self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                self.imageName = "\(imageName).png"
+                print("Profile pic stored")
+                completion()
             }
+        }else{
+            print("could not store data")
+            completion()
         }
     }
     
     //upload the donwload url to firebase
     func uploadProfPicURL(){
         //prevent crashing from false path
-        print("download url is: \(self.downloadURL)")
-        print("user id broken: \(self.userID)")
-        print("ref is: \(self.ref!)")
-        print("image name: \(self.imageName)")
-        print("HEREEEEE")
+//
+//        print("download url is: \(self.downloadURL)")
+//        print("user id when upload is called: \(self.userID)")
+//        print("ref is when upload called: \(self.ref!)")
+//        print("image name: \(self.imageName)")
         
         if self.userID != ""{ self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(self.downloadURL)
             
@@ -278,7 +300,6 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
             
 
         }else{
-            print("HERE!")
             self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("")
             print("userID is: \(self.userID), so the user id could never be set")
             
