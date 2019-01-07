@@ -12,8 +12,11 @@ import Firebase
 
 class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
     var chartView: BarsChart!
+    
+    var exerciseNames = [String]()
+    var idNameDict = [String:String]()
+    
     private var exercisePicker: UIPickerView?
     @IBOutlet weak var selectionTextField: UITextField!
     
@@ -39,8 +42,12 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
         
-        self.getMyHistoricalExercises {
+        self.getMyHistoricalExercises { nameList in
+            self.exerciseNames = nameList
+            print("picker exercise names", self.exerciseNames)
             //done getting historical exercises
+            
+//            print("id name dict: ", self.idNameDict) //works
         }
         
         //build the bar chart
