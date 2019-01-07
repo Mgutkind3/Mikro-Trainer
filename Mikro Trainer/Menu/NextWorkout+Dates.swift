@@ -55,7 +55,7 @@ extension MainMenu{
             if x > now{
                 closestDate = x
                 let formatter = DateFormatter()
-                formatter.dateFormat = "MM-dd-yyyy"
+                formatter.dateFormat = "MM/dd/yyyy"
                 formatter.timeZone = Calendar.current.timeZone
                 closeDate = formatter.string(from: closestDate)
                 break

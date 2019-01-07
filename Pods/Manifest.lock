@@ -53,6 +53,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - SwiftCharts (0.6.3)
 
 DEPENDENCIES:
   - Charts
@@ -61,6 +62,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - JTAppleCalendar (~> 7.0)
+  - SwiftCharts (~> 0.6.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -77,6 +79,7 @@ SPEC REPOS:
     - JTAppleCalendar
     - leveldb-library
     - nanopb
+    - SwiftCharts
 
 SPEC CHECKSUMS:
   Charts: 0705898046257443f0afbbc3179f4b67507b6e48
@@ -90,9 +93,10 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   JTAppleCalendar: fa47313f1b9edfb84f771ceddd16ff43d01bb2d6
-  leveldb-library: 44ef425bfde64f5b41daef86b38db2d13edbbee1
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  SwiftCharts: 1535b5e228702af2c9c4d60c2a408f2f0f579fa8
 
-PODFILE CHECKSUM: 57f95f5d870049340e8047532efed5f4f85ea376
+PODFILE CHECKSUM: a2a97e35ce8d3581b55fe433316d881e4a01767a
 
 COCOAPODS: 1.5.2
