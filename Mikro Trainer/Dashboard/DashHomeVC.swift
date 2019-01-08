@@ -9,20 +9,30 @@
 import UIKit
 import SwiftCharts
 import Firebase
+import Charts
 
 class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var chartView: BarsChart!
+    @IBOutlet weak var barChartView: BarChartView!
     
     var exerciseNames = [String]()
     var exerciseDates = [String]()
+    var exerciseDatesClean = [String]()
     //translation dict from name to ID
     var idNameDict = [String:String]()
+    //translation dict from ID tp name
+    var nameIDDict = [String:String]()
     //dictionary of ID to Dates completed
     var datesCompleted = [String:[String]]()
-    var masterPicker = [[String]]()
     var currentExercise = String()
     
+    //bar chart data
+    var barChart = [(String(),Double())]
+    
+    //keep keys in a variable
+    var fullTimestampSelected = String()
+    var fullIDSelected = String()
     
     private var exercisePicker: UIPickerView?
     @IBOutlet weak var selectionTextField: UITextField!
@@ -30,6 +40,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     //database credentials
     var userID = String()
     var ref: DatabaseReference?
+    
+    //date format variables
+    let formatter = DateFormatter()
     
     //    pod 'SwiftCharts'
     override func viewDidLoad() {
@@ -40,7 +53,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         exercisePicker?.delegate = self
         exercisePicker?.dataSource = self
         selectionTextField.inputView = exercisePicker
-        self.hideKeyboardWhenTappedAround()
+        
+        //bar chart data
+        self.barChartView.noDataText = "Choose a workout and date above"
 
     }
     
@@ -49,6 +64,21 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
         self.selectionTextField.isEnabled = false
+        
+        // ToolBar
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let vButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(getBarChartData))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil);
+        let cButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: nil, action: #selector(cancelBtn));
+        toolBar.setItems([vButton, flexibleSpace, cButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        self.selectionTextField.inputAccessoryView = toolBar
         
         //waiting for the list of hisroical exercises, id's and dates to come back
         self.getMyHistoricalExercises { nameList in
@@ -64,13 +94,55 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             //update array with current dates they have been completed
             self.exerciseDates = self.datesCompleted[self.idNameDict[self.currentExercise]!]!
             self.exercisePicker?.reloadAllComponents()
+            self.exerciseDatesClean = self.cleanUpDates(dates: self.exerciseDates)
+            self.exerciseDatesClean.insert("All Dates", at: 0)
+            self.exerciseDates.insert("All Dates", at: 0)
+            
+            
+            //set 0 case
+            self.fullTimestampSelected = self.exerciseDates[0] //will be "all dates"
+            self.fullIDSelected = self.idNameDict[self.exerciseNames[0]]!
+            self.selectionTextField.text = "\(self.currentExercise) on \(self.exerciseDatesClean[0])"
+            self.selectionTextField.placeholder = "Choose an Exercise and Date"
+            //build the graph initially
+            self.getBarChartData()
             
             //https://medium.com/@smehta/ios-swift-creating-a-dynamic-picker-view-843b3290e7f0
             
         }
+    }
+    
+    //function to retrieve sets and reps data and display them
+    @objc func getBarChartData(){
         
-        //build the bar chart
-        self.createBarChart()
+        print("full id: ", self.fullIDSelected)
+        print("timestamps: ", self.fullTimestampSelected)
+        
+        if self.fullTimestampSelected == "All Dates" {
+            print("ALL Dates")
+            self.barChartView.clear()
+            
+            //get a full history
+            self.getTimeSpanSetsReps{ xSets, yVolume in
+                //build the bar chart
+                self.setChart(dataPoints: xSets, values: yVolume)
+                
+            }
+        }else{
+        
+        //get the sets and reps data to be displayed
+        self.getMyHistoricalRepsSets { xSets, yVolume in
+            //build the bar chart
+            self.setChart(dataPoints: xSets, values: yVolume)
+            //done getting reps data for bar graph
+            }
+        }
+        self.dismissKeyboard()
+    }
+    
+    //cancel action
+    @objc func cancelBtn(){
+        self.dismissKeyboard()
     }
     
     //populate these with exercise information
@@ -81,14 +153,10 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     //different arrays in the picker (multiple columns)
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        self.masterPicker.append(exerciseNames)
-        //dont forget about a 0 case
-        self.masterPicker.append(exerciseDates)
-        
         if component == 0{
             return self.exerciseNames.count
         }else{
-            return self.exerciseDates.count
+            return self.exerciseDatesClean.count
         }
     }
     
@@ -97,17 +165,69 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         if component == 0{
             return self.exerciseNames[row]
         }else{
-            return self.exerciseDates[row]
+            return self.exerciseDatesClean[row]
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        //resetn component 2 to first one in index
+        if component == 0{
+            self.exercisePicker?.selectRow(0, inComponent: 1, animated: false)
+        }
         //if statement to change number of components in second column when first is changed
-        self.currentExercise = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
+        self.currentExercise = exerciseNames[pickerView.selectedRow(inComponent: 0)]
         self.exerciseDates = datesCompleted[idNameDict[self.currentExercise]!]!
+        self.exerciseDatesClean = self.cleanUpDates(dates: self.exerciseDates)
+        //for retrieving all the dates at once
+        self.exerciseDatesClean.insert("All Dates", at: 0)
+        self.exerciseDates.insert("All Dates", at: 0)
         self.exercisePicker?.reloadAllComponents()
+        let dateSelected = exerciseDatesClean[pickerView.selectedRow(inComponent: 1)]
+        self.selectionTextField.text = "\(self.currentExercise) on \(dateSelected)"
+        
+        self.fullTimestampSelected = self.exerciseDates[pickerView.selectedRow(inComponent: 1)]
+        self.fullIDSelected = self.idNameDict[self.currentExercise]!
     }
     
+    //make dates look presentable to the people chosing them
+    func cleanUpDates(dates: [String])->([String]){
+        var refinedDates = [String]()
+        for x in dates {
+        
+//            "\(month)-\(day)-\(year):\(hour):\(minute):\(second)"
+            formatter.dateFormat = "MM-dd-yyyy:H:m:s"
+            formatter.timeZone = Calendar.current.timeZone //this timezone will print wrong (one less) but store right
+            let date = formatter.date(from:x)!
+            formatter.dateFormat = "MM-dd-yyy"
+            let refurbishedDate = formatter.string(from: date)
+            refinedDates.append(refurbishedDate)
+            
+        }
+        
+        return refinedDates
+    }
+    
+    //https://github.com/AshishKapoor/cex-graphs/blob/master/cex-graphs/CGMainViewController.swift
+    //trying this chart now
+    func setChart(dataPoints: [String], values: [Double]) {
+        var dataEntries: [BarChartDataEntry] = []
+//        entry.x //get xIndex of ChartDataEntry
+//        entry.y //get yIndex of ChartDataEntry
+        
+        for i in 0..<dataPoints.count {
+            let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
+            dataEntries.append(dataEntry)
+        }
+        
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Weights Lifted")
+        let chartData = BarChartData(dataSet: chartDataSet)
+
+        barChartView.data = chartData
+        
+    }
+    
+    //not using below function right now.
     func createBarChart(){
         let chartConfig = BarsChartConfig(valsAxisConfig: ChartAxisConfig(from: 0, to: 800, by: 100))
         
@@ -116,22 +236,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         let chart = BarsChart(
             frame: frame,
             chartConfig: chartConfig,
-            xTitle: "Months",
-            yTitle: "Units Sold",
-            bars: [
-                ("Jan", 120),
-                ("Feb", 400.5),
-                ("Mar", 100),
-                ("Apr", 500.4),
-                ("May", 160.8),
-                ("Jun", 100.5),
-                ("Jul", 200),
-                ("Aug", 180.5),
-                ("Sep", 334),
-                ("Oct", 156.4),
-                ("Nov", 667.8),
-                ("Dec", 178.5)
-            ],
+            xTitle: "Sets",
+            yTitle: "Volume of Weight Lifted",
+            bars: self.barChart,
             color: UIColor.darkGray,
             barWidth: 15
         )

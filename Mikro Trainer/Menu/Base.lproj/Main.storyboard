@@ -1313,12 +1313,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SqA-Gm-adw" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="219" width="414" height="468"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Jk1-hv-44a"/>
                     </view>
                     <navigationItem key="navigationItem" id="yxQ-tS-Rqb"/>
                     <connections>
+                        <outlet property="barChartView" destination="SqA-Gm-adw" id="8lb-Nt-EL6"/>
                         <outlet property="selectionTextField" destination="Khq-4S-fJx" id="Sm5-a3-6tQ"/>
                     </connections>
                 </viewController>

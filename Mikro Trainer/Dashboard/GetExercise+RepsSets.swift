@@ -88,6 +88,8 @@ extension DashHomeVC {
                             if exerciseIDs.contains(exerciseID){
                                 exerciseNames.append(exerciseName)
                                 self.idNameDict[exerciseName] = "Completed \(exerciseID)"
+                                self.nameIDDict["Completed \(exerciseID)"] = exerciseName //reverse dictionary
+                                
                             }
                         }
                     }
