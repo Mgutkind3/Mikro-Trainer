@@ -15,7 +15,14 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     var chartView: BarsChart!
     
     var exerciseNames = [String]()
+    var exerciseDates = [String]()
+    //translation dict from name to ID
     var idNameDict = [String:String]()
+    //dictionary of ID to Dates completed
+    var datesCompleted = [String:[String]]()
+    var masterPicker = [[String]]()
+    var currentExercise = String()
+    
     
     private var exercisePicker: UIPickerView?
     @IBOutlet weak var selectionTextField: UITextField!
@@ -41,13 +48,25 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         //get user id
         self.ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
+        self.selectionTextField.isEnabled = false
         
+        //waiting for the list of hisroical exercises, id's and dates to come back
         self.getMyHistoricalExercises { nameList in
             self.exerciseNames = nameList
             print("picker exercise names", self.exerciseNames)
             //done getting historical exercises
             
-//            print("id name dict: ", self.idNameDict) //works
+            //0 case for picker
+            self.currentExercise = self.exerciseNames[0]
+            self.selectionTextField.isEnabled = true
+            self.exercisePicker?.selectRow(0, inComponent: 0, animated: false)
+            
+            //update array with current dates they have been completed
+            self.exerciseDates = self.datesCompleted[self.idNameDict[self.currentExercise]!]!
+            self.exercisePicker?.reloadAllComponents()
+            
+            //https://medium.com/@smehta/ios-swift-creating-a-dynamic-picker-view-843b3290e7f0
+            
         }
         
         //build the bar chart
@@ -56,11 +75,37 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     
     //populate these with exercise information
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 0
+        return 2
     }
     
+    //different arrays in the picker (multiple columns)
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 0
+        
+        self.masterPicker.append(exerciseNames)
+        //dont forget about a 0 case
+        self.masterPicker.append(exerciseDates)
+        
+        if component == 0{
+            return self.exerciseNames.count
+        }else{
+            return self.exerciseDates.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if component == 0{
+            return self.exerciseNames[row]
+        }else{
+            return self.exerciseDates[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        //if statement to change number of components in second column when first is changed
+        self.currentExercise = masterPicker[0][pickerView.selectedRow(inComponent: 0)]
+        self.exerciseDates = datesCompleted[idNameDict[self.currentExercise]!]!
+        self.exercisePicker?.reloadAllComponents()
     }
     
     func createBarChart(){

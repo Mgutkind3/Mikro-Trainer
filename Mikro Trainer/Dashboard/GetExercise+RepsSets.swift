@@ -20,7 +20,16 @@ extension DashHomeVC {
             if let dict = snapshot.value as? NSDictionary{
                 for x in dict{
                     fullIDs.append(x.key as! String)
-                    //logic to individually get each unique id name
+//                    prinst("x key: ", x.key)
+                    if let val = x.value as? NSDictionary{
+//                        print("sval keys is: ", val.allKeys)
+                        //populate new dictionary of dates completed
+                        self.datesCompleted[x.key as! String] = (val.allKeys as! [String])
+                    }else{
+                        print("val cannot be dictionary")
+                    }
+                    
+                    //logic to individually get each unique id name //do in a different file
                 }
                 
                 //function to seperate id from word "completed"
@@ -39,7 +48,7 @@ extension DashHomeVC {
         })
     }
     
-    //function to seperate word from uniqueID in historical exercises (and match to name?)
+    //function to seperate word from uniqueID in historical exercises
     func getIDFromName (uniqueIDList: [String], completion: @escaping ([String])->()){
         var exerciseIDs = [String]()
         var exerciseNames = [String]()
@@ -48,7 +57,6 @@ extension DashHomeVC {
         for x in uniqueIDList{
             if x.contains(" "){
                 let splitItems = x.split(separator: " ", maxSplits: 1)
-//                print("split item:", splitItems[1])
                 exerciseIDs.append(String(splitItems[1]))
             }else{
                 print("doesnt have  unique number")
@@ -79,7 +87,7 @@ extension DashHomeVC {
                             //if my array contains an exercise id then append the value
                             if exerciseIDs.contains(exerciseID){
                                 exerciseNames.append(exerciseName)
-                                self.idNameDict[exerciseID] = exerciseName
+                                self.idNameDict[exerciseName] = "Completed \(exerciseID)"
                             }
                         }
                     }
