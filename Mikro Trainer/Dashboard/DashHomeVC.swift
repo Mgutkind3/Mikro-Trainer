@@ -13,7 +13,6 @@ import Charts
 
 class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var chartView: BarsChart!
     @IBOutlet weak var barChartView: BarChartView!
     
     @IBOutlet weak var xAxisSets: UILabel!
@@ -50,7 +49,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.yAxisVolumeLifted.transform = s
+        self.yAxisVolumeLifted.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
         //weight picker view
         exercisePicker = UIPickerView()
         exercisePicker?.delegate = self
@@ -59,6 +58,16 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         
         //bar chart data
         self.barChartView.noDataText = "Choose a workout and date above"
+        //set description to null
+        self.barChartView.chartDescription?.text = ""
+        self.barChartView.xAxis.labelPosition = .bottom
+        self.barChartView.rightAxis.enabled = false
+        self.barChartView.highlighter = nil
+        self.barChartView.doubleTapToZoomEnabled = false
+        self.barChartView.pinchZoomEnabled = true
+        
+        
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
 
     }
     
@@ -221,7 +230,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         var dataEntries: [BarChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
+            let dataEntry = BarChartDataEntry(x: Double(i)+1, yValues: [values[i]])
             dataEntries.append(dataEntry)
         }
         
@@ -229,33 +238,10 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         let chartData = BarChartData(dataSet: chartDataSet)
 
         barChartView.data = chartData
-        
-//        barChartView.
         barChartView.xAxis.labelCount = dataPoints.count
         barChartView.xAxis.labelTextColor = UIColor.black
         
     }
-    
-    //not using below function right now.
-    func createBarChart(){
-        let chartConfig = BarsChartConfig(valsAxisConfig: ChartAxisConfig(from: 0, to: 800, by: 100))
-        
-        let frame = CGRect(x: 0, y:200, width: self.view.frame.width, height: 450)
-        
-        let chart = BarsChart(
-            frame: frame,
-            chartConfig: chartConfig,
-            xTitle: "Sets",
-            yTitle: "Volume of Weight Lifted",
-            bars: self.barChart,
-            color: UIColor.darkGray,
-            barWidth: 15
-        )
-        
-        self.view.addSubview(chart.view)
-        self.chartView = chart
-    }
-    
 
 
 }

@@ -23,6 +23,7 @@
 		F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */; };
 		F05C62DB21D6D78E009F0BF9 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */; };
 		F060233121E521790041BE68 /* getRepsSets+Timespan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F060233021E521790041BE68 /* getRepsSets+Timespan.swift */; };
+		F060233521E6A1A70041BE68 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = F060233321E6A1A60041BE68 /* iCarousel.m */; };
 		F06403B820CDAE6000A7FE72 /* MyWorkoutsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */; };
 		F06403BC20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */; };
 		F071D96021E1385C00408E38 /* scheduled+workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F071D95F21E1385C00408E38 /* scheduled+workouts.swift */; };
@@ -89,6 +90,9 @@
 		F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExercisesCell.swift; sourceTree = "<group>"; };
 		F05C62DA21D6D78E009F0BF9 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F060233021E521790041BE68 /* getRepsSets+Timespan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "getRepsSets+Timespan.swift"; sourceTree = "<group>"; };
+		F060233221E6A1A50041BE68 /* Mikro Trainer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mikro Trainer-Bridging-Header.h"; sourceTree = "<group>"; };
+		F060233321E6A1A60041BE68 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		F060233421E6A1A60041BE68 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		F06403B720CDAE6000A7FE72 /* MyWorkoutsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWorkoutsVC.swift; sourceTree = "<group>"; };
 		F06403BB20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPreviousWorkoutsCell.swift; sourceTree = "<group>"; };
 		F071D95F21E1385C00408E38 /* scheduled+workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "scheduled+workouts.swift"; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 		F0CBB7BE20AB4D23001643C4 /* Mikro Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				F060233421E6A1A60041BE68 /* iCarousel.h */,
+				F060233321E6A1A60041BE68 /* iCarousel.m */,
 				F046A25621D49A5A00CFE76F /* Mikro Trainer.entitlements */,
 				F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */,
 				F020637720AB5C4000CAE33F /* Menu */,
@@ -304,6 +310,7 @@
 				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
 				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
 				F0CBB7ED20AB518D001643C4 /* GoogleService-Info.plist */,
+				F060233221E6A1A50041BE68 /* Mikro Trainer-Bridging-Header.h */,
 			);
 			path = "Mikro Trainer";
 			sourceTree = "<group>";
@@ -418,7 +425,7 @@
 				TargetAttributes = {
 					F0CBB7BB20AB4D23001643C4 = {
 						CreatedOnToolsVersion = 9.3.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -588,6 +595,7 @@
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
 				F0A558E0210E5A3C001CF59A /* +GetRecentExerciseInfo.swift in Sources */,
 				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
+				F060233521E6A1A70041BE68 /* iCarousel.m in Sources */,
 				F071D96221E18EB800408E38 /* NextWorkout+Dates.swift in Sources */,
 				F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */,
 				F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */,
@@ -783,6 +791,7 @@
 			baseConfigurationReference = D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Mikro Trainer/Mikro Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q58G553SD;
@@ -793,6 +802,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mikro Trainer/Mikro Trainer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -803,6 +814,7 @@
 			baseConfigurationReference = A7033F3AE8C7F54162E2223F /* Pods-Mikro Trainer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Mikro Trainer/Mikro Trainer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3Q58G553SD;
@@ -813,6 +825,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mgut.Mikro-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Mikro Trainer/Mikro Trainer-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
