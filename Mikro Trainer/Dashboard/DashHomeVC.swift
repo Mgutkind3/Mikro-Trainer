@@ -16,6 +16,8 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     var chartView: BarsChart!
     @IBOutlet weak var barChartView: BarChartView!
     
+    @IBOutlet weak var xAxisSets: UILabel!
+    @IBOutlet weak var yAxisVolumeLifted: UILabel!
     var exerciseNames = [String]()
     var exerciseDates = [String]()
     var exerciseDatesClean = [String]()
@@ -48,6 +50,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.yAxisVolumeLifted.transform = s
         //weight picker view
         exercisePicker = UIPickerView()
         exercisePicker?.delegate = self
@@ -82,6 +85,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         
         //waiting for the list of hisroical exercises, id's and dates to come back
         self.getMyHistoricalExercises { nameList in
+            if nameList.count != 0{
             self.exerciseNames = nameList
             print("picker exercise names", self.exerciseNames)
             //done getting historical exercises
@@ -108,7 +112,10 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             self.getBarChartData()
             
             //https://medium.com/@smehta/ios-swift-creating-a-dynamic-picker-view-843b3290e7f0
-            
+            }else{
+                self.selectionTextField.isEnabled = false
+                self.barChartView.noDataText = "Complete an exercise for the data to be displayed"
+            }
         }
     }
     
@@ -212,8 +219,6 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     //trying this chart now
     func setChart(dataPoints: [String], values: [Double]) {
         var dataEntries: [BarChartDataEntry] = []
-//        entry.x //get xIndex of ChartDataEntry
-//        entry.y //get yIndex of ChartDataEntry
         
         for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), yValues: [values[i]])
@@ -224,6 +229,10 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         let chartData = BarChartData(dataSet: chartDataSet)
 
         barChartView.data = chartData
+        
+//        barChartView.
+        barChartView.xAxis.labelCount = dataPoints.count
+        barChartView.xAxis.labelTextColor = UIColor.black
         
     }
     
