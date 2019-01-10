@@ -19,7 +19,8 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     @IBOutlet weak var xAxisSets: UILabel!
     
     @IBOutlet weak var weightBarChart: BarChartView!
-    
+    @IBOutlet weak var wtYAxis: UILabel!
+    @IBOutlet weak var repsYAxis: UILabel!
     @IBOutlet weak var yAxisVolumeLifted: UILabel!
     var exerciseNames = [String]()
     var exerciseDates = [String]()
@@ -39,6 +40,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     var fullTimestampSelected = String()
     var fullIDSelected = String()
     
+    //list of how bars are broken up
+    var setLists = [Int]()
+    
     private var exercisePicker: UIPickerView?
     @IBOutlet weak var selectionTextField: UITextField!
     
@@ -54,6 +58,8 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         super.viewDidLoad()
         
         self.yAxisVolumeLifted.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+        self.repsYAxis.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+        self.wtYAxis.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
         //weight picker view
         exercisePicker = UIPickerView()
         exercisePicker?.delegate = self
@@ -69,6 +75,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.barChartView.highlighter = nil
         self.barChartView.doubleTapToZoomEnabled = false
         self.barChartView.pinchZoomEnabled = true
+        self.barChartView.legend.enabled = false
         
         //weight chart data
         self.weightBarChart.noDataText = "Choose a workout and date above"
@@ -79,6 +86,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.weightBarChart.highlighter = nil
         self.weightBarChart.doubleTapToZoomEnabled = false
         self.weightBarChart.pinchZoomEnabled = true
+        self.weightBarChart.legend.enabled = false
         
         //reps chart data
         self.repsBarChart.noDataText = "Choose a workout and date above"
@@ -89,7 +97,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.repsBarChart.highlighter = nil
         self.repsBarChart.doubleTapToZoomEnabled = false
         self.repsBarChart.pinchZoomEnabled = true
-        
+        self.repsBarChart.legend.enabled = false
         
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
 
@@ -131,10 +139,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             //update array with current dates they have been completed
             self.exerciseDates = self.datesCompleted[self.idNameDict[self.currentExercise]!]!
             self.exercisePicker?.reloadAllComponents()
-                print("exerciseDates before: ", self.exerciseDates)
+            //reorder the dates so that they are in chronological order
             (self.exerciseDatesClean, self.exerciseDates) = self.cleanUpDates(dates: self.exerciseDates)
-                print("exerciseDates after: ", self.exerciseDates)
-                
+
             self.currentExercise = self.exerciseNames[0]
             self.exerciseDatesClean.insert("All Dates", at: 0)
             self.exerciseDates.insert("All Dates", at: 0)
@@ -167,8 +174,9 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             self.barChartView.clear()
             
             //get a full history
-            self.getTimeSpanSetsReps{ xSets, yVolume, wtPerSet, repsPerSet in
+            self.getTimeSpanSetsReps{ xSets, yVolume, wtPerSet, repsPerSet, setsList in
                 //build the bar chart
+                self.setLists = setsList
                 self.setChart(dataPoints: xSets, values: yVolume, valuesWt: wtPerSet, valuesReps: repsPerSet)
                 
             }
@@ -226,7 +234,6 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         print("exerciseDates before: ", self.exerciseDates)
         (self.exerciseDatesClean, self.exerciseDates) = self.cleanUpDates(dates: self.exerciseDates)
         print("exerciseDates before: ", self.exerciseDates)
-//        self.currentExercise = exerciseNames[pickerView.selectedRow(inComponent: 0)]
         
         //for retrieving all the dates at once
         self.exerciseDatesClean.insert("All Dates", at: 0)
@@ -290,14 +297,42 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             dataEntries3.append(dataEntry3)
         }
         
+        
         let chartDataSet1 = BarChartDataSet(values: dataEntries1, label: "Total Volume of Weight Lifted")
         let chartData1 = BarChartData(dataSet: chartDataSet1)
         
+        //color the graphs according to the days
+        var colorsList = [NSUIColor]()
+        
+        print("setLists: ", self.setLists)
+        var i = 0
+        for x in self.setLists {
+            //color code randomly by day
+            var randomColor = UIColor.random()
+            for _ in 1 ... x{
+                colorsList.append(randomColor)
+//                if i % 2 == 0 {
+//                    print("appending: " )
+//                    colorsList.append(UIColor.orange)
+////                    chartDataSet1.addColor(UIColor.orange)
+//                }else{
+//                    print("appending: " )
+//                    colorsList.append(UIColor.black)
+////                    chartDataSet1.addsColor(UIColor.black)
+//                }
+                
+            }
+            i = i + 1
+        }
+        chartDataSet1.colors = colorsList
+        
         let chartDataSet2 = BarChartDataSet(values: dataEntries2, label: "Weight Lifted Per Set")
         let chartData2 = BarChartData(dataSet: chartDataSet2)
+        chartDataSet2.colors = colorsList
         
         let chartDataSet3 = BarChartDataSet(values: dataEntries3, label: "Reps Per Set")
         let chartData3 = BarChartData(dataSet: chartDataSet3)
+        chartDataSet3.colors = colorsList
         
         barChartView.data = chartData1
         weightBarChart.data = chartData2
@@ -313,5 +348,20 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         
     }
 
+}
 
+//random color
+extension CGFloat {
+    static func random() -> CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+}
+
+extension UIColor {
+    static func random() -> UIColor {
+        return UIColor(red:   .random(),
+                       green: .random(),
+                       blue:  .random(),
+                       alpha: 1.0)
+    }
 }
