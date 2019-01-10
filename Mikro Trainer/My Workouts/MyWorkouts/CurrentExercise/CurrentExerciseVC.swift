@@ -356,6 +356,7 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
     
     //append a set
     @IBAction func addSetButton(_ sender: Any) {
+        if self.exerciseSets < 8{
         self.exerciseSets = self.exerciseSets + 1
         self.WipExCellTableView.reloadData()
         let newItem = IndexPath(row: self.exerciseSets-1, section: 0)
@@ -363,6 +364,9 @@ class CurrentExerciseVC: UIViewController, UITableViewDelegate, UITableViewDataS
         cell.setTxtField.text = ""
         cell.repsTxtField.text = ""
         self.WipExCellTableView.reloadData()
+        }else{
+            print("Maximum sets")
+        }
     }
     
     override func didReceiveMemoryWarning() {
