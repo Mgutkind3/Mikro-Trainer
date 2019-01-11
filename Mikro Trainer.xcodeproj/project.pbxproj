@@ -10,6 +10,10 @@
 		7A91E249080009E642187C84 /* Pods_Mikro_Trainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */; };
 		B29C2BF1015358BE6DAAC1B9 /* Pods_Mikro_TrainerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BED797138B6FB6266593896F /* Pods_Mikro_TrainerTests.framework */; };
 		D2A2C50C2299DB45CDEFB0C9 /* Pods_Mikro_TrainerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */; };
+		F00E1C5221E912650017F33E /* GroupsMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E1C5121E912650017F33E /* GroupsMenuVC.swift */; };
+		F00E1C5421E914D60017F33E /* GroupTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E1C5321E914D60017F33E /* GroupTableCell.swift */; };
+		F00E1C5621E916320017F33E /* NewGroupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E1C5521E916320017F33E /* NewGroupVC.swift */; };
+		F00E1C5821E921070017F33E /* AddGroupMembersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00E1C5721E921070017F33E /* AddGroupMembersVC.swift */; };
 		F017D05921509E4A00F9BFB7 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F017D05821509E4A00F9BFB7 /* SettingsVC.swift */; };
 		F020637620AB577E00CAE33F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637520AB577E00CAE33F /* LoginVC.swift */; };
 		F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F020637820AB5CA500CAE33F /* NewAccountVC.swift */; };
@@ -76,6 +80,10 @@
 		CB8C07DB66FCE62D01C3B07A /* Pods-Mikro TrainerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro TrainerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro TrainerUITests/Pods-Mikro TrainerUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D8572D3515E232241A16A885 /* Pods-Mikro Trainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mikro Trainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mikro Trainer/Pods-Mikro Trainer.debug.xcconfig"; sourceTree = "<group>"; };
 		DD4EB3D46200BBE2577E4B37 /* Pods_Mikro_Trainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mikro_Trainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00E1C5121E912650017F33E /* GroupsMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsMenuVC.swift; sourceTree = "<group>"; };
+		F00E1C5321E914D60017F33E /* GroupTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableCell.swift; sourceTree = "<group>"; };
+		F00E1C5521E916320017F33E /* NewGroupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewGroupVC.swift; path = "Mikro Trainer/Groups/NewGroupVC.swift"; sourceTree = SOURCE_ROOT; };
+		F00E1C5721E921070017F33E /* AddGroupMembersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGroupMembersVC.swift; sourceTree = "<group>"; };
 		F017D05821509E4A00F9BFB7 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		F020637520AB577E00CAE33F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F020637820AB5CA500CAE33F /* NewAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountVC.swift; sourceTree = "<group>"; };
@@ -177,6 +185,17 @@
 				658FE0577D5C74304F75FF32 /* Pods_Mikro_TrainerUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F00E1C5021E912430017F33E /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				F00E1C5121E912650017F33E /* GroupsMenuVC.swift */,
+				F00E1C5521E916320017F33E /* NewGroupVC.swift */,
+				F00E1C5321E914D60017F33E /* GroupTableCell.swift */,
+				F00E1C5721E921070017F33E /* AddGroupMembersVC.swift */,
+			);
+			path = Groups;
 			sourceTree = "<group>";
 		};
 		F020637220AB56E300CAE33F /* Login */ = {
@@ -306,6 +325,7 @@
 				F094BEBE20AC8AA100D158AA /* My Exercises */,
 				F046A25021D4954500CFE76F /* Calendar */,
 				F046A25321D4980200CFE76F /* Dashboard */,
+				F00E1C5021E912430017F33E /* Groups */,
 				F0CBB7C620AB4D24001643C4 /* Assets.xcassets */,
 				F0CBB7C820AB4D24001643C4 /* LaunchScreen.storyboard */,
 				F0CBB7CB20AB4D24001643C4 /* Info.plist */,
@@ -598,9 +618,11 @@
 				F060233521E6A1A70041BE68 /* iCarousel.m in Sources */,
 				F071D96221E18EB800408E38 /* NextWorkout+Dates.swift in Sources */,
 				F0D0416020F1AB0F00465505 /* CurrentExerciseVC.swift in Sources */,
+				F00E1C5621E916320017F33E /* NewGroupVC.swift in Sources */,
 				F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */,
 				F073E76F21E3C6A4005B31F1 /* GetExercise+RepsSets.swift in Sources */,
 				F020637920AB5CA500CAE33F /* NewAccountVC.swift in Sources */,
+				F00E1C5421E914D60017F33E /* GroupTableCell.swift in Sources */,
 				F05C62DB21D6D78E009F0BF9 /* CalendarCell.swift in Sources */,
 				F0535CD620E084460016DC81 /* WorkoutExercisesCell.swift in Sources */,
 				F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */,
@@ -614,6 +636,8 @@
 				F071D96021E1385C00408E38 /* scheduled+workouts.swift in Sources */,
 				F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */,
 				F0F0C71F2127437100113F66 /* DetailsVC.swift in Sources */,
+				F00E1C5821E921070017F33E /* AddGroupMembersVC.swift in Sources */,
+				F00E1C5221E912650017F33E /* GroupsMenuVC.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
 				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,

@@ -311,15 +311,6 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             var randomColor = UIColor.random()
             for _ in 1 ... x{
                 colorsList.append(randomColor)
-//                if i % 2 == 0 {
-//                    print("appending: " )
-//                    colorsList.append(UIColor.orange)
-////                    chartDataSet1.addColor(UIColor.orange)
-//                }else{
-//                    print("appending: " )
-//                    colorsList.append(UIColor.black)
-////                    chartDataSet1.addsColor(UIColor.black)
-//                }
                 
             }
             i = i + 1
