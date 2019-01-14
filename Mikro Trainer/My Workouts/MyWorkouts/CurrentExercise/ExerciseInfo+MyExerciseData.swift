@@ -18,7 +18,6 @@ extension CurrentExerciseVC {
             if let dict = snapshot.value as? NSDictionary{
 
                 if let sets = dict["BaseSets"] as? String {
-//                    print("sets my from 1: \(sets)")
                     self.exerciseSets = Int(sets)!
                 }
                 completion()

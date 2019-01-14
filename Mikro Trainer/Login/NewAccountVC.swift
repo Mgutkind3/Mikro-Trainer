@@ -187,6 +187,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                 self.registrationErrorLabel.text = String(firebaseError.localizedDescription)
                 return
             }
+            //get freshly created user id
             self.userID = String(Auth.auth().currentUser!.uid)
             let email = String(Auth.auth().currentUser!.email!).replacingOccurrences(of: ".", with: ",")
             print("user id: \(self.userID)")
