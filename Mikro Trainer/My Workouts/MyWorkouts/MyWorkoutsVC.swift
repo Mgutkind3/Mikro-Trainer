@@ -25,10 +25,15 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var day = String()
     var month = String()
     var year = String()
+    //0 means its coming from personal, 1 means its coming from groups
+    var groupFlag = 0
+    var groupID = String()
+    
+    var vcTitle = "Workouts"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Workouts"
+        self.navigationItem.title = vcTitle
         let date = Date()
         let calendar = Calendar.current
         self.day = String(calendar.component(.day, from: date))
@@ -50,12 +55,22 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.myPreviousWorkouts.append("Select the '+' sign to create a new workout")
         self.prevWorkoutsNames.append("Select the '+' sign to create a new workout")
         
+        if self.groupFlag == 0{
         //get list of all workouts
-        getAllMyWorkouts(userID: self.userID, ref: self.ref! ) { list in
-            //run function to only get names and not the dates
-            self.myPreviousWorkouts = list
-            self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
-            self.MyWorkoutsTableView.reloadData()
+            self.getAllMyWorkouts(userID: self.userID, ref: self.ref! ) { list in
+                //run function to only get names and not the dates
+                self.myPreviousWorkouts = list
+                self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
+                self.MyWorkoutsTableView.reloadData()
+        }
+        }else{
+            //logic for coming from groups
+//            print("Coming from the groups")
+            self.getAllMyGroupWorkouts(userID: self.userID, ref: self.ref!, groupID: self.groupID) { list in
+                self.myPreviousWorkouts = list
+                self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
+                self.MyWorkoutsTableView.reloadData()
+            }
         }
     }
     
@@ -69,7 +84,11 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     //delete workout
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete{
-        self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
+            if self.groupFlag == 0{
+                self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
+            }else{
+            self.ref?.child("Groups").child(self.groupID).child("GroupWorkouts").child(self.myPreviousWorkouts[indexPath.row]).setValue(nil)
+            }
             self.myPreviousWorkouts.remove(at: indexPath.row)
             self.prevWorkoutsNames.remove(at: indexPath.row)
             self.MyWorkoutsTableView.reloadData()
@@ -113,6 +132,12 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             vc.workoutFullName = myPreviousWorkouts[indexPath.row]
             vc.workoutTitle = self.prevWorkoutsNames[indexPath.row]
             vc.myPrevWorkouts = self.myPreviousWorkouts
+            if self.groupFlag == 0{
+                vc.groupFlag = 0
+            }else{
+                vc.groupID = self.groupID
+                vc.groupFlag = self.groupFlag
+            }
             self.navigationController?.pushViewController(vc, animated: true)
 
         }
@@ -134,13 +159,27 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         self.workoutNameToAdd = field.text!
                         //create new workout in MyWorkouts
                         let workoutTitleFull = "\(self.month)-\(self.day)-\(self.year): \(self.workoutNameToAdd)" //create workout name
-                        self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutTitleFull).setValue("")
+                        
+                        if self.groupFlag == 0{
+                            self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutTitleFull).setValue("")
+                        }else{
+                            //group logic
+                            self.ref?.child("Groups").child(self.groupID).child("GroupWorkouts").child(workoutTitleFull).setValue("")
+                        }
         
                         print("count: \(self.myPreviousWorkouts.count)")
                         //go to all exercises page
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: "AllExercisesVC") as! AllExercisesVC
                         vc.flag = 0
+                        if self.groupFlag == 0{
+                            //individual
+                            vc.groupFlag = 0
+                        }else{
+                            //group
+                            vc.groupFlag = 1
+                            vc.groupID = self.groupID
+                        }
                         vc.workoutName = workoutTitleFull //pass data between view controllers
                         self.navigationController?.pushViewController(vc, animated: true)
         

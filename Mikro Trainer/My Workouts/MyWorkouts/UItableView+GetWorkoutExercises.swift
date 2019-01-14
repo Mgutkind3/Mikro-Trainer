@@ -36,4 +36,34 @@ extension WorkoutExercisesVC {
             }
         })
     }
+    
+    //completion handler with parameter
+    func getMyGroupWorkoutExercises(completion: @escaping ()->(), workoutName: String){
+        self.ref?.child("Groups/\(self.groupID)/GroupWorkouts/\(workoutName)").observeSingleEvent(of: .value, with: { snapshot in
+            if let dict = snapshot.value as? NSDictionary{
+                
+                //add exercise in workout & IDs to one list
+                for y in (dict) {
+                    let obj = y.value as? NSDictionary
+                    if let exerciseID = obj?["ExerciseID"] as? String {
+                        self.workoutExerciseIDs.append(exerciseID)
+                        
+                    }
+                    if let exerciseName = obj?["Name"] as? String {
+                        self.workoutExerciseNames.append(exerciseName)
+                    }
+                    
+                }
+                print("My workout exercises populated")
+                completion()
+            }else{
+                //return cause the array was full of null values
+                print("my array not populated cause no workout found")
+                completion()
+            }
+        })
+    }
+    
+    
+    
 }

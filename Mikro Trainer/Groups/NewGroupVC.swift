@@ -84,17 +84,19 @@ class NewGroupVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         if self.groupNameTextField.text == ""{
             self.errorLabel.text = "Please enter a title for your group"
         }else{
-            
-        print("group")
+        
         //create group in database
         let newRef = self.ref?.child("Groups").childByAutoId()
         let groupID = newRef?.key
-
+            
+        //set group metadata in database
         self.ref?.child("Groups").child(groupID!).child("Info").child("GroupName").setValue(self.groupNameTextField.text)
         self.ref?.child("Groups").child(groupID!).child("Info").child("GroupDescription").setValue(self.groupDescription.text)
+            
+        //add group and group name to user's groups sections
+//        self.ref?.child("Users").child(self.userID).child("Groups").child(groupID!).setValue(self.groupNameTextField.text)
         
         //store the image in storage
-        
         if let image = self.GroupImageView.image{
         //make image small for storing online
             let compressedImage = image.resized(withPercentage: 0.1)
@@ -128,6 +130,7 @@ class NewGroupVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "AddGroupMembersVC") as! AddGroupMembersVC
         //pass the group id variable
+        vc.groupTitle = self.groupNameTextField.text!
         vc.groupID = groupID!
         navigationController?.pushViewController(vc, animated: true)
         }

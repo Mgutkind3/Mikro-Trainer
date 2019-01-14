@@ -41,6 +41,8 @@
 		F0A558DE20FB9C89001CF59A /* WIPExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A558DD20FB9C89001CF59A /* WIPExerciseCell.swift */; };
 		F0A558E0210E5A3C001CF59A /* +GetRecentExerciseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A558DF210E5A3C001CF59A /* +GetRecentExerciseInfo.swift */; };
 		F0AC128420E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AC128320E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift */; };
+		F0B377E521ECF6BF0095DDA7 /* GetMyGroups+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377E421ECF6BF0095DDA7 /* GetMyGroups+.swift */; };
+		F0B377E721ED277E0095DDA7 /* GroupWorkouts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377E621ED277E0095DDA7 /* GroupWorkouts+.swift */; };
 		F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3D2C021D042080038D005 /* +getExerciseData.swift */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
 		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
@@ -114,6 +116,8 @@
 		F0A558DD20FB9C89001CF59A /* WIPExerciseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIPExerciseCell.swift; sourceTree = "<group>"; };
 		F0A558DF210E5A3C001CF59A /* +GetRecentExerciseInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+GetRecentExerciseInfo.swift"; sourceTree = "<group>"; };
 		F0AC128320E1BE3F00E0B57B /* UITable+GetList+GetAllList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITable+GetList+GetAllList.swift"; sourceTree = "<group>"; };
+		F0B377E421ECF6BF0095DDA7 /* GetMyGroups+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetMyGroups+.swift"; sourceTree = "<group>"; };
+		F0B377E621ED277E0095DDA7 /* GroupWorkouts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupWorkouts+.swift"; sourceTree = "<group>"; };
 		F0B3D2C021D042080038D005 /* +getExerciseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+getExerciseData.swift"; sourceTree = "<group>"; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				F00E1C5521E916320017F33E /* NewGroupVC.swift */,
 				F00E1C5321E914D60017F33E /* GroupTableCell.swift */,
 				F00E1C5721E921070017F33E /* AddGroupMembersVC.swift */,
+				F0B377E421ECF6BF0095DDA7 /* GetMyGroups+.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				F0535CD020E0719C0016DC81 /* UItableView+GetWorkouts.swift */,
 				F0535CD320E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift */,
 				F0535CD520E084460016DC81 /* WorkoutExercisesCell.swift */,
+				F0B377E621ED277E0095DDA7 /* GroupWorkouts+.swift */,
 			);
 			path = MyWorkouts;
 			sourceTree = "<group>";
@@ -609,10 +615,12 @@
 			files = (
 				F06403BC20CDB2C000A7FE72 /* MyPreviousWorkoutsCell.swift in Sources */,
 				F0A558DE20FB9C89001CF59A /* WIPExerciseCell.swift in Sources */,
+				F0B377E521ECF6BF0095DDA7 /* GetMyGroups+.swift in Sources */,
 				F0535CD420E082DE0016DC81 /* UItableView+GetWorkoutExercises.swift in Sources */,
 				F0A558DC20FB92E0001CF59A /* ExerciseInfo+MyExerciseData.swift in Sources */,
 				F0535CCB20E069BB0016DC81 /* WorkoutExercisesVC.swift in Sources */,
 				F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */,
+				F0B377E721ED277E0095DDA7 /* GroupWorkouts+.swift in Sources */,
 				F0A558E0210E5A3C001CF59A /* +GetRecentExerciseInfo.swift in Sources */,
 				F020637C20AB788300CAE33F /* PersonalInfoVC.swift in Sources */,
 				F060233521E6A1A70041BE68 /* iCarousel.m in Sources */,

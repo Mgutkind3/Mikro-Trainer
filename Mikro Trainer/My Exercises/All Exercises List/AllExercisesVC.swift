@@ -47,6 +47,10 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var workoutName = String()
     var delegate:WorkoutNamesDelegate? //delegate to return data to MyWorkoutExercisesVC
     var flag = Int()//0 is create new. 1 is editing current
+    
+    var groupFlag = Int()//0 is individual, 1 is group
+    var groupID = String()//for groups
+    
     @IBOutlet weak var allExercisesTableView: UITableView!
     
     @IBOutlet weak var segmentController: UISegmentedControl!
@@ -111,7 +115,11 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
 
             //remove my exercise from firebase data
-            self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutName).child("Exercise \(thisWorkoutIDList[indexPath.row])").setValue(nil)
+            if self.groupFlag == 0{
+                self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(workoutName).child("Exercise \(thisWorkoutIDList[indexPath.row])").setValue(nil)
+            }else{
+                self.ref?.child("Groups").child(self.groupID).child("GroupWorkouts").child(workoutName).child("Exercise \(thisWorkoutIDList[indexPath.row])").setValue(nil)
+                }
 
             //remove name and id from current list lists
             self.thisWorkoutNameList.remove(at: indexPath.row)
@@ -398,7 +406,11 @@ class AllExercisesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 //add exercise to workout with minimal metadata
                for x in workoutFields {
+                if self.groupFlag == 0{
                 self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.workoutName).child("Exercise \(e)").child(x).setValue(workoutDetails[i])
+                }else{
+                    self.ref?.child("Groups").child(self.groupID).child("GroupWorkouts").child(self.workoutName).child("Exercise \(e)").child(x).setValue(workoutDetails[i])
+                }
                 i = i + 1
                 }
                 

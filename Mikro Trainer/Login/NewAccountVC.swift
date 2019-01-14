@@ -188,14 +188,18 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                 return
             }
             self.userID = String(Auth.auth().currentUser!.uid)
+            let email = String(Auth.auth().currentUser!.email!).replacingOccurrences(of: ".", with: ",")
             print("user id: \(self.userID)")
+            print("email:", email)
             
             //upload actual image to storage
             self.putDataInStorage {
                 //call function to upload prof pic download url to noSQL
                 self.uploadProfPicURL()
             }
- 
+            
+            //have a way to assign user id's to emails and get that information
+            self.ref?.child("EmailToUID").child(email).setValue(self.userID)
             //call function to build backend schema for specific users
             self.addNewUserNodes()
             //if error is not printed send a success message and dismiss modal view
@@ -222,6 +226,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
         self.ref?.child("Users").child(self.userID).child("MyFriends").setValue("")
         self.ref?.child("Users").child(self.userID).child("MyWorkouts").setValue("")
         self.ref?.child("Users").child(self.userID).child("HistoricalExercises").setValue("")
+        
     }
     
     //take a selfie button

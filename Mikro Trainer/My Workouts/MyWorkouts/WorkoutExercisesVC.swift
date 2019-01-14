@@ -23,6 +23,10 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
     var workoutExerciseIDs = [String]() //for references (order matters)
     var myPrevWorkouts = [String]()
     
+    //group logic
+    var groupFlag = Int() //0 is individual, 1 is group
+    var groupID = String() // specific group we are referring
+    
     @IBOutlet weak var startStopBtn: UIButton!
     var startStopFlag = 0 //0 it should be stopped, 1 it should be in progress
     @IBOutlet weak var rebuildBtnOutlet: UIBarButtonItem!
@@ -73,12 +77,17 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         workoutExerciseNames.removeAll()
         workoutExerciseIDs.removeAll()
         self.title = self.workoutTitle
-//        self.workoutFullName = //new workout title
         
         //get list of workouts that are specifically in that workout
-        getMyWorkoutExercises(completion: {
-            self.workoutExercisesTableView.reloadData()
-        }, workoutName: workoutFullName)
+        if groupFlag == 0{
+            getMyWorkoutExercises(completion: {
+                self.workoutExercisesTableView.reloadData()
+            }, workoutName: workoutFullName)
+        }else{
+            getMyGroupWorkoutExercises(completion: {
+                self.workoutExercisesTableView.reloadData()
+            }, workoutName: workoutFullName)
+        }
     }
     
     //go to specific workout after an exercise has begun
@@ -129,9 +138,7 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
                 //set flag that workouts has started to deactivated
                 UserDefaults.standard.set("0", forKey: flags.hasStartedFlag)
                 UserDefaults.standard.set("", forKey: flags.uniqueID)
-//                print(self.workoutFullName)
-//               self.ref?.child("Users").child(self.userID).child("MyWorkouts").child(self.workoutName).child("Exercise \(e)").child(x).setValue(workoutDetails[i])
-                //from all exercises vc
+
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
                 print("cancel!")
@@ -154,6 +161,12 @@ class WorkoutExercisesVC: UIViewController ,UITableViewDelegate, UITableViewData
         vc.thisWorkoutNameList = self.workoutExerciseNames
         vc.workoutName = self.workoutTitle
         vc.myPrevWorkouts = self.myPrevWorkouts
+        if self.groupFlag == 0{
+            vc.groupFlag = 0
+        }else{
+            vc.groupFlag = 1
+            vc.groupID = self.groupID
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
