@@ -29,13 +29,15 @@ class MainMenu: UIViewController, SignOutMethod {
     @IBOutlet weak var flightsClimbedLbl: UILabel!
     @IBOutlet weak var nextWorkoutLbl: UILabel!
     
+    //quote of the day?
+    //http://quotes.rest/qod.json?category=inspire
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //firebase reference created
         self.navigationItem.title = "Mikro Trainer"
         self.tabBarItem.title = "Home"
-        
+ 
         //get health kit access
         self.healthKitSetup()
         

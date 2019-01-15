@@ -15,9 +15,12 @@ class LoginVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginErrorLabel: UILabel!
+    @IBOutlet weak var loginLogo: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        self.loginLogo.layer.cornerRadius = 20.0
+        self.loginLogo.layer.masksToBounds = true
         //populate username of thumb print registered account
         print("user email: \(UserDefaults.standard.string(forKey: "emailCred") ?? "")")
         self.emailTextField.text = "\(UserDefaults.standard.string(forKey: "emailCred") ?? "")"
