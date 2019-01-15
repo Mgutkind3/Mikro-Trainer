@@ -1,18 +1,17 @@
 //
-//  GroupTableCell.swift
+//  MemberCell.swift
 //  Mikro Trainer
 //
-//  Created by Michael Gutkind on 1/11/19.
+//  Created by Michael Gutkind on 1/15/19.
 //  Copyright © 2019 Michael Gutkind. All rights reserved.
 //
 
 import UIKit
 
-class GroupTableCell: UITableViewCell {
+class MemberCell: UITableViewCell {
 
-    @IBOutlet weak var cellImageView: UIImageView!
-    @IBOutlet weak var addMemberBtn: UIButton!
-    @IBOutlet weak var cellTitleLabel: UILabel!
+
+    @IBOutlet weak var cellTitle: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

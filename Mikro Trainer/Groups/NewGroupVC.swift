@@ -132,6 +132,7 @@ class NewGroupVC: UIViewController, UITextFieldDelegate, UIImagePickerController
         //pass the group id variable
         vc.groupTitle = self.groupNameTextField.text!
         vc.groupID = groupID!
+        vc.contFlag = 0
         navigationController?.pushViewController(vc, animated: true)
         }
     }

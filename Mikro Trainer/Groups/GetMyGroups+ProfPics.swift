@@ -43,4 +43,35 @@ extension GroupsMenuVC {
     }
     
     
+    
+    
+    //function to get list of my previous workouts
+    func getAllMyGroupPics(group: String, completion: @escaping (String)->()){
+        var profilePicURl = String()
+    
+        self.ref?.child("Groups/\(group)/Info").observeSingleEvent(of: .value, with: { snapshot in
+        
+            if let dict = snapshot.value as? NSDictionary{
+                if let prof = dict["ProfilePicDownloadURL"]{
+//                    print("PROF URL: ", prof)
+                    profilePicURl = (prof as! String)
+                    }else{
+                    //place holder for groups with no prof pic
+                    profilePicURl = ""
+                        print("not avail")
+                    }
+                completion(profilePicURl)
+            }else{
+                //return cause the array was full of null values
+                print("No Group members Found")
+                completion(profilePicURl)
+            }
+        })
+        
+        
+    }
+    
+    
+    
+    
 }
