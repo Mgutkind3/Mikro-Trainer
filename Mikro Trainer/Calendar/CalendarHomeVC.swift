@@ -81,6 +81,7 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         workoutTypeField.inputAccessoryView = toolBar
     }
+
     
     //save right now
     @objc func saveButtonFunc(){
@@ -132,6 +133,13 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        //remove all workouts from previous account
+        self.workoutDict.removeAll()
+        
+        //get current user id
+        self.ref = Database.database().reference()
+        self.userID = String(Auth.auth().currentUser!.uid)
+        print("userID: ", self.userID)
         
         setUpCalendarView()
         
@@ -139,10 +147,6 @@ class CalendarHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.workoutSummaryLbl.text = ""
         self.workoutSummaryLbl.isHidden = true
         self.removeBtnOut.isHidden = true
-        
-        //get user id
-        self.ref = Database.database().reference()
-        self.userID = String(Auth.auth().currentUser!.uid)
         
         self.myWorkoutsVC.getAllMyWorkouts(userID: self.userID, ref: self.ref!) { (list) in
             self.workoutsList = list

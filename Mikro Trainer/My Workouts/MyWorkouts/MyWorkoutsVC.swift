@@ -50,6 +50,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.myPreviousWorkouts.removeAll()
         self.prevWorkoutsDates.removeAll()
         self.prevWorkoutsNames.removeAll()
+        print("workouts")
         
         //always be the first or last item in the array
         self.myPreviousWorkouts.append("Select the '+' sign to create a new workout")
@@ -62,7 +63,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.myPreviousWorkouts = list
                 self.seperateDatesNames(prevWorkoutsList: self.myPreviousWorkouts)
                 self.MyWorkoutsTableView.reloadData()
-        }
+            }
         }else{
             //logic for coming from groups
 //            print("Coming from the groups")
@@ -72,6 +73,7 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.MyWorkoutsTableView.reloadData()
             }
         }
+        self.MyWorkoutsTableView.reloadData()
     }
     
     //if it is not the first item, let it be deleteable

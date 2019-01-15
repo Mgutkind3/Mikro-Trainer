@@ -56,6 +56,7 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
     //    pod 'SwiftCharts'
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Performance"
         
         self.yAxisVolumeLifted.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
         self.repsYAxis.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
@@ -108,6 +109,10 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
         self.selectionTextField.isEnabled = false
+//        self.exerciseNames.removeAll()
+//        self.exerciseDates.removeAll()
+//        self.exerciseDatesClean.removeAll()
+        
         
         // ToolBar
         let toolBar = UIToolbar()
@@ -157,20 +162,26 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
             
             //https://medium.com/@smehta/ios-swift-creating-a-dynamic-picker-view-843b3290e7f0
             }else{
+                
+                self.selectionTextField.text = "No Workouts Available"
+                self.exercisePicker?.reloadAllComponents()
+                self.getBarChartData()
+                //case where user has no data
                 self.selectionTextField.isEnabled = false
                 self.barChartView.noDataText = "Complete an exercise for the data to be displayed"
             }
+            
         }
     }
     
     //function to retrieve sets and reps data and display them
     @objc func getBarChartData(){
         
-        print("full id: ", self.fullIDSelected)
-        print("timestamps: ", self.fullTimestampSelected)
+//        print("full id: ", self.fullIDSelected)
+//        print("timestamps: ", self.fullTimestampSelected)
         
         if self.fullTimestampSelected == "All Dates" {
-            print("ALL Dates")
+//            print("ALL Dates")
             self.barChartView.clear()
             
             //get a full history

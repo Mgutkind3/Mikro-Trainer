@@ -92,6 +92,7 @@ class MainMenu: UIViewController, SignOutMethod {
     
     
     override func viewDidAppear(_ animated: Bool) {
+        print("MainMenu")
         self.tabBarController?.tabBar.isHidden = false
         
         //function to make the user sign in if they havent signed in yet

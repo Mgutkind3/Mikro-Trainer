@@ -25,13 +25,19 @@ class GroupsMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         super.viewDidLoad()
         self.navigationItem.title = "Your Groups"
         
-        //database credentials
-        ref = Database.database().reference()
-        userID = String(Auth.auth().currentUser!.uid)
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.groupList.removeAll()
+        self.memberIDList.removeAll()
+        self.groupIDs.removeAll()
+        self.groupsTableView.reloadData()
+        
+        //database credentials
+        ref = Database.database().reference()
+        userID = String(Auth.auth().currentUser!.uid)
+        
         //call function to retrieve user's groups
         self.getAllMyGroups { groupList, memberIDList, groupIds in
             self.groupList = groupList
