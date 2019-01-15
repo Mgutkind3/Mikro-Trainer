@@ -12,23 +12,30 @@ import Foundation
 extension MainMenu{
     
     //function to get the scheduled workouts from the database
-    func getNextWorkouts(completion: @escaping (String)->()){
+    func getNextWorkouts(completion: @escaping (String, String)->()){
         self.ref?.child("Users/\(self.userID)/ScheduledWorkouts").observeSingleEvent(of: .value, with: { snapshot in
             //populate array with all my exercises if value is not null. if null return and dont fail
             var scheduledWorkouts = [String]()
+            var scheduleDict = [String:String]()
+            var workoutName = ""
             
             if let dict = snapshot.value as? NSDictionary{
+                scheduleDict = dict as! [String : String]
                 for x in dict {
+                    //just the date
                     scheduledWorkouts.append(x.key as! String)
                 }
 
+                
                 print("workout schedule populated")
                 let nextWorkout = self.closestWorkout(dates: scheduledWorkouts)
-                completion(nextWorkout)
+//                print("test: ", scheduleDict[nextWorkout.replacingOccurrences(of: "/", with: "-")]!)
+                workoutName = scheduleDict[nextWorkout.replacingOccurrences(of: "/", with: "-")]!
+                completion(nextWorkout, workoutName)
             }else{
                 //return cause the array was full of null values
                 print("workout schedule not populated")
-                completion("No Workout Availabe")
+                completion("No Workout Available", workoutName)
             }
         })
     }

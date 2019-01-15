@@ -45,6 +45,7 @@
 		F0B377E721ED277E0095DDA7 /* GroupWorkouts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377E621ED277E0095DDA7 /* GroupWorkouts+.swift */; };
 		F0B377E921EE30E80095DDA7 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377E821EE30E80095DDA7 /* MemberCell.swift */; };
 		F0B377EB21EE3EE90095DDA7 /* GetGroupMembers+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377EA21EE3EE90095DDA7 /* GetGroupMembers+.swift */; };
+		F0B377ED21EE6AD10095DDA7 /* GroupSearch+.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B377EC21EE6AD10095DDA7 /* GroupSearch+.swift */; };
 		F0B3D2C121D042080038D005 /* +getExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B3D2C021D042080038D005 /* +getExerciseData.swift */; };
 		F0CBB7C020AB4D23001643C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */; };
 		F0CBB7C220AB4D23001643C4 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CBB7C120AB4D23001643C4 /* MainMenu.swift */; };
@@ -122,6 +123,7 @@
 		F0B377E621ED277E0095DDA7 /* GroupWorkouts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupWorkouts+.swift"; sourceTree = "<group>"; };
 		F0B377E821EE30E80095DDA7 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		F0B377EA21EE3EE90095DDA7 /* GetGroupMembers+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetGroupMembers+.swift"; sourceTree = "<group>"; };
+		F0B377EC21EE6AD10095DDA7 /* GroupSearch+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupSearch+.swift"; sourceTree = "<group>"; };
 		F0B3D2C021D042080038D005 /* +getExerciseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+getExerciseData.swift"; sourceTree = "<group>"; };
 		F0CBB7BC20AB4D23001643C4 /* Mikro Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mikro Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0CBB7BF20AB4D23001643C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				F020637520AB577E00CAE33F /* LoginVC.swift */,
 				F020637820AB5CA500CAE33F /* NewAccountVC.swift */,
+				F0B377EC21EE6AD10095DDA7 /* GroupSearch+.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				F00E1C5821E921070017F33E /* AddGroupMembersVC.swift in Sources */,
 				F00E1C5221E912650017F33E /* GroupsMenuVC.swift in Sources */,
 				F020637620AB577E00CAE33F /* LoginVC.swift in Sources */,
+				F0B377ED21EE6AD10095DDA7 /* GroupSearch+.swift in Sources */,
 				F0917E1C20BBB54900641C04 /* AllExercisesTableViewCell.swift in Sources */,
 				F094BEC220AC8DA100D158AA /* AddExcerciseVC.swift in Sources */,
 				F0B377EB21EE3EE90095DDA7 /* GetGroupMembers+.swift in Sources */,

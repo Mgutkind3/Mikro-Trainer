@@ -199,6 +199,10 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                 self.uploadProfPicURL()
             }
             
+            //check to see if any groups have been made for user and if so add them to user's account
+            self.findExistingGroups(email: email) {
+                //nothing
+            }
             //have a way to assign user id's to emails and get that information
             self.ref?.child("EmailToUID").child(email).setValue(self.userID)
             //call function to build backend schema for specific users

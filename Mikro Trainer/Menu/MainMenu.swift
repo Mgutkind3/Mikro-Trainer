@@ -118,9 +118,9 @@ class MainMenu: UIViewController, SignOutMethod {
                 print("done getting last workout")
             }
             
-            self.getNextWorkouts { nextWorkout in
+            self.getNextWorkouts { nextWorkout, workoutName  in
                 print("done getting next workouts")
-                self.nextWorkoutLbl.text = nextWorkout
+                self.nextWorkoutLbl.text = "\(workoutName) on \(nextWorkout)"
             }
             
             //get health kit access

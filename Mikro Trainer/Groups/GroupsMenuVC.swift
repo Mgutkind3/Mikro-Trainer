@@ -45,7 +45,7 @@ class GroupsMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     self.profPicDict[x] = groupPicURL
                     //create a trigger for when this is done running
                     if i == self.groupIDs.count-1{
-                        print("dict: :) ", self.profPicDict)
+//                        print("dict: :) ", self.profPicDict)
                         self.groupsTableView.reloadData()
                     }
                 }
@@ -78,6 +78,8 @@ class GroupsMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         GroupTableCell
         //set title of every cell
         groupCell.cellTitleLabel.text = self.groupList[indexPath.row]
+        //sender tag so that we know where the user is selecting
+        groupCell.addMemberBtn.tag = indexPath.row
         groupCell.addMemberBtn.addTarget(self, action: #selector(addMembers), for: .touchUpInside)
         //set group pic
         
@@ -108,37 +110,6 @@ class GroupsMenuVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         vc.contFlag = 1
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-//    //set profile picture
-//    func setProfPic(){
-//        print("SETTING PROFILE PIC")
-//        //logic to set profile pic
-//        if let profileImageURL = self.personalDict["ProfileImageDownload"] {
-//            if profileImageURL != ""{
-//                print("PROFILE IMAGE URL:\(profileImageURL):")
-//                // Create a storage reference from the URL
-//                let httpsReference = self.storage.reference(forURL: profileImageURL)
-//                // Download the data, assuming a max size of 1MB (you can change this as necessary)
-//                httpsReference.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
-//                    // Create a UIImage, add it to the array
-//                    if error != nil{
-//                        print(error as Any)
-//                        return
-//                    }else{
-//                        let image = UIImage(data: data!)
-//                        self.profilePicImageView.contentMode = .scaleAspectFill
-//                        self.profilePicImageView.image = image
-//                    }
-//                }
-//            }else{
-//                print("profileImageURL is null")
-//                return
-//            }
-//        }else{
-//            print("profileImageURL is null")
-//            return
-//        }
-//    }
     
     //let group be deleteable
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

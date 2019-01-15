@@ -56,6 +56,7 @@ class AddGroupMembersVC: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidAppear(_ animated: Bool) {
         if contFlag == 1{
             //get all the current members of  the group.
+            print("groupid: ", self.groupID)
             self.getAllMyGroupMembers { (memberList) in
                 self.emailList = memberList
                 //dont add to new member list because they are already in the group
@@ -77,7 +78,7 @@ class AddGroupMembersVC: UIViewController, UITableViewDelegate, UITableViewDataS
                 self.errorLabel.text = "Invalid email format"
             }else{
                 //make sure emails cant be entered more than once
-                if self.emailList.contains(valid) {
+                if self.emailList.contains(valid) || self.newMemberList.contains(valid) {
                     self.errorLabel.text = "Email already entered"
                 }else{
                 self.emailAdrTxtFld.text = ""
