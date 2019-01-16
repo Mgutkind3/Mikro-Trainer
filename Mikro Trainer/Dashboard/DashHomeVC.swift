@@ -109,9 +109,11 @@ class DashHomeVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
         self.ref = Database.database().reference()
         self.userID = String(Auth.auth().currentUser!.uid)
         self.selectionTextField.isEnabled = false
-//        self.exerciseNames.removeAll()
-//        self.exerciseDates.removeAll()
-//        self.exerciseDatesClean.removeAll()
+        //reset all lists before re-implimenting them in case of sign out
+        self.exerciseNames.removeAll()
+        self.exerciseDates.removeAll()
+        self.exerciseDatesClean.removeAll()
+        self.exercisePicker?.reloadAllComponents()
         
         
         // ToolBar

@@ -25,18 +25,18 @@ extension NewAccountVC{
                     //append every group the user is a part of
                     for y in (dict) {
 //                        print("Group: ", y.key)
+                        //reset values and submit finished values to datase
+                        if groupName != "" && groupID != "" && memberGroupID != ""{
+                            
+                            //set up groups in user's database
+                            self.ref?.child("Users").child(self.userID).child("Groups").child(groupID).child(memberGroupID).setValue(groupName)
+                            //reset values to null
+                            groupName = ""
+                            groupID = ""
+                            memberGroupID = ""
+                        }
                         if let groupValue =  y.value as? NSDictionary{
                             for key in groupValue{
-                                //reset values and submit finished values to datase
-                                if groupName != "" && groupID != "" && memberGroupID != ""{
-                                    
-                                    //set up groups in user's database
-                                self.ref?.child("Users").child(self.userID).child("Groups").child(groupID).child(memberGroupID).setValue(groupName)
-                                    //reset values to null
-                                    groupName = ""
-                                    groupID = ""
-                                    memberGroupID = ""
-                                }
                                 //get member id and group id
                                 if key.key as! String == "Members"{
                                     //inside members
@@ -47,6 +47,9 @@ extension NewAccountVC{
                                                 
                                                 groupID = y.key as! String
                                                 memberGroupID = member.key as! String
+                                                
+                                                print("group id: ", groupID)
+                                                print("member group id: ", memberGroupID)
                                                 
                                             }
                                         
