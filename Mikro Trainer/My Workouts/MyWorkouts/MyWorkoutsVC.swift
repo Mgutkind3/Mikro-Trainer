@@ -41,8 +41,8 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.year = String(calendar.component(.year, from: date))
         
         //set user id and database reference
-        self.userID = String(Auth.auth().currentUser!.uid)
-        ref = Database.database().reference()
+//        self.userID = String(Auth.auth().currentUser!.uid)
+//        ref = Database.database().reference()
     }
     
     //reload table view everytime its seen
@@ -50,7 +50,9 @@ class MyWorkoutsVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.myPreviousWorkouts.removeAll()
         self.prevWorkoutsDates.removeAll()
         self.prevWorkoutsNames.removeAll()
-        print("workouts")
+        
+        self.userID = String(Auth.auth().currentUser!.uid)
+        ref = Database.database().reference()
         
         //always be the first or last item in the array
         self.myPreviousWorkouts.append("Select the '+' sign to create a new workout")
