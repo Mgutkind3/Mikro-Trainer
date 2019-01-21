@@ -41,6 +41,7 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate, UINavigationControll
         ref = Database.database().reference()
         userID = String(Auth.auth().currentUser!.uid)
         shortDescBox.delegate = self
+        shortDescBox.dataDetectorTypes = UIDataDetectorTypes.all
 
     }
     

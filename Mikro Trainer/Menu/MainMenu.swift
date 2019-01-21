@@ -121,7 +121,11 @@ class MainMenu: UIViewController, SignOutMethod {
             
             self.getNextWorkouts { nextWorkout, workoutName  in
                 print("done getting next workouts")
-                self.nextWorkoutLbl.text = "\(workoutName) on \(nextWorkout)"
+                if workoutName == ""{
+                    self.nextWorkoutLbl.text = "No Workouts Planned"
+                }else{
+                    self.nextWorkoutLbl.text = "\(workoutName) on \(nextWorkout)"
+                }
             }
             
             //get health kit access
