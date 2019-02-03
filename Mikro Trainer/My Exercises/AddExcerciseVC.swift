@@ -162,10 +162,20 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate, UINavigationControll
                     return
                 }
                 //get download url and save it in the database
-                let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+//                let downloadURL = (metadata?.downloadURL()!.absoluteString)!
                 
-                //upload new downloadable link url
-                self.ref?.child("Exercises/\(self.exID)").child("StorageURL").setValue(downloadURL)
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                    //upload new downloadable link url
+                    self.ref?.child("Exercises/\(self.exID)").child("StorageURL").setValue("\(downloadURL)")
+
+                }
+                
+//                //upload new downloadable link url
+//                self.ref?.child("Exercises/\(self.exID)").child("StorageURL").setValue(downloadURL)
             }
         }
         }else{

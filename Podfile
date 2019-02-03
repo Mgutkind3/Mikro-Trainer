@@ -14,6 +14,7 @@ target 'Mikro Trainer' do
   pod 'Charts'
   pod 'JTAppleCalendar', '~> 7.0'
   pod 'SwiftCharts', '~> 0.6.3'
+  pod 'Google-Mobile-Ads-SDK'
 
   target 'Mikro TrainerTests' do
     inherit! :search_paths

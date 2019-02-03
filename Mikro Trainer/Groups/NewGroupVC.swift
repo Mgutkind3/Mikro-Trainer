@@ -112,11 +112,19 @@ class NewGroupVC: UIViewController, UITextFieldDelegate, UIImagePickerController
                     return
                 }
                 //get download url and save it in the database
-                let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+//                let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                //update for firebase download url
+                storageRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                    self.ref?.child("Groups").child(groupID!).child("Info").child("ProfilePicDownloadURL").setValue("\(downloadURL)")
+                }
                 let imageName = "\(imageName).png"
                 
                 //upload new downloadable link and imageName
-                self.ref?.child("Groups").child(groupID!).child("Info").child("ProfilePicDownloadURL").setValue(downloadURL)
+//                self.ref?.child("Groups").child(groupID!).child("Info").child("ProfilePicDownloadURL").setValue(downloadURL)
                 self.ref?.child("Groups").child(groupID!).child("Info").child("ProfileImageName").setValue(imageName)
                 
             }

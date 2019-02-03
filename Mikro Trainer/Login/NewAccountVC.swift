@@ -284,7 +284,16 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                     return
                 }
                 //get download url and save it in the database
-                self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
+//                self.downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                //update for new firebase update
+                storageRef.downloadURL { (url, error) in
+                    guard let dURL = url else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                    self.downloadURL = "\(dURL)"
+                }
+                
                 self.imageName = "\(imageName).png"
                 print("Profile pic stored")
                 completion()

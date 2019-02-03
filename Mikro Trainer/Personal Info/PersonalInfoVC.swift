@@ -297,11 +297,18 @@ class PersonalInfoVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                         return
                     }
                     //get download url and save it in the database
-                    let downloadURL = (metadata?.downloadURL()!.absoluteString)!
+                    storageRef.downloadURL { (url, error) in
+                        guard let downloadURL = url else {
+                            // Uh-oh, an error occurred!
+                            return
+                        }
+                    self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue("\(downloadURL)")
+                    }
+//                    let downloadURL = (metadata?.downloadURL()!.absoluteString)!
                     let imageName = "\(imageName).png"
                     
                     //upload new downloadable link and imageName
-               self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(downloadURL)
+//               self.ref?.child("Users").child(self.userID).child("PersonalData").child("ProfileImageDownload").setValue(downloadURL)
                     self.ref?.child("Users").child(self.userID).child("PersonalData").child("ImageName").setValue(imageName)
                 
                 }
