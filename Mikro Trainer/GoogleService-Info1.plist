@@ -36,7 +36,5 @@
 	<string>1:406545399393:ios:190d5153180ba585</string>
 	<key>DATABASE_URL</key>
 	<string>https://mikro-trainer.firebaseio.com</string>
-	<key>ADMOB_APP_ID</key>
-	<string>ca-app-pub-3085022411325059~6633951066</string>
 </dict>
 </plist>

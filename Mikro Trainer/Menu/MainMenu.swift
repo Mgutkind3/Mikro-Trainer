@@ -7,13 +7,18 @@
 //
 
 //dont forget to change firebase authentication for database use to being active again
+//add mob id
+//ca-app-pub-3085022411325059~6633951066
+//add id
+//ca-app-pub-3085022411325059/6382669624
 
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 import HealthKit
+import GoogleMobileAds
 
-class MainMenu: UIViewController, SignOutMethod {
+class MainMenu: UIViewController, SignOutMethod, GADBannerViewDelegate {
     
     //https://resizeappicon.com/ great resource for app sizes
     var ref: DatabaseReference?
@@ -28,6 +33,7 @@ class MainMenu: UIViewController, SignOutMethod {
     @IBOutlet weak var distanceTrvldLbl: UILabel!
     @IBOutlet weak var flightsClimbedLbl: UILabel!
     @IBOutlet weak var nextWorkoutLbl: UILabel!
+    @IBOutlet weak var bannerAd: GADBannerView!
     
     //quote of the day?
     //http://quotes.rest/qod.json?category=inspire
@@ -37,7 +43,19 @@ class MainMenu: UIViewController, SignOutMethod {
         //firebase reference created
         self.navigationItem.title = "Mikro Trainer"
         self.tabBarItem.title = "Home"
- 
+        
+        print("working?")
+        //get ad information request
+        let request = GADRequest()
+        request.testDevices = [kGADSimulatorID]
+        
+        self.bannerAd.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        self.bannerAd.rootViewController = self
+        self.bannerAd.delegate = self
+        
+        self.bannerAd.load(request)
+        print("working?")
+        
         //get health kit access
         self.healthKitSetup()
         
