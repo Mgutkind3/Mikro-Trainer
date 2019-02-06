@@ -29,11 +29,11 @@ extension MainMenu{
                 
                 print("workout schedule populated")
                 let nextWorkout = self.closestWorkout(dates: scheduledWorkouts)
-//                print("test: ", scheduleDict[nextWorkout.replacingOccurrences(of: "/", with: "-")]!)
-                if workoutName != ""{
-                workoutName = scheduleDict[nextWorkout.replacingOccurrences(of: "/", with: "-")]!
-                }
+                
+                workoutName = scheduleDict[nextWorkout.replacingOccurrences(of: "/", with: "-")] ?? ""
+                
                 completion(nextWorkout, workoutName)
+                
             }else{
                 //return cause the array was full of null values
                 print("workout schedule not populated")

@@ -139,6 +139,9 @@ class MainMenu: UIViewController, SignOutMethod, GADBannerViewDelegate {
             
             self.getNextWorkouts { nextWorkout, workoutName  in
                 print("done getting next workouts")
+                print("next workout: ", nextWorkout)
+                print("workout name: ", workoutName)
+                
                 if workoutName == ""{
                     self.nextWorkoutLbl.text = "No Workouts Planned"
                 }else{
