@@ -186,7 +186,6 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate, UINavigationControll
     
     //find the highest exercise number recorded in the database
     func exerciseNumber(completion: @escaping ()->()){
-
         //get the highest exercise number and add 1 to it
             self.ref?.child("Exercises").observeSingleEvent(of: .value, with: { snapshot in
                 //populate array with all exercise id's
@@ -208,7 +207,6 @@ class AddExcerciseVC: UIViewController, UITextViewDelegate, UINavigationControll
                 self.highestID = 0
                 completion()
                 }
-                
         })
 
     }
