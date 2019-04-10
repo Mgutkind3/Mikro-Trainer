@@ -218,7 +218,7 @@ func getLastWorkoutDate(completion: @escaping ()->()){
         //go through array and compare dates, keeping the most recent one
         for x in datesList{
             if let date = dateFormatterGet.date(from: x) {
-//                print(date)
+                print("last workout date: ", date)
                 if (date > mostRecentDate!){
                     mostRecentDate = date
                 }
@@ -227,6 +227,7 @@ func getLastWorkoutDate(completion: @escaping ()->()){
             }
         }
         //reformat latest date and return it
+        print("last workout date: ", mostRecentDate!)
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "MM/dd/yyyy"
         let solution = dateFormatterPrint.string(from: mostRecentDate!)

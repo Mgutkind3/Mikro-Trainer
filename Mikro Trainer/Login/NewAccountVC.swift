@@ -289,14 +289,19 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
                 storageRef.downloadURL { (url, error) in
                     guard let dURL = url else {
                         // Uh-oh, an error occurred!
+                        print("AN ERROR ON DOWNLOAD URL")
                         return
                     }
+                    print("download url!!: ", dURL)
                     self.downloadURL = "\(dURL)"
+                    self.imageName = "\(imageName).png"
+                    print("Profile pic stored")
+                    completion()
                 }
                 
-                self.imageName = "\(imageName).png"
-                print("Profile pic stored")
-                completion()
+//                self.imageName = "\(imageName).png"
+//                print("Profile pic stored")
+//                completion()
             }
         }else{
             print("could not store data")
@@ -308,7 +313,7 @@ class NewAccountVC: UIViewController, UIImagePickerControllerDelegate, UINavigat
     func uploadProfPicURL(){
         //prevent crashing from false path
 //
-//        print("download url is: \(self.downloadURL)")
+        print("download url is: \(self.downloadURL)")
 //        print("user id when upload is called: \(self.userID)")
 //        print("ref is when upload called: \(self.ref!)")
 //        print("image name: \(self.imageName)")
